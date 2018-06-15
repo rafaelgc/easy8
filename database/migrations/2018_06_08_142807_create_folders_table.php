@@ -18,6 +18,7 @@ class CreateFoldersTable extends Migration
             $table->boolean('inbox');
             $table->string('inbox_name')->nullable()->unique();
 
+            $table->primary('entry_id');
             $table->foreign('entry_id')->references('id')->on('entries')->onUpdate('cascade')->onDelete('cascade');
 
         });

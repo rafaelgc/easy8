@@ -6,7 +6,7 @@
     <a class="entry" v-bind:class="{selected: entry.selected}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
       /{{ entry.name }}
     </a>
-    <router-link v-bind:to="{ name: 'simulator', params: { entryId: entry.id } }"  class="entry" v-bind:class="{selected: entry.selected}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)">{{ entry.name }}</router-link>
+    <a class="entry" v-bind:class="{selected: entry.selected}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">{{ entry.name }}</a>
   </div>
 </template>
 
@@ -23,17 +23,16 @@ export default {
       this.$store.dispatch('enterDirectory', entry);
     },
 
+    openSource: function (entry) {
+      this.$router.push({ name: 'simulator', params: { entryId: entry.id } });
+    },
+
     goBackTo: function (index) {
       this.$store.dispatch('leaveDirectory', index);
     },
 
     select: function (entry) {
-      if (entry.selected) {
-        entry.selected = false;
-      }
-      else {
-        Vue.set(entry, 'selected', true);
-      }
+      this.$store.dispatch('select', entry);
     },
 
     clearSelection: function () {
@@ -49,19 +48,22 @@ export default {
   },
   created: function () {
     var self = this;
+
+    if (this.$store.state.explorer.breadcrumbs.length == 0) {
+      // We want to show the contents of the root folder. Since we
+      // don't know it's id we first request it.
+
+      this.folder.get({parent: null, api_token: this.$store.state.login.token}).then(function (response) {
+        console.log(response);
+        var root = response.body[0];
+
+        //this.$store.state.explorer.breadcrumbs = [root];
+        // As soon as we get the root folder we request it's children.
+        //self.listDirectory(root.id);
+        self.$store.dispatch('enterDirectory', root);
+      });
+    }
     
-    // We want to show the contents of the root folder. Since we
-    // don't know it's id we first request it.
-
-    this.folder.get({parent: null, api_token: this.$store.state.login.token}).then(function (response) {
-      console.log(response);
-      var root = response.body[0];
-
-      //this.$store.state.explorer.breadcrumbs = [root];
-      // As soon as we get the root folder we request it's children.
-      //self.listDirectory(root.id);
-      self.$store.dispatch('enterDirectory', root);
-    });
   }
 }
 </script>
@@ -106,6 +108,9 @@ export default {
   outline: none;
   box-sizing: border-box;
   float: left;
+  
+  border: solid 1px #ebebeb;
+  user-select: none;
 }
 
 .entry:hover {

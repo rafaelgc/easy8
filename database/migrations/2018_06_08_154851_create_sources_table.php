@@ -18,6 +18,7 @@ class CreateSourcesTable extends Migration
             $table->smallInteger('type')->unsigned()->default(0);
             $table->text('content');
 
+            $table->primary('entry_id');
             $table->foreign('entry_id')->references('id')->on('entries')->onUpdate('cascade')->onDelete('cascade');
         });
     }

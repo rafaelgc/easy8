@@ -68,6 +68,7 @@ const store = new Vuex.Store({
     api: {
       folder: Vue.resource('folder'),
       source: Vue.resource('source{/entryId}'),
+      entry:  Vue.resource('entry{/entryId}')
     },
     router: router,
     login: {
@@ -77,7 +78,12 @@ const store = new Vuex.Store({
     explorer: {
       folders: [],
       sources: [],
-      breadcrumbs: []
+      breadcrumbs: [],
+      selectionCount: 0
+    },
+    simulator: {
+      entryId: -1,
+      content: ''
     }
   },
   mutations: {
@@ -86,6 +92,14 @@ const store = new Vuex.Store({
     },
     setToken: function (state, token) {
       state.login.token = token;
+    },
+
+    incrementSelectionCount: function (state) {
+      state.explorer.selectionCount++;
+    },
+
+    decrementSelectionCount: function (state) {
+      state.explorer.selectionCount--;
     }
   },
   actions: {
@@ -120,6 +134,25 @@ const store = new Vuex.Store({
       });
     },
 
+    createSource: function (context, data) {
+      if (!data.name) return;
+
+      data.parent = context.state.explorer.breadcrumbs[context.state.explorer.breadcrumbs.length - 1].id;
+
+      return context.state.api.source.save({ api_token: context.state.login.token }, data).then(function (response) {
+        // To update  the folders:
+        context.dispatch('loadSources', data.parent);
+      });
+    },
+
+    // Updates the opened file.
+    updateSource: function (context) {
+      return context.state.api.source.save({ entryId: context.state.simulator.entryId, api_token: context.state.login.token }, {
+        content: context.state.simulator.content
+      }).then(function (response) {
+      });
+    },
+
     // Loads folders contained in the id entry. Does not update
     // the breadcrumbs.
     loadFolders: function (context, id) {
@@ -149,6 +182,8 @@ const store = new Vuex.Store({
 
       context.state.explorer.breadcrumbs.push(entry);
       context.dispatch('listDirectory', entry.id);
+
+      /// CLEAR SELECTION!!
     },
 
     leaveDirectory: function (context, breadcrumbIndex) {
@@ -157,10 +192,47 @@ const store = new Vuex.Store({
 
       context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
       context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id)
+
+      /// CLEAR SELECTION!!
     },
 
     loadSource: function (context, id) {
       return context.state.api.source.get({ api_token: context.state.login.token, entryId: id });
+    },
+
+    select: function (context, entry) {
+      if (entry.selected) {
+        entry.selected = false;
+        context.commit('decrementSelectionCount');
+      }
+      else {
+        Vue.set(entry, 'selected', true);
+        context.commit('incrementSelectionCount');
+      }
+    },
+
+    deleteSelectedEntries: function (context) {
+      var promises = [];
+      for (var i = 0; i < context.state.explorer.folders.length; i++) {
+        if (context.state.explorer.folders[i].selected) {
+          promises.push(context.dispatch('deleteEntry', context.state.explorer.folders[i].id));
+        }
+      }
+
+      for (var i = 0; i < context.state.explorer.sources.length; i++) {
+        if (context.state.explorer.sources[i].selected) {
+          promises.push(context.dispatch('deleteEntry', context.state.explorer.sources[i].id));
+        }
+      }
+
+      Promise.all(promises).then(function () {
+        // Reload current directory.
+        context.dispatch('listDirectory', context.state.explorer.breadcrumbs[context.state.explorer.breadcrumbs.length - 1].id);
+      });
+    },
+
+    deleteEntry: function (context, id) {
+      return context.state.api.entry.delete({ entryId: id, api_token: context.state.login.token });
     }
     
   }

@@ -3,15 +3,14 @@
   <div class="section no-sep">Directorio</div>
   <ul>
     <li><a class="clickable" v-on:click="newFolder()">Nueva carpeta</a></li>
-    <li><router-link v-bind:to="{ name: 'simulator' }">Nuevo programa</router-link></li>
+    <li><a class="clickable" v-on:click="newProgram()">Nuevo programa</a></li>
   </ul>
-
-  <div class="section">Fichero blabla.asm</div>
-  <ul>
-    <li><a href="#">Abrir</a></li>
-    <li><a href="#">Enviar</a></li>
-    <li><a href="#">Eliminar</a></li>
-  </ul>
+  <template v-if="$store.state.explorer.selectionCount > 0">
+    <div class="section">Selección</div>
+    <ul>
+      <li><a class="clickable" v-on:click="deleteSelectedEntries()">Eliminar</a></li>
+    </ul>
+  </template>
 </div>
 </template>
 
@@ -26,6 +25,19 @@ export default {
         var name = prompt('Nombre de la carpeta');
 
         this.$store.dispatch('createFolder', { name: name });
+    },
+
+    newProgram: function () {
+      var name = prompt('Nombre del fichero:');
+      if (!name.endsWith('.asm')) {
+        name += '.asm';
+      }
+
+      this.$store.dispatch('createSource', { name: name });
+    },
+
+    deleteSelectedEntries: function () {
+      this.$store.dispatch('deleteSelectedEntries');
     }
   }
 };

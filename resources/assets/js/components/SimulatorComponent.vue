@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="button-area">
-      <a class="btn primary">Ensamblar y ejecutar</a>
+      <a class="btn primary" v-on:click="assemblyAndRun()">Ensamblar y ejecutar</a>
       <a class="btn">Ensamblar</a>
       <a class="btn">Parar</a>
       <a class="btn">Ejecutar paso</a>
     </div>
     <div class="editor-container">
-      <textarea id="editor"></textarea>  
+      <textarea id="editor" v-model="$store.state.simulator.content"></textarea>  
     </div>
     
   </div>
@@ -15,8 +15,14 @@
 
 <script>
 export default {
+  methods: {
+    assemblyAndRun: function () {
+      console.log(this.$store.state.simulator.content);
+    }
+  },
   created: function() {},
   mounted: function() {
+    var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
     console.log(CodeMirror);
@@ -28,6 +34,11 @@ export default {
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
       editor.setValue(response.body.source.content);
+      self.$store.state.simulator.content = response.body.source.content;
+    });
+
+    editor.on('change', function () {
+      self.$store.state.simulator.content = editor.getValue();
     });
   }
 };

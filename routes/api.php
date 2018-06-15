@@ -69,7 +69,7 @@ Route::middleware('auth:api')->group(function () {
         ]);
     });
 
-    Route::post('/entry/{id}/delete', function ($id, Request $request) {
+    Route::delete('/entry/{id}', function ($id, Request $request) {
         // 1. Check that id is not null. We don't want to allow the
         // user to remove his root folder.
         Entry::where(['id' => $id, 'owner_id' => $request->user()->id])->delete();
@@ -94,17 +94,29 @@ Route::middleware('auth:api')->group(function () {
         // 3. Check that the inbox_name is unique.
         // 4. Check that the name of the entry is not repeated in the folder.
         // 5. Check that the parent is not null.
+        // 6. Check that te name is not empty.
 
         $entry = new Entry();
         $entry->name = $request->input('name');
-        $entry->parent = $request->input('parent');
+        $entry->parent_id = $request->input('parent');
         $entry->owner_id = $request->user()->id;
         
         $entry->save();
 
-        $entry->folder()->create([
+        $entry->source()->create([
             'content' => $request->input('content', ''),
             'type' => $request->input('type', 0)
         ]);
+    });
+
+    Route::post('/source/{id}', function ($id, Request $request) {
+        $entry = Entry::where([
+            'id' => $id,
+            'owner_id' => $request->user()->id
+        ])->firstOrFail();
+
+        $entry->source()->getResults()->fill([
+            'content' => $request->input('content', '')
+        ])->save();
     });
 });

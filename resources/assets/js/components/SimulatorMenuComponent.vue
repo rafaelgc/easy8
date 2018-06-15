@@ -2,7 +2,7 @@
 <div>
   <div class="section no-sep">Filename.asm</div>
   <ul>
-    <li><a href="#">Guardar</a></li>
+    <li><a v-on:click="save()" class="clickable">Guardar</a></li>
     <li><a href="#">Descargar</a></li>
     <li><router-link v-bind:to="{ name: 'explorer' }">Volver al explorador</router-link></li>
   </ul>
@@ -16,7 +16,14 @@
 
 <script>
 export default {
-
+  methods: {
+    save: function () {
+      this.$store.dispatch('updateSource');
+    }
+  },
+  created: function () {
+    this.$store.state.simulator.entryId = this.$route.params.entryId;
+  }
 }
 </script>
 

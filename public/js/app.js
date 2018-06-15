@@ -14361,7 +14361,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
   state: {
     api: {
       folder: Vue.resource('folder'),
-      source: Vue.resource('source{/entryId}')
+      source: Vue.resource('source{/entryId}'),
+      entry: Vue.resource('entry{/entryId}')
     },
     router: router,
     login: {
@@ -14371,7 +14372,12 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     explorer: {
       folders: [],
       sources: [],
-      breadcrumbs: []
+      breadcrumbs: [],
+      selectionCount: 0
+    },
+    simulator: {
+      entryId: -1,
+      content: ''
     }
   },
   mutations: {
@@ -14380,6 +14386,14 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     setToken: function setToken(state, token) {
       state.login.token = token;
+    },
+
+    incrementSelectionCount: function incrementSelectionCount(state) {
+      state.explorer.selectionCount++;
+    },
+
+    decrementSelectionCount: function decrementSelectionCount(state) {
+      state.explorer.selectionCount--;
     }
   },
   actions: {
@@ -14414,6 +14428,24 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       });
     },
 
+    createSource: function createSource(context, data) {
+      if (!data.name) return;
+
+      data.parent = context.state.explorer.breadcrumbs[context.state.explorer.breadcrumbs.length - 1].id;
+
+      return context.state.api.source.save({ api_token: context.state.login.token }, data).then(function (response) {
+        // To update  the folders:
+        context.dispatch('loadSources', data.parent);
+      });
+    },
+
+    // Updates the opened file.
+    updateSource: function updateSource(context) {
+      return context.state.api.source.save({ entryId: context.state.simulator.entryId, api_token: context.state.login.token }, {
+        content: context.state.simulator.content
+      }).then(function (response) {});
+    },
+
     // Loads folders contained in the id entry. Does not update
     // the breadcrumbs.
     loadFolders: function loadFolders(context, id) {
@@ -14443,6 +14475,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
       context.state.explorer.breadcrumbs.push(entry);
       context.dispatch('listDirectory', entry.id);
+
+      /// CLEAR SELECTION!!
     },
 
     leaveDirectory: function leaveDirectory(context, breadcrumbIndex) {
@@ -14451,10 +14485,46 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
       context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
       context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id);
+
+      /// CLEAR SELECTION!!
     },
 
     loadSource: function loadSource(context, id) {
       return context.state.api.source.get({ api_token: context.state.login.token, entryId: id });
+    },
+
+    select: function select(context, entry) {
+      if (entry.selected) {
+        entry.selected = false;
+        context.commit('decrementSelectionCount');
+      } else {
+        Vue.set(entry, 'selected', true);
+        context.commit('incrementSelectionCount');
+      }
+    },
+
+    deleteSelectedEntries: function deleteSelectedEntries(context) {
+      var promises = [];
+      for (var i = 0; i < context.state.explorer.folders.length; i++) {
+        if (context.state.explorer.folders[i].selected) {
+          promises.push(context.dispatch('deleteEntry', context.state.explorer.folders[i].id));
+        }
+      }
+
+      for (var i = 0; i < context.state.explorer.sources.length; i++) {
+        if (context.state.explorer.sources[i].selected) {
+          promises.push(context.dispatch('deleteEntry', context.state.explorer.sources[i].id));
+        }
+      }
+
+      Promise.all(promises).then(function () {
+        // Reload current directory.
+        context.dispatch('listDirectory', context.state.explorer.breadcrumbs[context.state.explorer.breadcrumbs.length - 1].id);
+      });
+    },
+
+    deleteEntry: function deleteEntry(context, id) {
+      return context.state.api.entry.delete({ entryId: id, api_token: context.state.login.token });
     }
 
   }
@@ -53568,7 +53638,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.breadcrumb span {\n    cursor: pointer;\n}\n\n/*****************************************\n***           FILE EXPLORER            ***\n*****************************************/\n.file-explorer {\n  padding: 35px;\n  padding-top: 25px;\n}\n.file-explorer .breadcrumb {\n  color: #727272;\n  font-size: 90%;\n  padding: 0px 0px 30px 5px;\n}\n.entry {\n  width: 100px;\n  height: 100px;\n  background-color: white;\n  display: block;\n  margin: 5px;\n  -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n  cursor: pointer;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n\n  color: #727272;\n  text-align: center;\n  font-size: 80%;\n  padding: 10px 5px;\n  text-decoration: none;\n\n  border: none;\n  outline: none;\n  box-sizing: border-box;\n  float: left;\n}\n.entry:hover {\n  -webkit-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n}\n.entry:active {\n  -webkit-box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n}\n.selected {\n  border: solid 1px #1e7fce;\n}\n", ""]);
+exports.push([module.i, "\n.breadcrumb span {\n    cursor: pointer;\n}\n\n/*****************************************\n***           FILE EXPLORER            ***\n*****************************************/\n.file-explorer {\n  padding: 35px;\n  padding-top: 25px;\n}\n.file-explorer .breadcrumb {\n  color: #727272;\n  font-size: 90%;\n  padding: 0px 0px 30px 5px;\n}\n.entry {\n  width: 100px;\n  height: 100px;\n  background-color: white;\n  display: block;\n  margin: 5px;\n  -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n  cursor: pointer;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n\n  color: #727272;\n  text-align: center;\n  font-size: 80%;\n  padding: 10px 5px;\n  text-decoration: none;\n\n  border: none;\n  outline: none;\n  box-sizing: border-box;\n  float: left;\n  \n  border: solid 1px #ebebeb;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.entry:hover {\n  -webkit-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n}\n.entry:active {\n  -webkit-box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n}\n.selected {\n  border: solid 1px #1e7fce;\n}\n", ""]);
 
 // exports
 
@@ -53604,16 +53674,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$store.dispatch('enterDirectory', entry);
     },
 
+    openSource: function openSource(entry) {
+      this.$router.push({ name: 'simulator', params: { entryId: entry.id } });
+    },
+
     goBackTo: function goBackTo(index) {
       this.$store.dispatch('leaveDirectory', index);
     },
 
     select: function select(entry) {
-      if (entry.selected) {
-        entry.selected = false;
-      } else {
-        Vue.set(entry, 'selected', true);
-      }
+      this.$store.dispatch('select', entry);
     },
 
     clearSelection: function clearSelection() {
@@ -53630,18 +53700,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   created: function created() {
     var self = this;
 
-    // We want to show the contents of the root folder. Since we
-    // don't know it's id we first request it.
+    if (this.$store.state.explorer.breadcrumbs.length == 0) {
+      // We want to show the contents of the root folder. Since we
+      // don't know it's id we first request it.
 
-    this.folder.get({ parent: null, api_token: this.$store.state.login.token }).then(function (response) {
-      console.log(response);
-      var root = response.body[0];
+      this.folder.get({ parent: null, api_token: this.$store.state.login.token }).then(function (response) {
+        console.log(response);
+        var root = response.body[0];
 
-      //this.$store.state.explorer.breadcrumbs = [root];
-      // As soon as we get the root folder we request it's children.
-      //self.listDirectory(root.id);
-      self.$store.dispatch('enterDirectory', root);
-    });
+        //this.$store.state.explorer.breadcrumbs = [root];
+        // As soon as we get the root folder we request it's children.
+        //self.listDirectory(root.id);
+        self.$store.dispatch('enterDirectory', root);
+      });
+    }
   }
 });
 
@@ -53698,15 +53770,17 @@ var render = function() {
       _vm._v(" "),
       _vm._l(_vm.$store.state.explorer.sources, function(entry) {
         return _c(
-          "router-link",
+          "a",
           {
             key: entry.id,
             staticClass: "entry",
             class: { selected: entry.selected },
-            attrs: { to: { name: "simulator", params: { entryId: entry.id } } },
             on: {
               click: function($event) {
                 _vm.select(entry)
+              },
+              dblclick: function($event) {
+                _vm.openSource(entry)
               }
             }
           },
@@ -53813,7 +53887,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53840,7 +53914,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -53851,6 +53924,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var name = prompt('Nombre de la carpeta');
 
       this.$store.dispatch('createFolder', { name: name });
+    },
+
+    newProgram: function newProgram() {
+      var name = prompt('Nombre del fichero:');
+      if (!name.endsWith('.asm')) {
+        name += '.asm';
+      }
+
+      this.$store.dispatch('createSource', { name: name });
+    },
+
+    deleteSelectedEntries: function deleteSelectedEntries() {
+      this.$store.dispatch('deleteSelectedEntries');
     }
   }
 });
@@ -53863,55 +53949,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "section no-sep" }, [_vm._v("Directorio")]),
-    _vm._v(" "),
-    _c("ul", [
-      _c("li", [
-        _c(
-          "a",
-          {
-            staticClass: "clickable",
-            on: {
-              click: function($event) {
-                _vm.newFolder()
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section no-sep" }, [_vm._v("Directorio")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "clickable",
+              on: {
+                click: function($event) {
+                  _vm.newFolder()
+                }
               }
-            }
-          },
-          [_vm._v("Nueva carpeta")]
-        )
+            },
+            [_vm._v("Nueva carpeta")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "clickable",
+              on: {
+                click: function($event) {
+                  _vm.newProgram()
+                }
+              }
+            },
+            [_vm._v("Nuevo programa")]
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c(
-        "li",
-        [
-          _c("router-link", { attrs: { to: { name: "simulator" } } }, [
-            _vm._v("Nuevo programa")
-          ])
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "section" }, [_vm._v("Fichero blabla.asm")]),
-    _vm._v(" "),
-    _vm._m(0)
-  ])
+      _vm.$store.state.explorer.selectionCount > 0
+        ? [
+            _c("div", { staticClass: "section" }, [_vm._v("Selección")]),
+            _vm._v(" "),
+            _c("ul", [
+              _c("li", [
+                _c(
+                  "a",
+                  {
+                    staticClass: "clickable",
+                    on: {
+                      click: function($event) {
+                        _vm.deleteSelectedEntries()
+                      }
+                    }
+                  },
+                  [_vm._v("Eliminar")]
+                )
+              ])
+            ])
+          ]
+        : _vm._e()
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", [
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Abrir")])]),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Enviar")])]),
-      _vm._v(" "),
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Eliminar")])])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -54035,8 +54136,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    assemblyAndRun: function assemblyAndRun() {
+      console.log(this.$store.state.simulator.content);
+    }
+  },
   created: function created() {},
   mounted: function mounted() {
+    var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
     console.log(CodeMirror);
@@ -54048,6 +54155,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
       editor.setValue(response.body.source.content);
+      self.$store.state.simulator.content = response.body.source.content;
+    });
+
+    editor.on('change', function () {
+      self.$store.state.simulator.content = editor.getValue();
     });
   }
 });
@@ -54060,32 +54172,53 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "button-area" }, [
-        _c("a", { staticClass: "btn primary" }, [
-          _vm._v("Ensamblar y ejecutar")
-        ]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn" }, [_vm._v("Ensamblar")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn" }, [_vm._v("Parar")]),
-        _vm._v(" "),
-        _c("a", { staticClass: "btn" }, [_vm._v("Ejecutar paso")])
-      ]),
+  return _c("div", [
+    _c("div", { staticClass: "button-area" }, [
+      _c(
+        "a",
+        {
+          staticClass: "btn primary",
+          on: {
+            click: function($event) {
+              _vm.assemblyAndRun()
+            }
+          }
+        },
+        [_vm._v("Ensamblar y ejecutar")]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "editor-container" }, [
-        _c("textarea", { attrs: { id: "editor" } })
-      ])
+      _c("a", { staticClass: "btn" }, [_vm._v("Ensamblar")]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn" }, [_vm._v("Parar")]),
+      _vm._v(" "),
+      _c("a", { staticClass: "btn" }, [_vm._v("Ejecutar paso")])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "editor-container" }, [
+      _c("textarea", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.$store.state.simulator.content,
+            expression: "$store.state.simulator.content"
+          }
+        ],
+        attrs: { id: "editor" },
+        domProps: { value: _vm.$store.state.simulator.content },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.$store.state.simulator, "content", $event.target.value)
+          }
+        }
+      })
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -54181,7 +54314,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54209,7 +54342,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: {
+    save: function save() {
+      this.$store.dispatch('updateSource');
+    }
+  },
+  created: function created() {
+    this.$store.state.simulator.entryId = this.$route.params.entryId;
+  }
+});
 
 /***/ }),
 /* 81 */
@@ -54223,9 +54365,22 @@ var render = function() {
     _c("div", { staticClass: "section no-sep" }, [_vm._v("Filename.asm")]),
     _vm._v(" "),
     _c("ul", [
-      _vm._m(0),
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "clickable",
+            on: {
+              click: function($event) {
+                _vm.save()
+              }
+            }
+          },
+          [_vm._v("Guardar")]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "li",
@@ -54240,16 +54395,10 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "section no-sep" }, [_vm._v("Vista")]),
     _vm._v(" "),
-    _vm._m(2)
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Guardar")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
