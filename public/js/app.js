@@ -14376,7 +14376,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       selectionCount: 0
     },
     simulator: {
-      entryId: -1,
+      entry: null,
       content: ''
     }
   },
@@ -14441,7 +14441,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
     // Updates the opened file.
     updateSource: function updateSource(context) {
-      return context.state.api.source.save({ entryId: context.state.simulator.entryId, api_token: context.state.login.token }, {
+      return context.state.api.source.save({ entryId: context.state.simulator.entry.id, api_token: context.state.login.token }, {
         content: context.state.simulator.content
       }).then(function (response) {});
     },
@@ -53988,7 +53988,13 @@ var render = function() {
       _vm._v(" "),
       _vm.$store.state.explorer.selectionCount > 0
         ? [
-            _c("div", { staticClass: "section" }, [_vm._v("Selección")]),
+            _c("div", { staticClass: "section" }, [
+              _vm._v(
+                "Selección (" +
+                  _vm._s(_vm.$store.state.explorer.selectionCount) +
+                  ")"
+              )
+            ]),
             _vm._v(" "),
             _c("ul", [
               _c("li", [
@@ -54146,8 +54152,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
-    console.log(CodeMirror);
-
     var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
       lineNumbers: true,
       mode: "simplemode"
@@ -54155,6 +54159,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
       editor.setValue(response.body.source.content);
+      self.$store.state.simulator.entry = response.body;
+
       self.$store.state.simulator.content = response.body.source.content;
     });
 
@@ -54314,7 +54320,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -54346,11 +54352,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     save: function save() {
       this.$store.dispatch('updateSource');
+    },
+
+    download: function download() {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.$store.state.simulator.content));
+      element.setAttribute('download', this.$store.state.simulator.entry.name);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
     }
   },
-  created: function created() {
-    this.$store.state.simulator.entryId = this.$route.params.entryId;
-  }
+  created: function created() {}
 });
 
 /***/ }),
@@ -54362,7 +54379,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "section no-sep" }, [_vm._v("Filename.asm")]),
+    _vm.$store.state.simulator.entry
+      ? _c("div", { staticClass: "section no-sep" }, [
+          _vm._v(_vm._s(_vm.$store.state.simulator.entry.name))
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("ul", [
       _c("li", [
@@ -54380,7 +54401,20 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "clickable",
+            on: {
+              click: function($event) {
+                _vm.download()
+              }
+            }
+          },
+          [_vm._v("Descargar")]
+        )
+      ]),
       _vm._v(" "),
       _c(
         "li",
@@ -54395,16 +54429,10 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "section no-sep" }, [_vm._v("Vista")]),
     _vm._v(" "),
-    _vm._m(1)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Descargar")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

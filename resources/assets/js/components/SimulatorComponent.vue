@@ -25,8 +25,6 @@ export default {
     var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
-    console.log(CodeMirror);
-
     var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
       lineNumbers: true,
       mode: "simplemode"
@@ -34,6 +32,8 @@ export default {
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
       editor.setValue(response.body.source.content);
+      self.$store.state.simulator.entry = response.body;
+
       self.$store.state.simulator.content = response.body.source.content;
     });
 

@@ -82,7 +82,7 @@ const store = new Vuex.Store({
       selectionCount: 0
     },
     simulator: {
-      entryId: -1,
+      entry: null,
       content: ''
     }
   },
@@ -147,7 +147,7 @@ const store = new Vuex.Store({
 
     // Updates the opened file.
     updateSource: function (context) {
-      return context.state.api.source.save({ entryId: context.state.simulator.entryId, api_token: context.state.login.token }, {
+      return context.state.api.source.save({ entryId: context.state.simulator.entry.id, api_token: context.state.login.token }, {
         content: context.state.simulator.content
       }).then(function (response) {
       });

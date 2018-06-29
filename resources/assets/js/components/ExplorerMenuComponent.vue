@@ -6,7 +6,7 @@
     <li><a class="clickable" v-on:click="newProgram()">Nuevo programa</a></li>
   </ul>
   <template v-if="$store.state.explorer.selectionCount > 0">
-    <div class="section">Selección</div>
+    <div class="section">Selección ({{ $store.state.explorer.selectionCount }})</div>
     <ul>
       <li><a class="clickable" v-on:click="deleteSelectedEntries()">Eliminar</a></li>
     </ul>
