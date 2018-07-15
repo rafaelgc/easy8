@@ -14286,7 +14286,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(15);
-module.exports = __webpack_require__(82);
+module.exports = __webpack_require__(88);
 
 
 /***/ }),
@@ -14345,7 +14345,7 @@ var routes = [{
   path: '/simulator/:entryId?',
   components: {
     'working-area': __webpack_require__(72),
-    'main-menu': __webpack_require__(77)
+    'main-menu': __webpack_require__(83)
   },
   meta: { requiresAuth: true }
 }];
@@ -52979,7 +52979,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-8bcad490"
+var __vue_scopeId__ = "data-v-059dd878"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -52990,7 +52990,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\AlertComponent.vue"
+Component.options.__file = "resources/assets/js/components/AlertComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -52999,9 +52999,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8bcad490", Component.options)
+    hotAPI.createRecord("data-v-059dd878", Component.options)
   } else {
-    hotAPI.reload("data-v-8bcad490", Component.options)
+    hotAPI.reload("data-v-059dd878", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53022,13 +53022,13 @@ var content = __webpack_require__(48);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2bb9449f", content, false, {});
+var update = __webpack_require__(2)("58467129", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8bcad490\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AlertComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8bcad490\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AlertComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-059dd878\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AlertComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-059dd878\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AlertComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -53046,7 +53046,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.alert[data-v-8bcad490] {\n  padding: 15px;\n  border: #f1f1f1 solid 1px;\n  border-left: #f1f1f1 solid 4px;\n  background-color: #fdfdfd;\n}\n.error[data-v-8bcad490] {\n  border-left-color: #c41212;\n}\n.success[data-v-8bcad490] {\n  border-left-color: #429146;\n}\n.info[data-v-8bcad490] {\n  border-left-color: rgb(21, 144, 192);\n}\n\n", ""]);
+exports.push([module.i, "\n.alert[data-v-059dd878] {\n  padding: 15px;\n  border: #f1f1f1 solid 1px;\n  border-left: #f1f1f1 solid 4px;\n  background-color: #fdfdfd;\n}\n.error[data-v-059dd878] {\n  border-left-color: #c41212;\n}\n.success[data-v-059dd878] {\n  border-left-color: #429146;\n}\n.info[data-v-059dd878] {\n  border-left-color: rgb(21, 144, 192);\n}\n\n", ""]);
 
 // exports
 
@@ -53122,7 +53122,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-8bcad490", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-059dd878", module.exports)
   }
 }
 
@@ -53145,7 +53145,7 @@ var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = "data-v-6d972ccb"
+var __vue_scopeId__ = "data-v-8dcb20ea"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -53156,7 +53156,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\LoginComponent.vue"
+Component.options.__file = "resources/assets/js/components/LoginComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -53165,9 +53165,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6d972ccb", Component.options)
+    hotAPI.createRecord("data-v-8dcb20ea", Component.options)
   } else {
-    hotAPI.reload("data-v-6d972ccb", Component.options)
+    hotAPI.reload("data-v-8dcb20ea", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53188,13 +53188,13 @@ var content = __webpack_require__(54);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("b92f0e90", content, false, {});
+var update = __webpack_require__(2)("901d03a2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d972ccb\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-6d972ccb\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8dcb20ea\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-8dcb20ea\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -53212,7 +53212,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.login-area[data-v-6d972ccb] {\r\n  width: 500px;\r\n  margin: 35px auto;\r\n  padding: 25px 30px 30px 30px;\r\n  background-color: white;\n}\n.login-area h1[data-v-6d972ccb] {\r\n  font-size: 100%;\r\n  color: #505050;\r\n  margin: 0px 0px 20px 0px;\r\n  letter-spacing: 1px;\n}\n.input-block[data-v-6d972ccb] {\r\n  margin-bottom: 15px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.login-area[data-v-8dcb20ea] {\n  width: 500px;\n  margin: 35px auto;\n  padding: 25px 30px 30px 30px;\n  background-color: white;\n}\n.login-area h1[data-v-8dcb20ea] {\n  font-size: 100%;\n  color: #505050;\n  margin: 0px 0px 20px 0px;\n  letter-spacing: 1px;\n}\n.input-block[data-v-8dcb20ea] {\n  margin-bottom: 15px;\n}\n\n", ""]);
 
 // exports
 
@@ -53359,7 +53359,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-6d972ccb", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-8dcb20ea", module.exports)
   }
 }
 
@@ -53393,7 +53393,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\LoginMenuComponent.vue"
+Component.options.__file = "resources/assets/js/components/LoginMenuComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -53402,9 +53402,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-78f66eac", Component.options)
+    hotAPI.createRecord("data-v-10cb5d28", Component.options)
   } else {
-    hotAPI.reload("data-v-78f66eac", Component.options)
+    hotAPI.reload("data-v-10cb5d28", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53425,13 +53425,13 @@ var content = __webpack_require__(59);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("69a6134e", content, false, {});
+var update = __webpack_require__(2)("84a1b86c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f66eac\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginMenuComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-78f66eac\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginMenuComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-10cb5d28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginMenuComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-10cb5d28\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./LoginMenuComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -53548,7 +53548,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-78f66eac", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-10cb5d28", module.exports)
   }
 }
 
@@ -53582,7 +53582,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\ExplorerComponent.vue"
+Component.options.__file = "resources/assets/js/components/ExplorerComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -53591,9 +53591,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d89c13d2", Component.options)
+    hotAPI.createRecord("data-v-13a6bb57", Component.options)
   } else {
-    hotAPI.reload("data-v-d89c13d2", Component.options)
+    hotAPI.reload("data-v-13a6bb57", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53614,13 +53614,13 @@ var content = __webpack_require__(64);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2a8aac45", content, false, {});
+var update = __webpack_require__(2)("2f93cde0", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d89c13d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-d89c13d2\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -53797,7 +53797,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-d89c13d2", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-13a6bb57", module.exports)
   }
 }
 
@@ -53831,7 +53831,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\ExplorerMenuComponent.vue"
+Component.options.__file = "resources/assets/js/components/ExplorerMenuComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -53840,9 +53840,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16b3b1f8", Component.options)
+    hotAPI.createRecord("data-v-5843d738", Component.options)
   } else {
-    hotAPI.reload("data-v-16b3b1f8", Component.options)
+    hotAPI.reload("data-v-5843d738", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -53863,13 +53863,13 @@ var content = __webpack_require__(69);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("67924024", content, false, {});
+var update = __webpack_require__(2)("334c8e5e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-16b3b1f8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerMenuComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-16b3b1f8\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerMenuComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5843d738\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerMenuComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5843d738\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerMenuComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -54024,7 +54024,7 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-16b3b1f8", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-5843d738", module.exports)
   }
 }
 
@@ -54041,7 +54041,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(75)
 /* template */
-var __vue_template__ = __webpack_require__(76)
+var __vue_template__ = __webpack_require__(82)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -54058,7 +54058,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\SimulatorComponent.vue"
+Component.options.__file = "resources/assets/js/components/SimulatorComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -54067,9 +54067,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c67ff6e0", Component.options)
+    hotAPI.createRecord("data-v-1b63e750", Component.options)
   } else {
-    hotAPI.reload("data-v-c67ff6e0", Component.options)
+    hotAPI.reload("data-v-1b63e750", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -54090,13 +54090,13 @@ var content = __webpack_require__(74);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("288d72dc", content, false, {});
+var update = __webpack_require__(2)("fffa424c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c67ff6e0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c67ff6e0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1b63e750\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1b63e750\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -54125,6 +54125,8 @@ exports.push([module.i, "\n#editor {\n  z-index: 0;\n  border: solid 1px black;\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__runtime_environment__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__instruction_set__ = __webpack_require__(80);
 //
 //
 //
@@ -54141,11 +54143,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
   methods: {
     assemblyAndRun: function assemblyAndRun() {
       console.log(this.$store.state.simulator.content);
-    }
+    },
+
+    assembly: function assembly() {
+      console.log('assembly');
+      this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+
+      this.runtimeEnvironment.getMemory().print();
+    },
+
+    onSyntaxError: function onSyntaxError(message) {
+      console.log(message);
+    },
+
+    onMemoryUpdate: function onMemoryUpdate() {
+      console.log('Memory Updated');
+    },
+
+    onRegisterUpdate: function onRegisterUpdate() {},
+
+    onOutputUpdate: function onOutputUpdate() {},
+
+    onInputRequest: function onInputRequest() {}
   },
   created: function created() {},
   mounted: function mounted() {
@@ -54167,11 +54196,1051 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     editor.on('change', function () {
       self.$store.state.simulator.content = editor.getValue();
     });
+
+    this.runtimeEnvironment = new __WEBPACK_IMPORTED_MODULE_0__runtime_environment__["a" /* default */](__WEBPACK_IMPORTED_MODULE_1__instruction_set__["a" /* default */]);
+    this.runtimeEnvironment.setCallbacks({
+      onMemoryUpdate: this.onMemoryUpdate,
+      onRegisterUpdate: this.onRegisterUpdate,
+      onOutputUpdate: this.onOutputUpdate,
+      onSyntaxError: this.onSyntaxError,
+      onInputRequest: this.onInputRequest
+    });
   }
 });
 
 /***/ }),
 /* 76 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__registers__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__memory__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__io__ = __webpack_require__(79);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*=====================================================
+ * SIMULADOR DE EJECUCIÓN
+ *
+ * */
+
+
+
+
+
+var RuntimeEnvironment = function () {
+  function RuntimeEnvironment(instructionSet) {
+    _classCallCheck(this, RuntimeEnvironment);
+
+    this.instructionSet = instructionSet;
+    this.registers = new __WEBPACK_IMPORTED_MODULE_0__registers__["a" /* default */]();
+    this.memory = new __WEBPACK_IMPORTED_MODULE_1__memory__["a" /* default */](this.registers);
+    this.io = new __WEBPACK_IMPORTED_MODULE_2__io__["a" /* default */]();
+
+    this.int = null;
+    this.running = false;
+    this.sleeping = false;
+    this.finished = false;
+
+    this.tagsTable = {};
+    this.unresolvedTags = [];
+
+    this.callbacks = {};
+  }
+
+  _createClass(RuntimeEnvironment, [{
+    key: 'getMemory',
+    value: function getMemory() {
+      return this.memory;
+    }
+  }, {
+    key: 'setCallbacks',
+    value: function setCallbacks(callbacks) {
+      /*Callbacks posibles:
+       *
+       * onMemoryUpdate -> la memoria principal ha sido actualizada.
+       * onRegisterUpdate -> un registro ha sido actualizado.
+       * onOutputUpdate -> la salida ha sido actualizada.
+       * onSyntaxError -> error de sintaxis durante el ensamblado.
+       * onInputRequest -> el programa solicita la entrada de algún dato.
+       * */
+      this.callbacks = callbacks;
+
+      callbacks.onMemoryUpdate && this.memory.onUpdate(callbacks.onMemoryUpdate);
+      callbacks.onRegistersUpdate && this.registers.onUpdate(callbacks.onRegistersUpdate);
+      callbacks.onOutputUpdate && this.io.onOutputUpdate(callbacks.onOutputUpdate);
+      callbacks.onInputRequest && this.io.onInputRequest(callbacks.onInputRequest);
+    }
+  }, {
+    key: 'assembly',
+    value: function assembly(sourceCode) {
+      this.sourceCode = sourceCode;
+
+      var lines = sourceCode.split('\n');
+
+      this.tagsTable = {};
+      this.unresolvedTags = [];
+
+      //Reiniciar la memoria.
+      this.memory.clear();
+
+      var success = true;
+
+      for (var i = 0; i < lines.length; i++) {
+
+        if (!lines[i]) {
+          continue;
+        }
+
+        var tokens = this.parseLine(lines[i]);
+
+        console.log(tokens);
+
+        //tokens[0] debe contener el comentario si la línea es un comentario.
+        //tokens[1] contiene el mnemotécnico.
+        //tokens[2] y tokens[3] contendrán los parámetros, si procede.
+        //token[4] contendrá la etiqueta.
+        if (!tokens) {
+          this.callbacks.onSyntaxError && this.callbacks.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //Si tokens.tag tiene algún valor significa que
+        //hay una etiqueta y hay que almacenar
+        //la dirección en la tabla de etiquetas que se usará posteriormente
+        //en la etapa de resolución.
+        if (tokens.tag) {
+          this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
+        }
+
+        if (!tokens.mnemotecnic) {
+          //Es un comentario o un blanco, se pasa a la siguiente línea.
+          continue;
+        }
+
+        //Buscar las instrucciones que coinciden en el array instructionSet.
+        //Generalmente solo habrá un resulado pero alguna instrucción
+        //aparece dos veces.
+        var instructions = this.getInstructionsByMnemotic(tokens.mnemotecnic);
+
+        console.log('A');
+        this.callbacks.onSyntaxError('Holi');
+        console.log('B');
+
+        if (instructions.length === 0) {
+          console.log(this.callbacks);
+          //No se ha encontrado la instrucción correspondiente a un
+          //mnemotécnico. Probablemente está mal escrito.
+          this.callbacks.onSyntaxError && this.callbacks.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //TODO: si todas devuelven false, error de sintaxis.
+        for (var j = 0; j < instructions.length; j++) {
+          if (instructions[j].assembly(this.memory, [tokens.param1, tokens.param2], this)) {
+            break;
+          }
+        }
+      }
+
+      //Etapa de resolución.
+      if (!this.resolveTags()) {
+        success = false;
+        this.callbacks.onSyntaxError('Etiqueta no encontrada.');
+      }
+
+      if (!success) {
+        this.memory.clear();
+      }
+    }
+  }, {
+    key: 'parseLine',
+    value: function parseLine(line) {
+      if (!line) return null;
+
+      //La expresión regular comprueba que la instrucción tenga una de las
+      //siguientes estructuras:
+      //1. X Y Z  (P. ej.: MOVE RA, DIR)
+      //2. X Y    (P. ej.: IN 01)
+      //3. X      (P. ej.: STOP)
+      //4. #COMENTARIO
+      //5. [blancos]
+      //Notar que la expresión regular se usa para comprobar la estructura
+      //general de la instrucción y para tokenizarla. Sin embargo, los distintos
+      //tokens no son validados. Ese trabajo se delega al método assembly de
+      //la instrucción de turno.
+      var results = line.match(/^(?:(?:\s*#.*)|(?:\s+)|(?:\s*(@\w+):\s*(?:#.*)?)|(?:\s*(?:(@\w+):)?\s*(\w+)(?:\s+(@?\w+)\s*(?:,\s*(@?\w+))?)?\s*(#.*)?))$/);
+
+      if (!results) return null;
+
+      return {
+        tag: results[2] ? results[2] : results[1],
+        mnemotecnic: results[3],
+        param1: results[4],
+        param2: results[5]
+      };
+    }
+  }, {
+    key: 'run',
+    value: function run() {
+      //Si se provoca la ejecución cuando ya estaba
+      //ejecutándose el programa se reinicia el intervalo.
+      if (this.int) {
+        clearInterval(this.int);
+      }
+
+      this.running = true;
+      this.sleeping = false;
+
+      this.resetProgram();
+
+      var self = this;
+
+      this.int = setInterval(function () {
+
+        if (self.running && !self.sleeping) {
+          self.runStep();
+        }
+      }, 2);
+    }
+  }, {
+    key: 'runStep',
+    value: function runStep(goForward) {
+      var byte = this.memory.readByte();
+      console.log('PC: ' + this.registers.get('PC'));
+
+      var instruction = this.getInstructionByCode(byte);
+      console.log(instruction);
+
+      if (!instruction) {
+        console.log('Error de ejecución.');
+        this.stop();
+        //TODO
+      } else if (!instruction.run) {
+        console.log('Sin implementación para: ');
+        console.log(instruction);
+        this.stop();
+      } else {
+        if (instruction.run(this.memory, this.registers, this.io, this)) {
+          this.stop();
+        } else {
+          //Cuando una instrucción detiene la ejecución se quiere
+          //que el PC se mantenga en esa instrucción y no pase a
+          //la siguiente.
+          this.memory.nextByte();
+        }
+      }
+    }
+  }, {
+    key: 'resetProgram',
+    value: function resetProgram() {
+      //this.assembly(this.sourceCode);
+
+      //Reiniciar registros.
+      this.registers.reset();
+
+      //El puntero de pila apunta al final de la memoria.
+      this.registers.set('SP', this.memory.size - 1);
+    }
+  }, {
+    key: 'stop',
+    value: function stop() {
+      this.running = false;
+      this.sleeping = false;
+
+      clearInterval(this.int);
+    }
+  }, {
+    key: 'sleep',
+    value: function sleep(timeout) {
+      this.sleeping = true;
+
+      var self = this;
+
+      if (timeout) {
+        setTimeout(function () {
+          self.wakeUp();
+        }, timeout);
+      }
+    }
+  }, {
+    key: 'wakeUp',
+    value: function wakeUp() {
+
+      if (!this.sleeping) return;
+      this.sleeping = false;
+    }
+  }, {
+    key: 'addUnresolvedTag',
+
+
+    /*Si, durante el ensamblado, alguna instrucción hace referencia
+     * a una etiqueta, se almacena la etiqueta y en qué posición habría
+     * que guardar la dirección a la que referencia.
+     *
+     * Tras el ensamblado, cuando ya se deberían conocer las direcciones
+     * de todas las etiquetas, se inicia la etapa de resolución.
+     * */
+    value: function addUnresolvedTag(tag, memoryAddress) {
+      //Se almacena la etiqueta del tag sin resolver
+      //y la dirección en memoria DONDE SE DEBERÁ ESCRIBIR LA DIRECCIÓN DEFINITIVA.
+      this.unresolvedTags.push({ tag: tag, address: memoryAddress });
+    }
+  }, {
+    key: 'isTag',
+    value: function isTag(token) {
+      if (token[0] == '@') {
+        return true;
+      }
+    }
+  }, {
+    key: 'resolveTags',
+
+
+    /*
+     * La etapa de resolución se inicia cuando se ha realizado el ensamblado.
+     * En este punto ya, salvo que el programador cometa un error, ya se
+     * conoce aqué dirección referencian todas las etiquetas.
+     * Por tanto, aquí habrá que buscar todas las instrucciones que usaban
+     * alguna etiqueta para reemplazarla por la dirección real en memoria.
+     * */
+    value: function resolveTags() {
+      for (var i = 0; i < this.unresolvedTags.length; i++) {
+        // address contendrá la dirección a la que se referencia
+        var address = this.tagsTable[this.unresolvedTags[i].tag];
+        if (address === undefined) {
+          return false;
+        }
+
+        //unresolvedTags[i].address es la dirección donde se
+        //usó la etiqueta y donde habrá que escribir la dirección
+        //definitiva.
+        this.memory.writeAddress(this.unresolvedTags[i].address, address);
+      }
+
+      return true;
+    }
+
+    /*
+     AUXILIARES
+     */
+
+    /*
+     Devuelve las instrucciones que tienen como mnemotécnico
+     el que se pasa por parámetro. Notar que devuelve un array
+     porque puede haber varias instrucciones con el mismo
+     mnemotécnico.
+     */
+
+  }, {
+    key: 'getInstructionsByMnemotic',
+    value: function getInstructionsByMnemotic(mnemotic) {
+      var resInstructions = [];
+
+      for (var i = 0; i < this.instructionSet.length; i++) {
+        if (this.instructionSet[i].mnemotic === mnemotic) {
+          resInstructions.push(this.instructionSet[i]);
+        }
+      }
+
+      return resInstructions;
+    }
+  }, {
+    key: 'getInstructionByCode',
+    value: function getInstructionByCode(code) {
+      for (var i = 0; i < this.instructionSet.length; i++) {
+        if (code === this.instructionSet[i].code) {
+          return this.instructionSet[i];
+        }
+      }
+      return null;
+    }
+  }]);
+
+  return RuntimeEnvironment;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (RuntimeEnvironment);
+
+/***/ }),
+/* 77 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*=====================================================
+ REGISTROS
+ -RA: contenido del registro contador.
+ -PC: contador de programa.
+ -SP: puntero de pila.
+ -RET: dirección previa a la de retorno.
+ -Z: si, tras una operación, RA es cero, Z = 1.
+ -C: guarda el acarreo de la última operación.
+ -N: si, tras una operación, RA es negativo, N = 1.
+ */
+
+var Registers = function () {
+  function Registers() {
+    _classCallCheck(this, Registers);
+
+    this.reset();
+  }
+
+  _createClass(Registers, [{
+    key: 'reset',
+    value: function reset() {
+      this.regs = {
+        ra: 0,
+        ret: 0,
+        pc: 0,
+        z: 0,
+        c: 0,
+        n: 0,
+        sp: 0
+      };
+    }
+  }, {
+    key: 'get',
+    value: function get(reg) {
+      return this.regs[reg.toLowerCase()];
+    }
+  }, {
+    key: 'set',
+    value: function set(reg, value) {
+      this.regs[reg.toLowerCase()] = value;
+      this.onUpdateCallback && this.onUpdateCallback(reg, value);
+
+      //this.updateZero(reg);
+    }
+  }, {
+    key: 'incr',
+    value: function incr(reg, value) {
+      if (!value) value = 1;
+
+      var newValue = ALU.sum(this.get(reg), value, 8);
+
+      this.set(reg, newValue.result);
+
+      this.updateZero(reg);
+      this.updateCarry(reg, newValue.carry);
+      this.updateNegative(reg);
+
+      this.onUpdateCallback && this.onUpdateCallback(reg, value);
+    }
+  }, {
+    key: 'decr',
+    value: function decr(reg, value) {
+      if (!value) value = 1;
+
+      this.incr(reg, -value);
+    }
+  }, {
+    key: 'updateZero',
+    value: function updateZero(reg) {
+      if ('ra' === reg.toLowerCase()) {
+        if (this.get('RA') === 0) {
+          this.set('Z', 1);
+        } else {
+          this.set('Z', 0);
+        }
+      }
+    }
+  }, {
+    key: 'updateCarry',
+    value: function updateCarry(reg, carry) {
+      if ('ra' === reg.toLowerCase()) {
+        this.set('C', carry);
+      }
+    }
+  }, {
+    key: 'updateNegative',
+    value: function updateNegative(reg) {
+      if ('ra' === reg.toLowerCase()) {
+        this.set('N', ALU.isNegative(this.get('RA'), 8) ? 1 : 0);
+      }
+    }
+  }, {
+    key: 'print',
+    value: function print() {
+      console.log('RA: ' + this.get('RA'));
+    }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      var str = '';
+      str = str.concat('RA\t' + ALU.ca2ToInt(this.get('RA'), 8) + '\n');
+      str = str.concat('PC\t' + this.get('PC') + '\n');
+      str = str.concat('SP\t' + this.get('SP') + '\n');
+      str = str.concat('Z\t' + this.get('Z') + '\n');
+      str = str.concat('C\t' + this.get('C') + '\n');
+      str = str.concat('N\t' + this.get('N') + '\n');
+      return str;
+    }
+  }, {
+    key: 'onUpdate',
+    value: function onUpdate(func) {
+      this.onUpdateCallback = func;
+    }
+  }]);
+
+  return Registers;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Registers);
+
+/***/ }),
+/* 78 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*=====================================================
+ MEMORIA PRINCIPAL
+ Contiene un array 'bytes' con el contenido de la memoria.
+ Los datos se almacenan en formato decimal.
+ La clase tiene un puntero llamado "assemblyPointer" hacia
+ una posición de memoria que determina en qué posición
+ guardar el siguiente byte de código durante el ensamblado.
+ La memoria recibe como parámetro:
+ -Los registros. Los necesita para acceder al contador de programa (PC).
+ -Tamaño de la memoria (opcional). Por defecto es 256.
+ */
+
+var Memory = function () {
+  function Memory(registers, size) {
+    _classCallCheck(this, Memory);
+
+    this.registers = registers;
+    this.size = size ? size : 256;
+    this.bytes = [];
+    this.assemblyPointer = 0;
+
+    this.clear();
+  }
+
+  //Escribe bytes de manera sucesiva. Usado durante el ensamblado.
+
+
+  _createClass(Memory, [{
+    key: 'writeByte',
+    value: function writeByte(byte) {
+      this.bytes[this.assemblyPointer] = byte;
+      this.assemblyPointer++;
+    }
+
+    //Reinicia la memoria.
+
+  }, {
+    key: 'clear',
+    value: function clear() {
+      this.bytes = [];
+      for (var i = 0; i < this.size; i++) {
+        this.bytes.push(0);
+      }
+      this.assemblyPointer = 0;
+    }
+
+    //Lee el contenido apuntado por el contador de programa.
+
+  }, {
+    key: 'readByte',
+    value: function readByte() {
+      return this.bytes[this.registers.get('PC')];
+    }
+
+    //Mueve hacia adelante el contador de programa.
+    //Devuelve el contenido de la memoria en ese punto.
+
+  }, {
+    key: 'nextByte',
+    value: function nextByte() {
+      this.registers.incr('PC');
+      return this.bytes[this.registers.get('PC')];
+    }
+
+    //Escribir un valor en una dirección.
+
+  }, {
+    key: 'writeAddress',
+    value: function writeAddress(address, value) {
+      this.bytes[address] = value;
+
+      if (this.onUpdateCallback) this.onUpdateCallback(this);
+    }
+
+    //Leer un valor de una dirección.
+
+  }, {
+    key: 'readAddress',
+    value: function readAddress(address) {
+      return this.bytes[address];
+    }
+  }, {
+    key: 'print',
+    value: function print() {
+      console.log(this.bytes);
+    }
+  }, {
+    key: 'onUpdate',
+    value: function onUpdate(func) {
+      this.onUpdateCallback = func;
+    }
+  }, {
+    key: 'getSize',
+    value: function getSize() {
+      return this.size;
+    }
+  }, {
+    key: 'getData',
+    value: function getData() {
+      return this.bytes;
+    }
+  }]);
+
+  return Memory;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Memory);
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/*=====================================================
+ INPUT/OUTPUT
+ */
+
+var IO = function () {
+  function IO() {
+    _classCallCheck(this, IO);
+
+    this.output = 0;
+  }
+
+  /*Método para establecer el valor de la salida.*/
+
+
+  _createClass(IO, [{
+    key: "setOutput",
+    value: function setOutput(output) {
+      this.output = ALU.ca2ToInt(output, 8);
+      this.onUpdateOutputCallback && this.onUpdateOutputCallback(this.output);
+    }
+
+    /*Método para solicitar la entrada de un dato.*/
+
+  }, {
+    key: "getInputRequest",
+    value: function getInputRequest(func) {
+      this.onInputRequestCallback && this.onInputRequestCallback(func);
+    }
+  }, {
+    key: "onOutputUpdate",
+    value: function onOutputUpdate(func) {
+      this.onUpdateOutputCallback = func;
+    }
+  }, {
+    key: "onInputRequest",
+    value: function onInputRequest(func) {
+      this.onInputRequestCallback = func;
+    }
+  }]);
+
+  return IO;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (IO);
+
+/***/ }),
+/* 80 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assembly_rules__ = __webpack_require__(81);
+/*=====================================================
+ SET DE INSTRUCCIONES
+ El siguiente array almacena el juego de instrucciones del Easy8
+ junto con información sobre la instrucción:
+ -mnemotic: código mnemotécnico de la instrucción.
+ -code: código (decimal) que se usará para el ensamblado.
+ -assembly: función que se ejecutará cuando se esté ensamblado
+ la instrucción. La función recibe los siguientes parámetros:
+ -memory: la memoria principal donde se escribirá la función.
+ -params: array con los parámetros de la instrucción.
+ -environtment: instancia del RuntimeEnvirontment.
+ La función assembly deberá comprobar que los parámetros
+ tienen el formato correcto. Si es así, deberá devolver
+ true. Si no, devolverá false.
+ La función assembly debe escribir en la memoria la
+ codificación de la instrucción junto con los parámetros,
+ si los tiene.
+ -run: la función de ejecución de la instrucción. Recibe como
+ parámetros:
+ -memory: memoria principal.
+ -registers: registros.
+ -io: instancia de IO.
+ -environment: instancia del entorno de ejecución.
+ Si la función devuelve true se terminará la ejecución del programa,
+ como haría la instrucción STOP.
+ Si la función devuelve false o no devuelve nada, la ejecución
+ sigue su curso.
+ */
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ([
+/*CODIFICADOS EN UN BYTE*/
+{
+  mnemotic: 'STOP',
+  code: 21,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run() {
+    return true; //Fin de la ejecución.
+  }
+}, {
+  mnemotic: 'INC',
+  code: 7,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    registers.incr('RA');
+  }
+}, {
+  mnemotic: 'DEC',
+  code: 8,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    registers.decr('RA');
+  }
+}, {
+  mnemotic: 'PUSH',
+  code: 15,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    memory.writeAddress(registers.get('SP'), registers.get('RA'));
+    registers.decr('SP', 1);
+  }
+}, {
+  mnemotic: 'POP',
+  code: 16,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    if (registers.get('SP') < memory.size - 1) {
+      //TODO: ¿se pone a 0?
+      registers.incr('SP', 1);
+      memory.writeAddress(registers.get('SP'), 0);
+    }
+  }
+}, {
+  mnemotic: 'RET',
+  code: 18,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    registers.set('PC', registers.get('RET'));
+  }
+},
+/*CODIFICADOS EN DOS BYTES*/
+{
+  mnemotic: 'MOVEI',
+  code: 0,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    registers.set('RA', memory.nextByte());
+  }
+}, {
+  mnemotic: 'MOVE',
+  code: 1,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].moveAssembly,
+  run: function run(memory, registers) {
+    var addr = memory.nextByte();
+    registers.set('RA', memory.readAddress(addr));
+  }
+}, {
+  mnemotic: 'MOVE',
+  code: 2,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].moveAssembly,
+  run: function run(memory, registers) {
+    var v = memory.nextByte();
+    memory.writeAddress(v, registers.get('RA'));
+  }
+}, {
+  mnemotic: 'ADDI',
+  code: 3,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    registers.incr('RA', memory.nextByte());
+  }
+}, {
+  mnemotic: 'ADD',
+  code: 4,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    var addr = memory.nextByte();
+    registers.incr('RA', memory.readAddress(addr));
+  }
+}, {
+  mnemotic: 'SUBI',
+  code: 5,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    registers.decr('RA', memory.nextByte());
+  }
+}, {
+  mnemotic: 'SUB',
+  code: 6,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    var addr = memory.nextByte();
+    registers.decr('RA', memory.readAddress(addr));
+  }
+}, {
+  mnemotic: 'COMPAREI',
+  code: 9,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    var val = memory.nextByte();
+    var res = ALU.sum(registers.get('RA'), -val, 8);
+    registers.set('Z', res.result === 0 ? 1 : 0);
+    registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
+    registers.set('C', res.carry);
+  }
+}, {
+  mnemotic: 'COMPARE',
+  code: 10,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].raValueAssembly,
+  run: function run(memory, registers) {
+    var val = memory.readAddress(memory.nextByte());
+    var res = ALU.sum(registers.get('RA'), -val, 8);
+    registers.set('Z', res.result === 0 ? 1 : 0);
+    registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
+    registers.set('C', res.carry);
+  }
+}, {
+  mnemotic: 'JUMP',
+  code: 11,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers, environment) {
+    //Memory.nextByte() desplaza el PC a la
+    //siguiente posición y devuelve el contenido
+    //de la memoria en ese punto. En este caso, esa posición
+    //contiene la dirección objetivo del salto.
+    var target = memory.nextByte();
+
+    //Se establece el contador de programa
+    //para que la siguiente instrucción a ejecutar
+    //sea a la que apunta target. Hay que restar 1 porque
+    //después de ejecutar esta función se pasa al siguiente byte.
+    registers.set('PC', target - 1);
+  }
+}, {
+  mnemotic: 'JLESS',
+  code: 12,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers) {
+    var target = memory.nextByte();
+
+    if (registers.get('N')) {
+      registers.set('PC', target - 1);
+    }
+  }
+}, {
+  mnemotic: 'JGREATER',
+  code: 13,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers) {
+    var target = memory.nextByte();
+
+    if (!registers.get('N') && !registers.get('Z')) {
+      registers.set('PC', target - 1);
+    }
+  }
+}, {
+  mnemotic: 'JEQUAL',
+  code: 14,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers) {
+    var target = memory.nextByte();
+    if (registers.get('Z') === 1) {
+      registers.set('PC', target - 1);
+    }
+  }
+}, {
+  mnemotic: 'CALL',
+  code: 17,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers) {
+    registers.set('RET', registers.get('PC') + 1);
+    //Se suma +1 para que registers.ret apunte a
+    //la dirección donde está el parámetro del CALL
+    //y no al propio CALL. Nota: cuando se dan saltos registers.ret
+    //debe ser la dirección anterior al objetivo porque
+    //en el bucle de ejecución de las instrucciones se realizará
+    //un incremento justo después de la ejecución del salto.
+    var target = memory.nextByte() - 1;
+    registers.set('PC', target);
+  }
+}, {
+  mnemotic: 'IN',
+  code: 19,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers, io, runtimeEnvironment) {
+    if (memory.nextByte() == 0) {
+      runtimeEnvironment.sleep();
+      io.getInputRequest(function (input) {
+        registers.set('RA', parseInt(input, 16));
+        runtimeEnvironment.wakeUp();
+        console.log('retomar ejecucion: ' + registers.get('PC'));
+      });
+    }
+  }
+}, {
+  mnemotic: 'OUT',
+  code: 20,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers, io) {
+    var port = memory.nextByte();
+    if (port == 1) {
+      io.setOutput(registers.get('RA'));
+    }
+  }
+}, {
+  mnemotic: 'SLEEP',
+  code: 22,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].valueDirAssembly,
+  run: function run(memory, registers, io, runtimeEnvironment) {
+    runtimeEnvironment.sleep(memory.nextByte() * 1000);
+  }
+}, {
+  mnemotic: 'RAND',
+  code: 23,
+  assembly: __WEBPACK_IMPORTED_MODULE_0__assembly_rules__["a" /* default */].oneByteAssembly,
+  run: function run(memory, registers) {
+    registers.set('RA', Math.floor(Math.random() * 255) + 1);
+  }
+}, {
+  mnemotic: 'BYTE',
+  code: -1,
+  assembly: function assembly(memory, params) {
+    memory.writeByte(parseInt(params[0], 16));
+    return true;
+  }
+}]);
+
+/***/ }),
+/* 81 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/*=====================================================
+ FUNCIONES DE ENSAMBLAJE Y COMPROBACIÓN DE PARÁMETROS
+ Las siguientes funciones comprueban si determinada instrucción
+ tiene unos parámetros correctos (p. ej.: MOVE RA, 66 -> OK; MOVE BB, 66 -> ERROR)
+ Además se encarga de escribir en la memoria la instrucción. Cada función
+ se encarga de almacenar un tipo determinado de instrucción.
+ Si siguen un formato incorrecto las funciones devolverán false y si es correcto true.
+ */
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  writeAddress: function writeAddress(dirOrTag, memory, environment) {
+    //La dirección que se quiere guardar en la memoria
+    // puede se una dirección real o una etiqueta.
+
+    if (environment.isTag(dirOrTag)) {
+      //Si es una etiqueta se añade a la lista de etiquetas
+      //sin resolver. (Las etiquetas son resueltas más tarde).
+      environment.addUnresolvedTag(dirOrTag, memory.assemblyPointer);
+      //Como se desconoce la dirección de salto, se guarda un 0
+      //de manera provisional.
+      memory.writeByte(0);
+    } else {
+      //Si es una dirección real tan sólo hay que
+      //guardar la dirección.
+      memory.writeByte(parseInt(dirOrTag, 16));
+    }
+  },
+
+
+  /*
+   Ensamblaje de instrucciones que se codifican con un sólo byte
+   como STOP o INC RA
+   */
+  oneByteAssembly: function oneByteAssembly(memory, params) {
+    memory.writeByte(this.code);
+    return true;
+  },
+
+
+  /*
+   Ensamblaje de instrucciones que se codifican con dos bytes
+   y que tienen el formato MNEMOTECNICO + RA + DIRECCION/VALOR
+   */
+  raValueAssembly: function raValueAssembly(memory, params, environment) {
+    if (params[0] !== 'RA') return false;
+
+    memory.writeByte(this.code);
+    //La entrada viene codificada en hexadecimal pero se convierte
+    //a entero.
+
+    //TODO: COMPROBAR FORMATO DE params[1]
+
+    this.writeAddress(params[1], memory, environment);
+    //memory.writeByte(parseInt(params[1], 16));
+
+    return true;
+  },
+
+
+  /*
+   Ensamblaje de la instrucción MOVE que puede tener dos formas:
+   -MOVE RA, DIR
+   -MOVE DIR, RA
+   Hay que diferenciarlas usando su código.
+   */
+  moveAssembly: function moveAssembly(memory, params, environment) {
+    if (this.code === 1 && params[0] === 'RA') {
+      memory.writeByte(this.code);
+      //TODO
+      //memory.writeByte(parseInt(params[1], 16));
+      this.writeAddress(params[1], memory, environment);
+      return true;
+    } else if (this.code === 2 && params[1] === 'RA') {
+      memory.writeByte(this.code);
+      //TODO
+      //memory.writeByte(parseInt(params[0], 16));
+      this.writeAddress(params[0], memory, environment);
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+
+  /*
+   Ensamblaje de instrucciones que se codifican con dos bytes
+   y que tienen el formano MNEMOTECNICO + DIRECCION/VALOR.
+   */
+  valueDirAssembly: function valueDirAssembly(memory, params, environment) {
+    memory.writeByte(this.code);
+    this.writeAddress(params[0], memory, environment);
+    return true;
+  }
+});
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -54193,7 +55262,18 @@ var render = function() {
         [_vm._v("Ensamblar y ejecutar")]
       ),
       _vm._v(" "),
-      _c("a", { staticClass: "btn" }, [_vm._v("Ensamblar")]),
+      _c(
+        "a",
+        {
+          staticClass: "btn",
+          on: {
+            click: function($event) {
+              _vm.assembly()
+            }
+          }
+        },
+        [_vm._v("Ensamblar")]
+      ),
       _vm._v(" "),
       _c("a", { staticClass: "btn" }, [_vm._v("Parar")]),
       _vm._v(" "),
@@ -54230,24 +55310,24 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-c67ff6e0", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-1b63e750", module.exports)
   }
 }
 
 /***/ }),
-/* 77 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(78)
+  __webpack_require__(84)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(80)
+var __vue_script__ = __webpack_require__(86)
 /* template */
-var __vue_template__ = __webpack_require__(81)
+var __vue_template__ = __webpack_require__(87)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -54264,7 +55344,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "resources\\assets\\js\\components\\SimulatorMenuComponent.vue"
+Component.options.__file = "resources/assets/js/components/SimulatorMenuComponent.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -54273,9 +55353,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9698481e", Component.options)
+    hotAPI.createRecord("data-v-b5af429e", Component.options)
   } else {
-    hotAPI.reload("data-v-9698481e", Component.options)
+    hotAPI.reload("data-v-b5af429e", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -54286,23 +55366,23 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 78 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(79);
+var content = __webpack_require__(85);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("9349db96", content, false, {});
+var update = __webpack_require__(2)("7226617a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9698481e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorMenuComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-9698481e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorMenuComponent.vue");
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b5af429e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorMenuComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b5af429e\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SimulatorMenuComponent.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -54312,7 +55392,7 @@ if(false) {
 }
 
 /***/ }),
-/* 79 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -54326,7 +55406,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 80 */
+/* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54371,7 +55451,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 81 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -54449,12 +55529,12 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-9698481e", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-b5af429e", module.exports)
   }
 }
 
 /***/ }),
-/* 82 */
+/* 88 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

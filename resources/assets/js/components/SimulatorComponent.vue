@@ -2,7 +2,7 @@
   <div>
     <div class="button-area">
       <a class="btn primary" v-on:click="assemblyAndRun()">Ensamblar y ejecutar</a>
-      <a class="btn">Ensamblar</a>
+      <a class="btn" v-on:click="assembly()">Ensamblar</a>
       <a class="btn">Parar</a>
       <a class="btn">Ejecutar paso</a>
     </div>
@@ -14,10 +14,44 @@
 </template>
 
 <script>
+import RuntimeEnvironment from '../runtime-environment';
+
+import instructionSet from '../instruction-set';
 export default {
+  data: function () {
+    return {
+
+    }
+  },
   methods: {
     assemblyAndRun: function () {
       console.log(this.$store.state.simulator.content);
+    },
+
+    assembly: function () {
+      console.log('assembly');
+      this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+
+      this.runtimeEnvironment.getMemory().print();
+    },
+
+    onSyntaxError: function (message) {
+      console.log(message);
+    },
+
+    onMemoryUpdate: function () {
+      console.log('Memory Updated');
+    },
+
+    onRegisterUpdate: function () {
+
+    },
+
+    onOutputUpdate: function () {
+    },
+
+    onInputRequest: function () {
+
     }
   },
   created: function() {},
@@ -40,6 +74,16 @@ export default {
     editor.on('change', function () {
       self.$store.state.simulator.content = editor.getValue();
     });
+
+    this.runtimeEnvironment = new RuntimeEnvironment(instructionSet);
+    this.runtimeEnvironment.setCallbacks({
+      onMemoryUpdate: this.onMemoryUpdate,
+      onRegisterUpdate: this.onRegisterUpdate,
+      onOutputUpdate: this.onOutputUpdate,
+      onSyntaxError: this.onSyntaxError,
+      onInputRequest: this.onInputRequest
+    });
+
   }
 };
 </script>

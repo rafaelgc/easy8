@@ -12,7 +12,7 @@ Vue.use(VueResource);
 ///             API CONFIG             ///
 //////////////////////////////////////////
 
-let baseUrl = ''
+let baseUrl = '';
 if (process.env.NODE_ENV === 'production') {
   Vue.http.options.root = 'http://localhost:8000/api';
 }
