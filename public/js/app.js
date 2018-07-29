@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(22);
+var isBuffer = __webpack_require__(24);
 
 /*global toString:true*/
 
@@ -475,7 +475,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(49)
+var listToStyles = __webpack_require__(51)
 
 /*
 type StyleObject = {
@@ -827,7 +827,7 @@ module.exports = g;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(24);
+var normalizeHeaderName = __webpack_require__(26);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -14039,12 +14039,12 @@ process.umask = function() { return 0; };
 
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(25);
-var buildURL = __webpack_require__(27);
-var parseHeaders = __webpack_require__(28);
-var isURLSameOrigin = __webpack_require__(29);
+var settle = __webpack_require__(27);
+var buildURL = __webpack_require__(29);
+var parseHeaders = __webpack_require__(30);
+var isURLSameOrigin = __webpack_require__(31);
 var createError = __webpack_require__(11);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(30);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(32);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -14141,7 +14141,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(31);
+      var cookies = __webpack_require__(33);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -14225,7 +14225,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(26);
+var enhanceError = __webpack_require__(28);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -14285,21 +14285,123 @@ module.exports = Cancel;
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(15);
-module.exports = __webpack_require__(88);
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(54)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(56)
+/* template */
+var __vue_template__ = __webpack_require__(57)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-8dcb20ea"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/LoginComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8dcb20ea", Component.options)
+  } else {
+    hotAPI.reload("data-v-8dcb20ea", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
 
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(58)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(60)
+/* template */
+var __vue_template__ = __webpack_require__(61)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/LoginMenuComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-10cb5d28", Component.options)
+  } else {
+    hotAPI.reload("data-v-10cb5d28", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(17);
+module.exports = __webpack_require__(89);
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_resource__ = __webpack_require__(44);
-__webpack_require__(16);
-window.Vue = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_resource__ = __webpack_require__(46);
+__webpack_require__(18);
+window.Vue = __webpack_require__(41);
 
 
 
@@ -14322,16 +14424,24 @@ if (false) {
 //////////////////////////////////////////
 ///               ROUTER               ///
 //////////////////////////////////////////
-Vue.component('alert', __webpack_require__(46));
+Vue.component('alert', __webpack_require__(48));
 
 var routes = [{
+  name: 'register',
+  path: '/register',
+  components: {
+    'working-area': __webpack_require__(93),
+    'main-menu': __webpack_require__(15)
+  },
+  meta: { requiresAuth: false, redirectIfAuthenticated: true }
+}, {
   name: 'login',
   path: '/', alias: '/login',
   components: {
-    'working-area': __webpack_require__(52),
-    'main-menu': __webpack_require__(57)
+    'working-area': __webpack_require__(14),
+    'main-menu': __webpack_require__(15)
   },
-  meta: { requiresAuth: false }
+  meta: { requiresAuth: false, redirectIfAuthenticated: true }
 }, {
   name: 'explorer',
   path: '/explorer',
@@ -14345,7 +14455,7 @@ var routes = [{
   path: '/simulator/:entryId?',
   components: {
     'working-area': __webpack_require__(72),
-    'main-menu': __webpack_require__(83)
+    'main-menu': __webpack_require__(84)
   },
   meta: { requiresAuth: true }
 }];
@@ -14380,10 +14490,23 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       content: ''
     }
   },
+  getters: {
+    cwd: function cwd(state) {
+      return state.explorer.breadcrumbs[state.explorer.breadcrumbs.length - 1];
+    },
+    inRoot: function inRoot(state) {
+      return state.explorer.breadcrumbs.length == 1;
+    }
+  },
   mutations: {
     authenticate: function authenticate(state) {
       state.login.authenticated = true;
     },
+
+    logout: function logout(state) {
+      state.login.authenticated = false;
+    },
+
     setToken: function setToken(state, token) {
       state.login.token = token;
     },
@@ -14394,6 +14517,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
     decrementSelectionCount: function decrementSelectionCount(state) {
       state.explorer.selectionCount--;
+    },
+
+    setSelectionCount: function setSelectionCount(state, value) {
+      state.explorer.selectionCount = value;
     }
   },
   actions: {
@@ -14412,6 +14539,17 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     loginWithToken: function loginWithToken(context, token) {
       context.commit('setToken', token);
       context.commit('authenticate');
+    },
+
+    logout: function logout(context) {
+      window.localStorage.removeItem('token');
+      context.commit('logout');
+    },
+
+    register: function register(context, data) {
+      var register = new Vue.resource('register');
+
+      return register.save({}, data);
     },
 
     // Creates a folder in the current working directory and
@@ -14476,7 +14614,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       context.state.explorer.breadcrumbs.push(entry);
       context.dispatch('listDirectory', entry.id);
 
-      /// CLEAR SELECTION!!
+      context.dispatch('clearSelection');
     },
 
     leaveDirectory: function leaveDirectory(context, breadcrumbIndex) {
@@ -14486,7 +14624,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
       context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id);
 
-      /// CLEAR SELECTION!!
+      context.dispatch('clearSelection');
     },
 
     loadSource: function loadSource(context, id) {
@@ -14525,6 +14663,10 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
     deleteEntry: function deleteEntry(context, id) {
       return context.state.api.entry.delete({ entryId: id, api_token: context.state.login.token });
+    },
+
+    clearSelection: function clearSelection(context) {
+      context.commit('setSelectionCount', 0);
     }
 
   }
@@ -14539,10 +14681,9 @@ router.beforeEach(function (to, from, next) {
     store.dispatch('loginWithToken', window.localStorage.getItem('token'));
   }
 
-  if (to.name == 'login' && store.state.login.authenticated === true) {
+  if (to.meta.redirectIfAuthenticated && store.state.login.authenticated === true) {
     next({ name: 'explorer' });
-  }
-  if (to.meta.requiresAuth && store.state.login.authenticated === false && to.name != 'login') {
+  } else if (to.meta.requiresAuth && store.state.login.authenticated === false && to.name != 'login') {
     next({ name: 'login' });
   } else {
     next();
@@ -14562,11 +14703,11 @@ var app = new Vue({
 }).$mount('#app');
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(17);
+window._ = __webpack_require__(19);
 window.Popper = __webpack_require__(6).default;
 
 /**
@@ -14578,7 +14719,7 @@ window.Popper = __webpack_require__(6).default;
 try {
   window.$ = window.jQuery = __webpack_require__(7);
 
-  __webpack_require__(19);
+  __webpack_require__(21);
 } catch (e) {}
 
 /**
@@ -14587,7 +14728,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(20);
+window.axios = __webpack_require__(22);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -14623,7 +14764,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31733,10 +31874,10 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(18)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(20)(module)))
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -31764,11 +31905,11 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-  * Bootstrap v4.1.1 (https://getbootstrap.com/)
+  * Bootstrap v4.1.3 (https://getbootstrap.com/)
   * Copyright 2011-2018 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
@@ -31839,7 +31980,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): util.js
+   * Bootstrap (v4.1.3): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31916,8 +32057,7 @@ module.exports = function(module) {
         }
 
         try {
-          var $selector = $$$1(document).find(selector);
-          return $selector.length > 0 ? selector : null;
+          return document.querySelector(selector) ? selector : null;
         } catch (err) {
           return null;
         }
@@ -31972,7 +32112,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): alert.js
+   * Bootstrap (v4.1.3): alert.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -31984,7 +32124,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'alert';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.alert';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32047,7 +32187,7 @@ module.exports = function(module) {
         var parent = false;
 
         if (selector) {
-          parent = $$$1(selector)[0];
+          parent = document.querySelector(selector);
         }
 
         if (!parent) {
@@ -32147,7 +32287,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): button.js
+   * Bootstrap (v4.1.3): button.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -32159,7 +32299,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'button';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.button';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32204,14 +32344,14 @@ module.exports = function(module) {
         var rootElement = $$$1(this._element).closest(Selector.DATA_TOGGLE)[0];
 
         if (rootElement) {
-          var input = $$$1(this._element).find(Selector.INPUT)[0];
+          var input = this._element.querySelector(Selector.INPUT);
 
           if (input) {
             if (input.type === 'radio') {
-              if (input.checked && $$$1(this._element).hasClass(ClassName.ACTIVE)) {
+              if (input.checked && this._element.classList.contains(ClassName.ACTIVE)) {
                 triggerChangeEvent = false;
               } else {
-                var activeElement = $$$1(rootElement).find(Selector.ACTIVE)[0];
+                var activeElement = rootElement.querySelector(Selector.ACTIVE);
 
                 if (activeElement) {
                   $$$1(activeElement).removeClass(ClassName.ACTIVE);
@@ -32224,7 +32364,7 @@ module.exports = function(module) {
                 return;
               }
 
-              input.checked = !$$$1(this._element).hasClass(ClassName.ACTIVE);
+              input.checked = !this._element.classList.contains(ClassName.ACTIVE);
               $$$1(input).trigger('change');
             }
 
@@ -32234,7 +32374,7 @@ module.exports = function(module) {
         }
 
         if (addAriaPressed) {
-          this._element.setAttribute('aria-pressed', !$$$1(this._element).hasClass(ClassName.ACTIVE));
+          this._element.setAttribute('aria-pressed', !this._element.classList.contains(ClassName.ACTIVE));
         }
 
         if (triggerChangeEvent) {
@@ -32311,7 +32451,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): carousel.js
+   * Bootstrap (v4.1.3): carousel.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -32323,7 +32463,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'carousel';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.carousel';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32402,7 +32542,7 @@ module.exports = function(module) {
         this.touchTimeout = null;
         this._config = this._getConfig(config);
         this._element = $$$1(element)[0];
-        this._indicatorsElement = $$$1(this._element).find(Selector.INDICATORS)[0];
+        this._indicatorsElement = this._element.querySelector(Selector.INDICATORS);
 
         this._addEventListeners();
       } // Getters
@@ -32436,7 +32576,7 @@ module.exports = function(module) {
           this._isPaused = true;
         }
 
-        if ($$$1(this._element).find(Selector.NEXT_PREV)[0]) {
+        if (this._element.querySelector(Selector.NEXT_PREV)) {
           Util.triggerTransitionEnd(this._element);
           this.cycle(true);
         }
@@ -32463,7 +32603,7 @@ module.exports = function(module) {
       _proto.to = function to(index) {
         var _this = this;
 
-        this._activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+        this._activeElement = this._element.querySelector(Selector.ACTIVE_ITEM);
 
         var activeIndex = this._getItemIndex(this._activeElement);
 
@@ -32569,7 +32709,7 @@ module.exports = function(module) {
       };
 
       _proto._getItemIndex = function _getItemIndex(element) {
-        this._items = $$$1.makeArray($$$1(element).parent().find(Selector.ITEM));
+        this._items = element && element.parentNode ? [].slice.call(element.parentNode.querySelectorAll(Selector.ITEM)) : [];
         return this._items.indexOf(element);
       };
 
@@ -32594,7 +32734,7 @@ module.exports = function(module) {
       _proto._triggerSlideEvent = function _triggerSlideEvent(relatedTarget, eventDirectionName) {
         var targetIndex = this._getItemIndex(relatedTarget);
 
-        var fromIndex = this._getItemIndex($$$1(this._element).find(Selector.ACTIVE_ITEM)[0]);
+        var fromIndex = this._getItemIndex(this._element.querySelector(Selector.ACTIVE_ITEM));
 
         var slideEvent = $$$1.Event(Event.SLIDE, {
           relatedTarget: relatedTarget,
@@ -32608,7 +32748,8 @@ module.exports = function(module) {
 
       _proto._setActiveIndicatorElement = function _setActiveIndicatorElement(element) {
         if (this._indicatorsElement) {
-          $$$1(this._indicatorsElement).find(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+          var indicators = [].slice.call(this._indicatorsElement.querySelectorAll(Selector.ACTIVE));
+          $$$1(indicators).removeClass(ClassName.ACTIVE);
 
           var nextIndicator = this._indicatorsElement.children[this._getItemIndex(element)];
 
@@ -32621,7 +32762,7 @@ module.exports = function(module) {
       _proto._slide = function _slide(direction, element) {
         var _this3 = this;
 
-        var activeElement = $$$1(this._element).find(Selector.ACTIVE_ITEM)[0];
+        var activeElement = this._element.querySelector(Selector.ACTIVE_ITEM);
 
         var activeElementIndex = this._getItemIndex(activeElement);
 
@@ -32787,11 +32928,13 @@ module.exports = function(module) {
 
     $$$1(document).on(Event.CLICK_DATA_API, Selector.DATA_SLIDE, Carousel._dataApiClickHandler);
     $$$1(window).on(Event.LOAD_DATA_API, function () {
-      $$$1(Selector.DATA_RIDE).each(function () {
-        var $carousel = $$$1(this);
+      var carousels = [].slice.call(document.querySelectorAll(Selector.DATA_RIDE));
+
+      for (var i = 0, len = carousels.length; i < len; i++) {
+        var $carousel = $$$1(carousels[i]);
 
         Carousel._jQueryInterface.call($carousel, $carousel.data());
-      });
+      }
     });
     /**
      * ------------------------------------------------------------------------
@@ -32812,7 +32955,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): collapse.js
+   * Bootstrap (v4.1.3): collapse.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -32824,7 +32967,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'collapse';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.collapse';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -32872,14 +33015,17 @@ module.exports = function(module) {
         this._isTransitioning = false;
         this._element = element;
         this._config = this._getConfig(config);
-        this._triggerArray = $$$1.makeArray($$$1("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
-        var tabToggles = $$$1(Selector.DATA_TOGGLE);
+        this._triggerArray = $$$1.makeArray(document.querySelectorAll("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
+        var toggleList = [].slice.call(document.querySelectorAll(Selector.DATA_TOGGLE));
 
-        for (var i = 0; i < tabToggles.length; i++) {
-          var elem = tabToggles[i];
+        for (var i = 0, len = toggleList.length; i < len; i++) {
+          var elem = toggleList[i];
           var selector = Util.getSelectorFromElement(elem);
+          var filterElement = [].slice.call(document.querySelectorAll(selector)).filter(function (foundElem) {
+            return foundElem === element;
+          });
 
-          if (selector !== null && $$$1(selector).filter(element).length > 0) {
+          if (selector !== null && filterElement.length > 0) {
             this._selector = selector;
 
             this._triggerArray.push(elem);
@@ -32920,7 +33066,9 @@ module.exports = function(module) {
         var activesData;
 
         if (this._parent) {
-          actives = $$$1.makeArray($$$1(this._parent).find(Selector.ACTIVES).filter("[data-parent=\"" + this._config.parent + "\"]"));
+          actives = [].slice.call(this._parent.querySelectorAll(Selector.ACTIVES)).filter(function (elem) {
+            return elem.getAttribute('data-parent') === _this._config.parent;
+          });
 
           if (actives.length === 0) {
             actives = null;
@@ -32955,7 +33103,7 @@ module.exports = function(module) {
         $$$1(this._element).removeClass(ClassName.COLLAPSE).addClass(ClassName.COLLAPSING);
         this._element.style[dimension] = 0;
 
-        if (this._triggerArray.length > 0) {
+        if (this._triggerArray.length) {
           $$$1(this._triggerArray).removeClass(ClassName.COLLAPSED).attr('aria-expanded', true);
         }
 
@@ -32996,14 +33144,15 @@ module.exports = function(module) {
         this._element.style[dimension] = this._element.getBoundingClientRect()[dimension] + "px";
         Util.reflow(this._element);
         $$$1(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
+        var triggerArrayLength = this._triggerArray.length;
 
-        if (this._triggerArray.length > 0) {
-          for (var i = 0; i < this._triggerArray.length; i++) {
+        if (triggerArrayLength > 0) {
+          for (var i = 0; i < triggerArrayLength; i++) {
             var trigger = this._triggerArray[i];
             var selector = Util.getSelectorFromElement(trigger);
 
             if (selector !== null) {
-              var $elem = $$$1(selector);
+              var $elem = $$$1([].slice.call(document.querySelectorAll(selector)));
 
               if (!$elem.hasClass(ClassName.SHOW)) {
                 $$$1(trigger).addClass(ClassName.COLLAPSED).attr('aria-expanded', false);
@@ -33064,11 +33213,12 @@ module.exports = function(module) {
             parent = this._config.parent[0];
           }
         } else {
-          parent = $$$1(this._config.parent)[0];
+          parent = document.querySelector(this._config.parent);
         }
 
         var selector = "[data-toggle=\"collapse\"][data-parent=\"" + this._config.parent + "\"]";
-        $$$1(parent).find(selector).each(function (i, element) {
+        var children = [].slice.call(parent.querySelectorAll(selector));
+        $$$1(children).each(function (i, element) {
           _this3._addAriaAndCollapsedClass(Collapse._getTargetFromElement(element), [element]);
         });
         return parent;
@@ -33078,7 +33228,7 @@ module.exports = function(module) {
         if (element) {
           var isOpen = $$$1(element).hasClass(ClassName.SHOW);
 
-          if (triggerArray.length > 0) {
+          if (triggerArray.length) {
             $$$1(triggerArray).toggleClass(ClassName.COLLAPSED, !isOpen).attr('aria-expanded', isOpen);
           }
         }
@@ -33087,7 +33237,7 @@ module.exports = function(module) {
 
       Collapse._getTargetFromElement = function _getTargetFromElement(element) {
         var selector = Util.getSelectorFromElement(element);
-        return selector ? $$$1(selector)[0] : null;
+        return selector ? document.querySelector(selector) : null;
       };
 
       Collapse._jQueryInterface = function _jQueryInterface(config) {
@@ -33145,7 +33295,8 @@ module.exports = function(module) {
 
       var $trigger = $$$1(this);
       var selector = Util.getSelectorFromElement(this);
-      $$$1(selector).each(function () {
+      var selectors = [].slice.call(document.querySelectorAll(selector));
+      $$$1(selectors).each(function () {
         var $target = $$$1(this);
         var data = $target.data(DATA_KEY);
         var config = data ? 'toggle' : $trigger.data();
@@ -33172,7 +33323,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): dropdown.js
+   * Bootstrap (v4.1.3): dropdown.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -33184,7 +33335,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'dropdown';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.dropdown';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -33393,14 +33544,16 @@ module.exports = function(module) {
         if (!this._menu) {
           var parent = Dropdown._getParentFromElement(this._element);
 
-          this._menu = $$$1(parent).find(Selector.MENU)[0];
+          if (parent) {
+            this._menu = parent.querySelector(Selector.MENU);
+          }
         }
 
         return this._menu;
       };
 
       _proto._getPlacement = function _getPlacement() {
-        var $parentDropdown = $$$1(this._element).parent();
+        var $parentDropdown = $$$1(this._element.parentNode);
         var placement = AttachmentMap.BOTTOM; // Handle dropup
 
         if ($parentDropdown.hasClass(ClassName.DROPUP)) {
@@ -33488,15 +33641,19 @@ module.exports = function(module) {
           return;
         }
 
-        var toggles = $$$1.makeArray($$$1(Selector.DATA_TOGGLE));
+        var toggles = [].slice.call(document.querySelectorAll(Selector.DATA_TOGGLE));
 
-        for (var i = 0; i < toggles.length; i++) {
+        for (var i = 0, len = toggles.length; i < len; i++) {
           var parent = Dropdown._getParentFromElement(toggles[i]);
 
           var context = $$$1(toggles[i]).data(DATA_KEY);
           var relatedTarget = {
             relatedTarget: toggles[i]
           };
+
+          if (event && event.type === 'click') {
+            relatedTarget.clickEvent = event;
+          }
 
           if (!context) {
             continue;
@@ -33536,7 +33693,7 @@ module.exports = function(module) {
         var selector = Util.getSelectorFromElement(element);
 
         if (selector) {
-          parent = $$$1(selector)[0];
+          parent = document.querySelector(selector);
         }
 
         return parent || element.parentNode;
@@ -33568,7 +33725,7 @@ module.exports = function(module) {
 
         if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
           if (event.which === ESCAPE_KEYCODE) {
-            var toggle = $$$1(parent).find(Selector.DATA_TOGGLE)[0];
+            var toggle = parent.querySelector(Selector.DATA_TOGGLE);
             $$$1(toggle).trigger('focus');
           }
 
@@ -33576,7 +33733,7 @@ module.exports = function(module) {
           return;
         }
 
-        var items = $$$1(parent).find(Selector.VISIBLE_ITEMS).get();
+        var items = [].slice.call(parent.querySelectorAll(Selector.VISIBLE_ITEMS));
 
         if (items.length === 0) {
           return;
@@ -33654,7 +33811,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): modal.js
+   * Bootstrap (v4.1.3): modal.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -33666,7 +33823,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'modal';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.modal';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -33710,8 +33867,7 @@ module.exports = function(module) {
       DATA_TOGGLE: '[data-toggle="modal"]',
       DATA_DISMISS: '[data-dismiss="modal"]',
       FIXED_CONTENT: '.fixed-top, .fixed-bottom, .is-fixed, .sticky-top',
-      STICKY_CONTENT: '.sticky-top',
-      NAVBAR_TOGGLER: '.navbar-toggler'
+      STICKY_CONTENT: '.sticky-top'
       /**
        * ------------------------------------------------------------------------
        * Class Definition
@@ -33726,7 +33882,7 @@ module.exports = function(module) {
       function Modal(element, config) {
         this._config = this._getConfig(config);
         this._element = element;
-        this._dialog = $$$1(element).find(Selector.DIALOG)[0];
+        this._dialog = element.querySelector(Selector.DIALOG);
         this._backdrop = null;
         this._isShown = false;
         this._isBodyOverflowing = false;
@@ -33983,7 +34139,7 @@ module.exports = function(module) {
           this._backdrop.className = ClassName.BACKDROP;
 
           if (animate) {
-            $$$1(this._backdrop).addClass(animate);
+            this._backdrop.classList.add(animate);
           }
 
           $$$1(this._backdrop).appendTo(document.body);
@@ -34077,23 +34233,19 @@ module.exports = function(module) {
         if (this._isBodyOverflowing) {
           // Note: DOMNode.style.paddingRight returns the actual value or '' if not set
           //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
-          // Adjust fixed content padding
-          $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
-            var actualPadding = $$$1(element)[0].style.paddingRight;
+          var fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+          var stickyContent = [].slice.call(document.querySelectorAll(Selector.STICKY_CONTENT)); // Adjust fixed content padding
+
+          $$$1(fixedContent).each(function (index, element) {
+            var actualPadding = element.style.paddingRight;
             var calculatedPadding = $$$1(element).css('padding-right');
             $$$1(element).data('padding-right', actualPadding).css('padding-right', parseFloat(calculatedPadding) + _this9._scrollbarWidth + "px");
           }); // Adjust sticky content margin
 
-          $$$1(Selector.STICKY_CONTENT).each(function (index, element) {
-            var actualMargin = $$$1(element)[0].style.marginRight;
+          $$$1(stickyContent).each(function (index, element) {
+            var actualMargin = element.style.marginRight;
             var calculatedMargin = $$$1(element).css('margin-right');
             $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) - _this9._scrollbarWidth + "px");
-          }); // Adjust navbar-toggler margin
-
-          $$$1(Selector.NAVBAR_TOGGLER).each(function (index, element) {
-            var actualMargin = $$$1(element)[0].style.marginRight;
-            var calculatedMargin = $$$1(element).css('margin-right');
-            $$$1(element).data('margin-right', actualMargin).css('margin-right', parseFloat(calculatedMargin) + _this9._scrollbarWidth + "px");
           }); // Adjust body padding
 
           var actualPadding = document.body.style.paddingRight;
@@ -34104,15 +34256,15 @@ module.exports = function(module) {
 
       _proto._resetScrollbar = function _resetScrollbar() {
         // Restore fixed content padding
-        $$$1(Selector.FIXED_CONTENT).each(function (index, element) {
+        var fixedContent = [].slice.call(document.querySelectorAll(Selector.FIXED_CONTENT));
+        $$$1(fixedContent).each(function (index, element) {
           var padding = $$$1(element).data('padding-right');
+          $$$1(element).removeData('padding-right');
+          element.style.paddingRight = padding ? padding : '';
+        }); // Restore sticky content
 
-          if (typeof padding !== 'undefined') {
-            $$$1(element).css('padding-right', padding).removeData('padding-right');
-          }
-        }); // Restore sticky content and navbar-toggler margin
-
-        $$$1(Selector.STICKY_CONTENT + ", " + Selector.NAVBAR_TOGGLER).each(function (index, element) {
+        var elements = [].slice.call(document.querySelectorAll("" + Selector.STICKY_CONTENT));
+        $$$1(elements).each(function (index, element) {
           var margin = $$$1(element).data('margin-right');
 
           if (typeof margin !== 'undefined') {
@@ -34121,10 +34273,8 @@ module.exports = function(module) {
         }); // Restore body padding
 
         var padding = $$$1(document.body).data('padding-right');
-
-        if (typeof padding !== 'undefined') {
-          $$$1(document.body).css('padding-right', padding).removeData('padding-right');
-        }
+        $$$1(document.body).removeData('padding-right');
+        document.body.style.paddingRight = padding ? padding : '';
       };
 
       _proto._getScrollbarWidth = function _getScrollbarWidth() {
@@ -34189,7 +34339,7 @@ module.exports = function(module) {
       var selector = Util.getSelectorFromElement(this);
 
       if (selector) {
-        target = $$$1(selector)[0];
+        target = document.querySelector(selector);
       }
 
       var config = $$$1(target).data(DATA_KEY) ? 'toggle' : _objectSpread({}, $$$1(target).data(), $$$1(this).data());
@@ -34232,7 +34382,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tooltip.js
+   * Bootstrap (v4.1.3): tooltip.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -34244,7 +34394,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tooltip';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.tooltip';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -34454,7 +34604,7 @@ module.exports = function(module) {
           var attachment = this._getAttachment(placement);
 
           this.addAttachmentClass(attachment);
-          var container = this.config.container === false ? document.body : $$$1(this.config.container);
+          var container = this.config.container === false ? document.body : $$$1(document).find(this.config.container);
           $$$1(tip).data(this.constructor.DATA_KEY, this);
 
           if (!$$$1.contains(this.element.ownerDocument.documentElement, this.tip)) {
@@ -34593,9 +34743,9 @@ module.exports = function(module) {
       };
 
       _proto.setContent = function setContent() {
-        var $tip = $$$1(this.getTipElement());
-        this.setElementContent($tip.find(Selector.TOOLTIP_INNER), this.getTitle());
-        $tip.removeClass(ClassName.FADE + " " + ClassName.SHOW);
+        var tip = this.getTipElement();
+        this.setElementContent($$$1(tip.querySelectorAll(Selector.TOOLTIP_INNER)), this.getTitle());
+        $$$1(tip).removeClass(ClassName.FADE + " " + ClassName.SHOW);
       };
 
       _proto.setElementContent = function setElementContent($element, content) {
@@ -34788,15 +34938,18 @@ module.exports = function(module) {
         var $tip = $$$1(this.getTipElement());
         var tabClass = $tip.attr('class').match(BSCLS_PREFIX_REGEX);
 
-        if (tabClass !== null && tabClass.length > 0) {
+        if (tabClass !== null && tabClass.length) {
           $tip.removeClass(tabClass.join(''));
         }
       };
 
-      _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(data) {
+      _proto._handlePopperPlacementChange = function _handlePopperPlacementChange(popperData) {
+        var popperInstance = popperData.instance;
+        this.tip = popperInstance.popper;
+
         this._cleanTipClass();
 
-        this.addAttachmentClass(this._getAttachment(data.placement));
+        this.addAttachmentClass(this._getAttachment(popperData.placement));
       };
 
       _proto._fixTransition = function _fixTransition() {
@@ -34899,7 +35052,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): popover.js
+   * Bootstrap (v4.1.3): popover.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -34911,7 +35064,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'popover';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.popover';
     var EVENT_KEY = "." + DATA_KEY;
     var JQUERY_NO_CONFLICT = $$$1.fn[NAME];
@@ -35096,7 +35249,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): scrollspy.js
+   * Bootstrap (v4.1.3): scrollspy.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -35108,7 +35261,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'scrollspy';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.scrollspy';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -35190,13 +35343,13 @@ module.exports = function(module) {
         this._offsets = [];
         this._targets = [];
         this._scrollHeight = this._getScrollHeight();
-        var targets = $$$1.makeArray($$$1(this._selector));
+        var targets = [].slice.call(document.querySelectorAll(this._selector));
         targets.map(function (element) {
           var target;
           var targetSelector = Util.getSelectorFromElement(element);
 
           if (targetSelector) {
-            target = $$$1(targetSelector)[0];
+            target = document.querySelector(targetSelector);
           }
 
           if (target) {
@@ -35293,7 +35446,9 @@ module.exports = function(module) {
           return;
         }
 
-        for (var i = this._offsets.length; i--;) {
+        var offsetLength = this._offsets.length;
+
+        for (var i = offsetLength; i--;) {
           var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
 
           if (isActiveTarget) {
@@ -35313,7 +35468,7 @@ module.exports = function(module) {
         queries = queries.map(function (selector) {
           return selector + "[data-target=\"" + target + "\"]," + (selector + "[href=\"" + target + "\"]");
         });
-        var $link = $$$1(queries.join(','));
+        var $link = $$$1([].slice.call(document.querySelectorAll(queries.join(','))));
 
         if ($link.hasClass(ClassName.DROPDOWN_ITEM)) {
           $link.closest(Selector.DROPDOWN).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
@@ -35334,7 +35489,8 @@ module.exports = function(module) {
       };
 
       _proto._clear = function _clear() {
-        $$$1(this._selector).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
+        var nodes = [].slice.call(document.querySelectorAll(this._selector));
+        $$$1(nodes).filter(Selector.ACTIVE).removeClass(ClassName.ACTIVE);
       }; // Static
 
 
@@ -35381,9 +35537,10 @@ module.exports = function(module) {
 
 
     $$$1(window).on(Event.LOAD_DATA_API, function () {
-      var scrollSpys = $$$1.makeArray($$$1(Selector.DATA_SPY));
+      var scrollSpys = [].slice.call(document.querySelectorAll(Selector.DATA_SPY));
+      var scrollSpysLength = scrollSpys.length;
 
-      for (var i = scrollSpys.length; i--;) {
+      for (var i = scrollSpysLength; i--;) {
         var $spy = $$$1(scrollSpys[i]);
 
         ScrollSpy._jQueryInterface.call($spy, $spy.data());
@@ -35408,7 +35565,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): tab.js
+   * Bootstrap (v4.1.3): tab.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -35420,7 +35577,7 @@ module.exports = function(module) {
      * ------------------------------------------------------------------------
      */
     var NAME = 'tab';
-    var VERSION = '4.1.1';
+    var VERSION = '4.1.3';
     var DATA_KEY = 'bs.tab';
     var EVENT_KEY = "." + DATA_KEY;
     var DATA_API_KEY = '.data-api';
@@ -35502,7 +35659,7 @@ module.exports = function(module) {
         }
 
         if (selector) {
-          target = $$$1(selector)[0];
+          target = document.querySelector(selector);
         }
 
         this._activate(this._element, listElement);
@@ -35584,7 +35741,8 @@ module.exports = function(module) {
           var dropdownElement = $$$1(element).closest(Selector.DROPDOWN)[0];
 
           if (dropdownElement) {
-            $$$1(dropdownElement).find(Selector.DROPDOWN_TOGGLE).addClass(ClassName.ACTIVE);
+            var dropdownToggleList = [].slice.call(dropdownElement.querySelectorAll(Selector.DROPDOWN_TOGGLE));
+            $$$1(dropdownToggleList).addClass(ClassName.ACTIVE);
           }
 
           element.setAttribute('aria-expanded', true);
@@ -35656,7 +35814,7 @@ module.exports = function(module) {
 
   /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.1.1): index.js
+   * Bootstrap (v4.1.3): index.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -35697,13 +35855,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(21);
+module.exports = __webpack_require__(23);
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35711,7 +35869,7 @@ module.exports = __webpack_require__(21);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(8);
-var Axios = __webpack_require__(23);
+var Axios = __webpack_require__(25);
 var defaults = __webpack_require__(5);
 
 /**
@@ -35746,14 +35904,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(13);
-axios.CancelToken = __webpack_require__(37);
+axios.CancelToken = __webpack_require__(39);
 axios.isCancel = __webpack_require__(12);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(38);
+axios.spread = __webpack_require__(40);
 
 module.exports = axios;
 
@@ -35762,7 +35920,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 /*!
@@ -35789,7 +35947,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35797,8 +35955,8 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(5);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(32);
-var dispatchRequest = __webpack_require__(33);
+var InterceptorManager = __webpack_require__(34);
+var dispatchRequest = __webpack_require__(35);
 
 /**
  * Create a new instance of Axios
@@ -35875,7 +36033,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35894,7 +36052,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35927,7 +36085,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35955,7 +36113,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36028,7 +36186,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36088,7 +36246,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36163,7 +36321,7 @@ module.exports = (
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36206,7 +36364,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36266,7 +36424,7 @@ module.exports = (
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36325,18 +36483,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(34);
+var transformData = __webpack_require__(36);
 var isCancel = __webpack_require__(12);
 var defaults = __webpack_require__(5);
-var isAbsoluteURL = __webpack_require__(35);
-var combineURLs = __webpack_require__(36);
+var isAbsoluteURL = __webpack_require__(37);
+var combineURLs = __webpack_require__(38);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -36418,7 +36576,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36445,7 +36603,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36466,7 +36624,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36487,7 +36645,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36551,7 +36709,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36585,7 +36743,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47548,10 +47706,10 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(40).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(42).setImmediate))
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
@@ -47607,7 +47765,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(41);
+__webpack_require__(43);
 // On some exotic environments, it's not clear which object `setimmediate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -47621,7 +47779,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -47814,7 +47972,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), __webpack_require__(9)))
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50444,7 +50602,7 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51389,7 +51547,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52487,7 +52645,7 @@ function xhrClient (request) {
 
 function nodeClient (request) {
 
-    var client = __webpack_require__(45);
+    var client = __webpack_require__(47);
 
     return new PromiseObj(function (resolve) {
 
@@ -52955,25 +53113,25 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(47)
+  __webpack_require__(49)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(50)
+var __vue_script__ = __webpack_require__(52)
 /* template */
-var __vue_template__ = __webpack_require__(51)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -53012,13 +53170,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(48);
+var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53038,7 +53196,7 @@ if(false) {
 }
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -53052,7 +53210,7 @@ exports.push([module.i, "\n.alert[data-v-059dd878] {\n  padding: 15px;\n  border
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports) {
 
 /**
@@ -53085,7 +53243,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53100,7 +53258,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -53127,64 +53285,13 @@ if (false) {
 }
 
 /***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(53)
-}
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(55)
-/* template */
-var __vue_template__ = __webpack_require__(56)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-8dcb20ea"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/LoginComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8dcb20ea", Component.options)
-  } else {
-    hotAPI.reload("data-v-8dcb20ea", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(54);
+var content = __webpack_require__(55);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -53204,7 +53311,7 @@ if(false) {
 }
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -53218,11 +53325,16 @@ exports.push([module.i, "\n.login-area[data-v-8dcb20ea] {\n  width: 500px;\n  ma
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53254,7 +53366,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         email: '',
         password: ''
       },
-      showLoginError: false
+      showLoginError: false,
+      loginErrorMessage: '',
+      registerSuccess: false
     };
   },
   methods: {
@@ -53264,18 +53378,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$store.dispatch('login', this.login).then(function (response) {
         self.$router.push({ name: 'explorer' });
         self.showLoginError = false;
-      }).catch(function () {
+      }).catch(function (response) {
+        console.log(response);
         self.showLoginError = true;
+        self.loginErrorMessage = response.body.message;
         console.log('Error');
       });
 
       ev.preventDefault();
     }
+  },
+  created: function created() {
+    if (this.$route.query.email) {
+      this.login.email = this.$route.query.email;
+      this.registerSuccess = true;
+    }
   }
 });
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -53290,10 +53412,18 @@ var render = function() {
       { on: { submit: _vm.authenticate } },
       [
         _c("alert", { attrs: { type: "error", visible: _vm.showLoginError } }, [
-          _vm._v(
-            "Las credenciales son incorrectas o el usuario no está registrado."
-          )
+          _vm._v("\n      " + _vm._s(_vm.loginErrorMessage) + "\n    ")
         ]),
+        _vm._v(" "),
+        _c(
+          "alert",
+          { attrs: { type: "success", visible: _vm.registerSuccess } },
+          [
+            _vm._v(
+              "\n      Se ha enviado un correo de verificación a tu correo electrónico. Accede a él para verificar tu cuenta.\n    "
+            )
+          ]
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "input-block" }, [
           _c("label", [_vm._v("Correo electrónico")]),
@@ -53362,57 +53492,6 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-8dcb20ea", module.exports)
   }
 }
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(58)
-}
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(60)
-/* template */
-var __vue_template__ = __webpack_require__(61)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/LoginMenuComponent.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10cb5d28", Component.options)
-  } else {
-    hotAPI.reload("data-v-10cb5d28", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 58 */
@@ -53507,21 +53586,23 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0)
+      _c(
+        "li",
+        [
+          _c("router-link", { attrs: { to: { name: "register" } } }, [
+            _vm._v("Registro")
+          ])
+        ],
+        1
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "section" }, [_vm._v("Ayuda")]),
     _vm._v(" "),
-    _vm._m(1)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Registro")])])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -53559,19 +53640,19 @@ if (false) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(63)
+  __webpack_require__(98)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(65)
 /* template */
-var __vue_template__ = __webpack_require__(66)
+var __vue_template__ = __webpack_require__(100)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
 var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-13a6bb57"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -53604,51 +53685,16 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(64);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(2)("2f93cde0", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.breadcrumb span {\n    cursor: pointer;\n}\n\n/*****************************************\n***           FILE EXPLORER            ***\n*****************************************/\n.file-explorer {\n  padding: 35px;\n  padding-top: 25px;\n}\n.file-explorer .breadcrumb {\n  color: #727272;\n  font-size: 90%;\n  padding: 0px 0px 30px 5px;\n}\n.entry {\n  width: 100px;\n  height: 100px;\n  background-color: white;\n  display: block;\n  margin: 5px;\n  -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n  cursor: pointer;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n\n  color: #727272;\n  text-align: center;\n  font-size: 80%;\n  padding: 10px 5px;\n  text-decoration: none;\n\n  border: none;\n  outline: none;\n  box-sizing: border-box;\n  float: left;\n  \n  border: solid 1px #ebebeb;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.entry:hover {\n  -webkit-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n}\n.entry:active {\n  -webkit-box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n}\n.selected {\n  border: solid 1px #1e7fce;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
+/* 63 */,
+/* 64 */,
 /* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
 //
 //
 //
@@ -53718,90 +53764,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "file-explorer" },
-    [
-      _c(
-        "div",
-        { staticClass: "breadcrumb" },
-        _vm._l(_vm.$store.state.explorer.breadcrumbs, function(crumb, index) {
-          return _c(
-            "span",
-            {
-              key: crumb.id,
-              on: {
-                click: function($event) {
-                  _vm.goBackTo(index)
-                }
-              }
-            },
-            [_vm._v(_vm._s(crumb.name) + "/")]
-          )
-        })
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.$store.state.explorer.folders, function(entry) {
-        return _c(
-          "a",
-          {
-            key: entry.id,
-            staticClass: "entry",
-            class: { selected: entry.selected },
-            on: {
-              click: function($event) {
-                _vm.select(entry)
-              },
-              dblclick: function($event) {
-                _vm.enterDirectory(entry)
-              }
-            }
-          },
-          [_vm._v("\n    /" + _vm._s(entry.name) + "\n  ")]
-        )
-      }),
-      _vm._v(" "),
-      _vm._l(_vm.$store.state.explorer.sources, function(entry) {
-        return _c(
-          "a",
-          {
-            key: entry.id,
-            staticClass: "entry",
-            class: { selected: entry.selected },
-            on: {
-              click: function($event) {
-                _vm.select(entry)
-              },
-              dblclick: function($event) {
-                _vm.openSource(entry)
-              }
-            }
-          },
-          [_vm._v(_vm._s(entry.name))]
-        )
-      })
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-13a6bb57", module.exports)
-  }
-}
-
-/***/ }),
+/* 66 */,
 /* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -53887,7 +53850,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -53898,6 +53861,19 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53937,6 +53913,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     deleteSelectedEntries: function deleteSelectedEntries() {
       this.$store.dispatch('deleteSelectedEntries');
+    },
+
+    logout: function logout() {
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'login' });
     }
   }
 });
@@ -54013,7 +53994,82 @@ var render = function() {
               ])
             ])
           ]
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      !_vm.$store.getters.inRoot && _vm.$store.getters.cwd
+        ? [
+            _c(
+              "div",
+              { staticClass: "section" },
+              [
+                _vm._v("Buzón "),
+                _vm.$store.getters.cwd.folder.inbox
+                  ? [
+                      _vm._v(
+                        "/" + _vm._s(_vm.$store.getters.cwd.folder.inbox_name)
+                      )
+                    ]
+                  : _vm._e()
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _c("ul", [
+              _vm.$store.getters.cwd.folder.inbox == false
+                ? _c("li", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "clickable",
+                        on: {
+                          click: function($event) {
+                            _vm.enableInbox()
+                          }
+                        }
+                      },
+                      [_vm._v("Habilitar")]
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$store.getters.cwd.folder.inbox == true
+                ? _c("li", [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "clickable",
+                        on: {
+                          click: function($event) {
+                            _vm.enableInbox()
+                          }
+                        }
+                      },
+                      [_vm._v("Deshabilitar")]
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ]
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "section" }, [_vm._v("Cuenta")]),
+      _vm._v(" "),
+      _c("ul", [
+        _c("li", [
+          _c(
+            "a",
+            {
+              staticClass: "clickable",
+              on: {
+                click: function($event) {
+                  _vm.logout()
+                }
+              }
+            },
+            [_vm._v("Cerrar sesión")]
+          )
+        ])
+      ])
     ],
     2
   )
@@ -54041,7 +54097,7 @@ var normalizeComponent = __webpack_require__(3)
 /* script */
 var __vue_script__ = __webpack_require__(75)
 /* template */
-var __vue_template__ = __webpack_require__(82)
+var __vue_template__ = __webpack_require__(83)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -54126,8 +54182,8 @@ exports.push([module.i, "\n#editor {\n  z-index: 0;\n  border: solid 1px black;\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__runtime_environment__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assembler__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__instruction_set__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assembler__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__instruction_set__ = __webpack_require__(81);
 //
 //
 //
@@ -54693,7 +54749,242 @@ var IO = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assembly_rules__ = __webpack_require__(81);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Assembler = function () {
+  function Assembler(memory, instructionSet) {
+    _classCallCheck(this, Assembler);
+
+    this.memory = memory;
+    this.instructionSet = instructionSet;
+
+    this.assemblyPointer = 0;
+
+    this.tagsTable = {};
+    this.unresolvedTags = [];
+  }
+
+  _createClass(Assembler, [{
+    key: 'setOnSyntaxError',
+    value: function setOnSyntaxError(callback) {
+      this.onSyntaxError = callback;
+    }
+  }, {
+    key: 'writeByte',
+    value: function writeByte(byte) {
+      this.memory.writeAddress(this.assemblyPointer, byte);
+      this.assemblyPointer++;
+    }
+  }, {
+    key: 'writeAddressOrTag',
+    value: function writeAddressOrTag(dirOrTag) {
+      //La dirección que se quiere guardar en la memoria
+      // puede se una dirección real o una etiqueta.
+
+      if (this.isTag(dirOrTag)) {
+        //Si es una etiqueta se añade a la lista de etiquetas
+        //sin resolver. (Las etiquetas son resueltas más tarde).
+        this.addUnresolvedTag(dirOrTag, this.assemblyPointer);
+
+        //Como se desconoce la dirección de salto, se guarda un 0
+        //de manera provisional.
+        this.writeByte(0);
+      } else {
+        //Si es una dirección real tan sólo hay que
+        //guardar la dirección.
+        this.writeByte(parseInt(dirOrTag, 16));
+      }
+    }
+
+    /*Si, durante el ensamblado, alguna instrucción hace referencia
+     * a una etiqueta, se almacena la etiqueta y en qué posición habría
+     * que guardar la dirección a la que referencia.
+     *
+     * Tras el ensamblado, cuando ya se deberían conocer las direcciones
+     * de todas las etiquetas, se inicia la etapa de resolución.
+     * */
+
+  }, {
+    key: 'addUnresolvedTag',
+    value: function addUnresolvedTag(tag, memoryAddress) {
+      //Se almacena la etiqueta del tag sin resolver
+      //y la dirección en memoria DONDE SE DEBERÁ ESCRIBIR LA DIRECCIÓN DEFINITIVA.
+      this.unresolvedTags.push({ tag: tag, address: memoryAddress });
+    }
+  }, {
+    key: 'isTag',
+    value: function isTag(token) {
+      if (token[0] == '@') {
+        return true;
+      }
+    }
+  }, {
+    key: 'assembly',
+    value: function assembly(sourceCode) {
+      this.assemblyPointer = 0;
+
+      var lines = sourceCode.split('\n');
+
+      this.tagsTable = {};
+      this.unresolvedTags = [];
+
+      //Reiniciar la memoria.
+      this.memory.clear();
+
+      var success = true;
+
+      for (var i = 0; i < lines.length; i++) {
+
+        if (!lines[i]) {
+          continue;
+        }
+
+        var tokens = this.parseLine(lines[i]);
+
+        //tokens[0] debe contener el comentario si la línea es un comentario.
+        //tokens[1] contiene el mnemotécnico.
+        //tokens.param1 y tokens.param2 contendrán los parámetros, si procede.
+        //token.tag contendrá la etiqueta.
+        if (!tokens) {
+          this.onSyntaxError && this.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //Si tokens.tag tiene algún valor significa que
+        //hay una etiqueta y hay que almacenar
+        //la dirección en la tabla de etiquetas que se usará posteriormente
+        //en la etapa de resolución.
+        if (tokens.tag) {
+          this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
+        }
+
+        if (!tokens.mnemotic) {
+          //Es un comentario o un blanco, se pasa a la siguiente línea.
+          continue;
+        }
+
+        //Buscar las instrucciones que coinciden en el array instructionSet.
+        //Generalmente solo habrá un resulado pero alguna instrucción
+        //aparece dos veces.
+        var instructions = this.getInstructionsByMnemotic(tokens.mnemotic);
+
+        if (instructions.length === 0) {
+          //No se ha encontrado la instrucción correspondiente a un
+          //mnemotécnico. Probablemente está mal escrito.
+          this.onSyntaxError && this.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //TODO: si todas devuelven false, error de sintaxis.
+        for (var j = 0; j < instructions.length; j++) {
+          if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
+            break;
+          }
+        }
+      }
+
+      //Etapa de resolución.
+      if (!this.resolveTags()) {
+        success = false;
+        this.onSyntaxError && this.onSyntaxError('Etiqueta no encontrada.');
+      }
+
+      if (!success) {
+        this.memory.clear();
+      }
+    }
+  }, {
+    key: 'parseLine',
+    value: function parseLine(line) {
+      if (!line) return null;
+
+      //La expresión regular comprueba que la instrucción tenga una de las
+      //siguientes estructuras:
+      //1. X Y Z  (P. ej.: MOVE RA, DIR)
+      //2. X Y    (P. ej.: IN 01)
+      //3. X      (P. ej.: STOP)
+      //4. #COMENTARIO
+      //5. [blancos]
+      //Notar que la expresión regular se usa para comprobar la estructura
+      //general de la instrucción y para tokenizarla. Sin embargo, los distintos
+      //tokens no son validados. Ese trabajo se delega al método assembly de
+      //la instrucción de turno.
+      var results = line.match(/^(?:(?:\s*#.*)|(?:\s+)|(?:\s*(@\w+):\s*(?:#.*)?)|(?:\s*(?:(@\w+):)?\s*(\w+)(?:\s+(@?\w+)\s*(?:,\s*(@?\w+))?)?\s*(#.*)?))$/);
+
+      if (!results) return null;
+
+      return {
+        tag: results[2] ? results[2] : results[1],
+        mnemotic: results[3],
+        param1: results[4],
+        param2: results[5]
+      };
+    }
+
+    /*
+     * La etapa de resolución se inicia cuando se ha realizado el ensamblado.
+     * En este punto ya, salvo que el programador cometa un error, ya se
+     * conoce aqué dirección referencian todas las etiquetas.
+     * Por tanto, aquí habrá que buscar todas las instrucciones que usaban
+     * alguna etiqueta para reemplazarla por la dirección real en memoria.
+     * */
+
+  }, {
+    key: 'resolveTags',
+    value: function resolveTags() {
+      for (var i = 0; i < this.unresolvedTags.length; i++) {
+        // address contendrá la dirección a la que se referencia
+        var address = this.tagsTable[this.unresolvedTags[i].tag];
+        if (address === undefined) {
+          return false;
+        }
+
+        //unresolvedTags[i].address es la dirección donde se
+        //usó la etiqueta y donde habrá que escribir la dirección
+        //definitiva.
+        this.memory.writeAddress(this.unresolvedTags[i].address, address);
+      }
+
+      return true;
+    }
+
+    /*
+     Devuelve las instrucciones que tienen como mnemotécnico
+     el que se pasa por parámetro. Notar que devuelve un array
+     porque puede haber varias instrucciones con el mismo
+     mnemotécnico.
+     */
+
+  }, {
+    key: 'getInstructionsByMnemotic',
+    value: function getInstructionsByMnemotic(mnemotic) {
+      var resInstructions = [];
+
+      for (var i = 0; i < this.instructionSet.length; i++) {
+        if (this.instructionSet[i].mnemotic === mnemotic) {
+          resInstructions.push(this.instructionSet[i]);
+        }
+      }
+
+      return resInstructions;
+    }
+  }]);
+
+  return Assembler;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Assembler);
+
+/***/ }),
+/* 81 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__assembly_rules__ = __webpack_require__(82);
 /*=====================================================
  SET DE INSTRUCCIONES
  El siguiente array almacena el juego de instrucciones del Easy8
@@ -54963,7 +55254,7 @@ var IO = function () {
 }]);
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55044,7 +55335,7 @@ var IO = function () {
 });
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -55119,19 +55410,19 @@ if (false) {
 }
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(84)
+  __webpack_require__(85)
 }
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(86)
+var __vue_script__ = __webpack_require__(87)
 /* template */
-var __vue_template__ = __webpack_require__(87)
+var __vue_template__ = __webpack_require__(88)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -55170,13 +55461,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(85);
+var content = __webpack_require__(86);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -55196,7 +55487,7 @@ if(false) {
 }
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(1)(false);
@@ -55210,7 +55501,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55255,7 +55546,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -55338,248 +55629,484 @@ if (false) {
 }
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 89 */,
 /* 90 */,
 /* 91 */,
-/* 92 */
+/* 92 */,
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(94)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(96)
+/* template */
+var __vue_template__ = __webpack_require__(97)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-03806773"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/RegisterComponent.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-03806773", Component.options)
+  } else {
+    hotAPI.reload("data-v-03806773", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(95);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("1387847e", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-03806773\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegisterComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-03806773\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegisterComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.login-area[data-v-03806773] {\n  width: 500px;\n  margin: 35px auto;\n  padding: 25px 30px 30px 30px;\n  background-color: white;\n}\n.login-area h1[data-v-03806773] {\n  font-size: 100%;\n  color: #505050;\n  margin: 0px 0px 20px 0px;\n  letter-spacing: 1px;\n}\n.input-block[data-v-03806773] {\n  margin-bottom: 15px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 96 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      registerData: {
+        email: '',
+        password: '',
+        password_confirmation: '',
+        name: '',
+        surname: ''
+      },
+      errors: []
+    };
+  },
+  methods: {
+    register: function register(ev) {
+      var self = this;
+      this.errors = [];
 
-var Assembler = function () {
-  function Assembler(memory, instructionSet) {
-    _classCallCheck(this, Assembler);
-
-    this.memory = memory;
-    this.instructionSet = instructionSet;
-
-    this.assemblyPointer = 0;
-
-    this.tagsTable = {};
-    this.unresolvedTags = [];
-  }
-
-  _createClass(Assembler, [{
-    key: 'setOnSyntaxError',
-    value: function setOnSyntaxError(callback) {
-      this.onSyntaxError = callback;
-    }
-  }, {
-    key: 'writeByte',
-    value: function writeByte(byte) {
-      this.memory.writeAddress(this.assemblyPointer, byte);
-      this.assemblyPointer++;
-    }
-  }, {
-    key: 'writeAddressOrTag',
-    value: function writeAddressOrTag(dirOrTag) {
-      //La dirección que se quiere guardar en la memoria
-      // puede se una dirección real o una etiqueta.
-
-      if (this.isTag(dirOrTag)) {
-        //Si es una etiqueta se añade a la lista de etiquetas
-        //sin resolver. (Las etiquetas son resueltas más tarde).
-        this.addUnresolvedTag(dirOrTag, this.assemblyPointer);
-
-        //Como se desconoce la dirección de salto, se guarda un 0
-        //de manera provisional.
-        this.writeByte(0);
-      } else {
-        //Si es una dirección real tan sólo hay que
-        //guardar la dirección.
-        this.writeByte(parseInt(dirOrTag, 16));
-      }
-    }
-
-    /*Si, durante el ensamblado, alguna instrucción hace referencia
-     * a una etiqueta, se almacena la etiqueta y en qué posición habría
-     * que guardar la dirección a la que referencia.
-     *
-     * Tras el ensamblado, cuando ya se deberían conocer las direcciones
-     * de todas las etiquetas, se inicia la etapa de resolución.
-     * */
-
-  }, {
-    key: 'addUnresolvedTag',
-    value: function addUnresolvedTag(tag, memoryAddress) {
-      //Se almacena la etiqueta del tag sin resolver
-      //y la dirección en memoria DONDE SE DEBERÁ ESCRIBIR LA DIRECCIÓN DEFINITIVA.
-      this.unresolvedTags.push({ tag: tag, address: memoryAddress });
-    }
-  }, {
-    key: 'isTag',
-    value: function isTag(token) {
-      if (token[0] == '@') {
-        return true;
-      }
-    }
-  }, {
-    key: 'assembly',
-    value: function assembly(sourceCode) {
-      this.assemblyPointer = 0;
-
-      var lines = sourceCode.split('\n');
-
-      this.tagsTable = {};
-      this.unresolvedTags = [];
-
-      //Reiniciar la memoria.
-      this.memory.clear();
-
-      var success = true;
-
-      for (var i = 0; i < lines.length; i++) {
-
-        if (!lines[i]) {
-          continue;
-        }
-
-        var tokens = this.parseLine(lines[i]);
-
-        //tokens[0] debe contener el comentario si la línea es un comentario.
-        //tokens[1] contiene el mnemotécnico.
-        //tokens.param1 y tokens.param2 contendrán los parámetros, si procede.
-        //token.tag contendrá la etiqueta.
-        if (!tokens) {
-          this.onSyntaxError && this.onSyntaxError(lines[i]);
-          success = false;
-          break;
-        }
-
-        //Si tokens.tag tiene algún valor significa que
-        //hay una etiqueta y hay que almacenar
-        //la dirección en la tabla de etiquetas que se usará posteriormente
-        //en la etapa de resolución.
-        if (tokens.tag) {
-          this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
-        }
-
-        if (!tokens.mnemotic) {
-          //Es un comentario o un blanco, se pasa a la siguiente línea.
-          continue;
-        }
-
-        //Buscar las instrucciones que coinciden en el array instructionSet.
-        //Generalmente solo habrá un resulado pero alguna instrucción
-        //aparece dos veces.
-        var instructions = this.getInstructionsByMnemotic(tokens.mnemotic);
-
-        if (instructions.length === 0) {
-          //No se ha encontrado la instrucción correspondiente a un
-          //mnemotécnico. Probablemente está mal escrito.
-          this.onSyntaxError && this.onSyntaxError(lines[i]);
-          success = false;
-          break;
-        }
-
-        //TODO: si todas devuelven false, error de sintaxis.
-        for (var j = 0; j < instructions.length; j++) {
-          if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
-            break;
+      this.$store.dispatch('register', this.registerData).then(function (response) {
+        // Redirect the user to the login page.
+        self.$router.push({ name: 'login', query: { email: self.registerData.email } });
+      }).catch(function (response) {
+        var errObj = response.body.errors;
+        for (var prop in errObj) {
+          if (errObj.hasOwnProperty(prop)) {
+            self.errors.push(errObj[prop][0]);
           }
         }
-      }
+      });
 
-      //Etapa de resolución.
-      if (!this.resolveTags()) {
-        success = false;
-        this.onSyntaxError && this.onSyntaxError('Etiqueta no encontrada.');
-      }
-
-      if (!success) {
-        this.memory.clear();
-      }
+      ev.preventDefault();
     }
-  }, {
-    key: 'parseLine',
-    value: function parseLine(line) {
-      if (!line) return null;
+  }
+});
 
-      //La expresión regular comprueba que la instrucción tenga una de las
-      //siguientes estructuras:
-      //1. X Y Z  (P. ej.: MOVE RA, DIR)
-      //2. X Y    (P. ej.: IN 01)
-      //3. X      (P. ej.: STOP)
-      //4. #COMENTARIO
-      //5. [blancos]
-      //Notar que la expresión regular se usa para comprobar la estructura
-      //general de la instrucción y para tokenizarla. Sin embargo, los distintos
-      //tokens no son validados. Ese trabajo se delega al método assembly de
-      //la instrucción de turno.
-      var results = line.match(/^(?:(?:\s*#.*)|(?:\s+)|(?:\s*(@\w+):\s*(?:#.*)?)|(?:\s*(?:(@\w+):)?\s*(\w+)(?:\s+(@?\w+)\s*(?:,\s*(@?\w+))?)?\s*(#.*)?))$/);
+/***/ }),
+/* 97 */
+/***/ (function(module, exports, __webpack_require__) {
 
-      if (!results) return null;
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "login-area lshadow" }, [
+    _c("h1", [_vm._v("Iniciar sesión")]),
+    _vm._v(" "),
+    _c(
+      "form",
+      { on: { submit: _vm.register } },
+      [
+        _vm._l(_vm.errors, function(error) {
+          return _c("alert", { attrs: { type: "error", visible: "true" } }, [
+            _vm._v(_vm._s(error))
+          ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-block" }, [
+          _c("label", [_vm._v("Nombre")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.registerData.name,
+                expression: "registerData.name"
+              }
+            ],
+            staticClass: "input wide big",
+            attrs: { name: "email" },
+            domProps: { value: _vm.registerData.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.registerData, "name", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-block" }, [
+          _c("label", [_vm._v("Apellidos")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.registerData.surname,
+                expression: "registerData.surname"
+              }
+            ],
+            staticClass: "input wide big",
+            attrs: { name: "email" },
+            domProps: { value: _vm.registerData.surname },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.registerData, "surname", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-block" }, [
+          _c("label", [_vm._v("Correo electrónico")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.registerData.email,
+                expression: "registerData.email"
+              }
+            ],
+            staticClass: "input wide big",
+            attrs: { name: "email" },
+            domProps: { value: _vm.registerData.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.registerData, "email", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-block" }, [
+          _c("label", [_vm._v("Contraseña")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.registerData.password,
+                expression: "registerData.password"
+              }
+            ],
+            staticClass: "input wide big",
+            attrs: { name: "password", type: "password" },
+            domProps: { value: _vm.registerData.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.registerData, "password", $event.target.value)
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-block" }, [
+          _c("label", [_vm._v("Repetir contraseña")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.registerData.password_confirmation,
+                expression: "registerData.password_confirmation"
+              }
+            ],
+            staticClass: "input wide big",
+            attrs: { name: "password", type: "password" },
+            domProps: { value: _vm.registerData.password_confirmation },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(
+                  _vm.registerData,
+                  "password_confirmation",
+                  $event.target.value
+                )
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn primary" }, [_vm._v("Registrarme")])
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-03806773", module.exports)
+  }
+}
 
-      return {
-        tag: results[2] ? results[2] : results[1],
-        mnemotic: results[3],
-        param1: results[4],
-        param2: results[5]
-      };
-    }
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
 
-    /*
-     * La etapa de resolución se inicia cuando se ha realizado el ensamblado.
-     * En este punto ya, salvo que el programador cometa un error, ya se
-     * conoce aqué dirección referencian todas las etiquetas.
-     * Por tanto, aquí habrá que buscar todas las instrucciones que usaban
-     * alguna etiqueta para reemplazarla por la dirección real en memoria.
-     * */
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-  }, {
-    key: 'resolveTags',
-    value: function resolveTags() {
-      for (var i = 0; i < this.unresolvedTags.length; i++) {
-        // address contendrá la dirección a la que se referencia
-        var address = this.tagsTable[this.unresolvedTags[i].tag];
-        if (address === undefined) {
-          return false;
-        }
+// load the styles
+var content = __webpack_require__(99);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(2)("33477c06", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-13a6bb57\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ExplorerComponent.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
-        //unresolvedTags[i].address es la dirección donde se
-        //usó la etiqueta y donde habrá que escribir la dirección
-        //definitiva.
-        this.memory.writeAddress(this.unresolvedTags[i].address, address);
-      }
+/***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
 
-      return true;
-    }
+exports = module.exports = __webpack_require__(1)(false);
+// imports
 
-    /*
-     Devuelve las instrucciones que tienen como mnemotécnico
-     el que se pasa por parámetro. Notar que devuelve un array
-     porque puede haber varias instrucciones con el mismo
-     mnemotécnico.
-     */
 
-  }, {
-    key: 'getInstructionsByMnemotic',
-    value: function getInstructionsByMnemotic(mnemotic) {
-      var resInstructions = [];
+// module
+exports.push([module.i, "\n.breadcrumb span[data-v-13a6bb57] {\n    cursor: pointer;\n}\n\n/*****************************************\n***           FILE EXPLORER            ***\n*****************************************/\n.file-explorer[data-v-13a6bb57] {\n  padding: 35px;\n  padding-top: 25px;\n}\n.file-explorer .breadcrumb[data-v-13a6bb57] {\n  color: #727272;\n  font-size: 90%;\n  padding: 0px 0px 30px 5px;\n}\n.entry[data-v-13a6bb57] {\n  width: 100px;\n  height: 100px;\n  background-color: white;\n  display: block;\n  margin: 5px;\n  -webkit-box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 3px -2px rgba(0,0,0,0.75);\n  cursor: pointer;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n\n  color: #727272;\n  text-align: center;\n  font-size: 80%;\n  padding: 10px 5px;\n  text-decoration: none;\n\n  border: none;\n  outline: none;\n  box-sizing: border-box;\n  float: left;\n  \n  border: solid 1px #ebebeb;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.entry[data-v-13a6bb57]:hover {\n  -webkit-box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 4px -2px rgba(0,0,0,0.75);\n}\n.entry[data-v-13a6bb57]:active {\n  -webkit-box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n          box-shadow: 0px 0px 0px -2px rgba(0,0,0,0.75);\n}\n.selected[data-v-13a6bb57] {\n  border: solid 1px #1e7fce;\n}\n.empty-folder[data-v-13a6bb57] {\n  font-size: 90%;\n  color: #757575;\n  text-align: center;\n}\n\n", ""]);
 
-      for (var i = 0; i < this.instructionSet.length; i++) {
-        if (this.instructionSet[i].mnemotic === mnemotic) {
-          resInstructions.push(this.instructionSet[i]);
-        }
-      }
+// exports
 
-      return resInstructions;
-    }
-  }]);
 
-  return Assembler;
-}();
+/***/ }),
+/* 100 */
+/***/ (function(module, exports, __webpack_require__) {
 
-/* harmony default export */ __webpack_exports__["a"] = (Assembler);
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "file-explorer" },
+    [
+      _c(
+        "div",
+        { staticClass: "breadcrumb" },
+        _vm._l(_vm.$store.state.explorer.breadcrumbs, function(crumb, index) {
+          return _c(
+            "span",
+            {
+              key: crumb.id,
+              on: {
+                click: function($event) {
+                  _vm.goBackTo(index)
+                }
+              }
+            },
+            [_vm._v(_vm._s(crumb.name) + "/")]
+          )
+        })
+      ),
+      _vm._v(" "),
+      _vm.$store.state.explorer.folders.length == 0 &&
+      _vm.$store.state.explorer.sources.length == 0
+        ? _c("div", { staticClass: "empty-folder" }, [
+            _vm._v("\n    Parece que esta carpeta está vacía. ¯\\_(ツ)_/¯\n  ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._l(_vm.$store.state.explorer.folders, function(entry) {
+        return _c(
+          "a",
+          {
+            key: entry.id,
+            staticClass: "entry",
+            class: { selected: entry.selected },
+            on: {
+              click: function($event) {
+                _vm.select(entry)
+              },
+              dblclick: function($event) {
+                _vm.enterDirectory(entry)
+              }
+            }
+          },
+          [_vm._v("\n    /" + _vm._s(entry.name) + "\n  ")]
+        )
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.$store.state.explorer.sources, function(entry) {
+        return _c(
+          "a",
+          {
+            key: entry.id,
+            staticClass: "entry",
+            class: { selected: entry.selected },
+            on: {
+              click: function($event) {
+                _vm.select(entry)
+              },
+              dblclick: function($event) {
+                _vm.openSource(entry)
+              }
+            }
+          },
+          [_vm._v(_vm._s(entry.name))]
+        )
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-13a6bb57", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

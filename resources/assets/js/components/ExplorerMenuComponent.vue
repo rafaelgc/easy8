@@ -11,6 +11,19 @@
       <li><a class="clickable" v-on:click="deleteSelectedEntries()">Eliminar</a></li>
     </ul>
   </template>
+
+  <template v-if="!$store.getters.inRoot && $store.getters.cwd">
+    <div class="section">Buzón <template v-if="$store.getters.cwd.folder.inbox">/{{ $store.getters.cwd.folder.inbox_name }}</template></div>
+    <ul>
+      <li v-if="$store.getters.cwd.folder.inbox == false"><a class="clickable" v-on:click="enableInbox()">Habilitar</a></li>
+      <li v-if="$store.getters.cwd.folder.inbox == true"><a class="clickable" v-on:click="enableInbox()">Deshabilitar</a></li>
+    </ul>
+  </template>
+
+  <div class="section">Cuenta</div>
+  <ul>
+    <li><a v-on:click="logout()" class="clickable">Cerrar sesión</a></li>
+  </ul>
 </div>
 </template>
 
@@ -38,6 +51,11 @@ export default {
 
     deleteSelectedEntries: function () {
       this.$store.dispatch('deleteSelectedEntries');
+    },
+
+    logout: function () {
+      this.$store.dispatch('logout');
+      this.$router.push({ name: 'login' });
     }
   }
 };

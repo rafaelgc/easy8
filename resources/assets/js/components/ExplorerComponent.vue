@@ -3,6 +3,9 @@
     <div class="breadcrumb">
       <span v-for="(crumb, index) in $store.state.explorer.breadcrumbs" v-bind:key="crumb.id" v-on:click="goBackTo(index)">{{ crumb.name }}/</span>
     </div>
+    <div class="empty-folder" v-if="$store.state.explorer.folders.length == 0 && $store.state.explorer.sources.length == 0">
+      Parece que esta carpeta está vacía. ¯\_(ツ)_/¯
+    </div>
     <a class="entry" v-bind:class="{selected: entry.selected}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
       /{{ entry.name }}
     </a>
@@ -68,7 +71,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .breadcrumb span {
     cursor: pointer;
   }
@@ -124,4 +127,11 @@ export default {
 .selected {
   border: solid 1px #1e7fce;
 }
+
+.empty-folder {
+  font-size: 90%;
+  color: #757575;
+  text-align: center;
+}
+
 </style>

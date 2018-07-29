@@ -27,13 +27,22 @@ Vue.component('alert', require('./components/AlertComponent.vue'));
 
 const routes = [
   {
+    name: 'register',
+    path: '/register',
+    components: {
+        'working-area': require('./components/RegisterComponent.vue'),
+        'main-menu': require('./components/LoginMenuComponent.vue')
+    },
+    meta: { requiresAuth: false, redirectIfAuthenticated: true }
+  },
+  {
     name: 'login',
     path: '/', alias: '/login',
     components: {
       'working-area': require('./components/LoginComponent.vue'),
       'main-menu': require('./components/LoginMenuComponent.vue')
     },
-    meta: { requiresAuth: false }
+    meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
   {
     name: 'explorer',
@@ -86,10 +95,23 @@ const store = new Vuex.Store({
       content: ''
     }
   },
+  getters: {
+    cwd: function (state) {
+      return state.explorer.breadcrumbs[state.explorer.breadcrumbs.length - 1];
+    },
+    inRoot: function (state) {
+      return state.explorer.breadcrumbs.length == 1;
+    }
+  },
   mutations: {
     authenticate: function (state) {
       state.login.authenticated = true;
     },
+
+    logout: function (state) {
+      state.login.authenticated = false;
+    },
+
     setToken: function (state, token) {
       state.login.token = token;
     },
@@ -100,6 +122,10 @@ const store = new Vuex.Store({
 
     decrementSelectionCount: function (state) {
       state.explorer.selectionCount--;
+    },
+
+    setSelectionCount: function (state, value) {
+      state.explorer.selectionCount = value;
     }
   },
   actions: {
@@ -114,10 +140,21 @@ const store = new Vuex.Store({
         window.localStorage.setItem('token', response.body.api_token);
       });
     },
-    
+
     loginWithToken: function (context, token) {
       context.commit('setToken', token);
       context.commit('authenticate');
+    },
+
+    logout: function (context) {
+      window.localStorage.removeItem('token');
+      context.commit('logout');
+    },
+
+    register: function (context, data) {
+      var register = new Vue.resource('register');
+
+      return register.save({}, data);
     },
 
     // Creates a folder in the current working directory and
@@ -183,7 +220,7 @@ const store = new Vuex.Store({
       context.state.explorer.breadcrumbs.push(entry);
       context.dispatch('listDirectory', entry.id);
 
-      /// CLEAR SELECTION!!
+      context.dispatch('clearSelection');
     },
 
     leaveDirectory: function (context, breadcrumbIndex) {
@@ -193,7 +230,7 @@ const store = new Vuex.Store({
       context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
       context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id)
 
-      /// CLEAR SELECTION!!
+      context.dispatch('clearSelection');
     },
 
     loadSource: function (context, id) {
@@ -233,6 +270,10 @@ const store = new Vuex.Store({
 
     deleteEntry: function (context, id) {
       return context.state.api.entry.delete({ entryId: id, api_token: context.state.login.token });
+    },
+
+    clearSelection: function (context) {
+      context.commit('setSelectionCount', 0);
     }
     
   }
@@ -247,10 +288,10 @@ router.beforeEach(function (to, from, next) {
     store.dispatch('loginWithToken', window.localStorage.getItem('token'));
   }
 
-  if (to.name == 'login' && store.state.login.authenticated === true) {
+  if (to.meta.redirectIfAuthenticated && store.state.login.authenticated === true) {
     next({ name: 'explorer' });
   }
-  if (to.meta.requiresAuth && store.state.login.authenticated === false && to.name != 'login') {
+  else if (to.meta.requiresAuth && store.state.login.authenticated === false && to.name != 'login') {
     next({ name: 'login' });
   }
   else {

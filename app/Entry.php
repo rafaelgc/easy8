@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Entry extends Model
 {
+    protected $fillable = ['parent_id', 'owner_id', 'name'];
     public function folder() {
         return $this->hasOne('App\Folder');
     }

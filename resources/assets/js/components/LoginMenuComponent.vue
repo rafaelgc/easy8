@@ -3,7 +3,7 @@
   <div class="section no-sep">Usuarios</div>
   <ul>
     <li><router-link v-bind:to="{ name: 'login' }">Iniciar sesión</router-link></li>
-    <li><a href="#">Registro</a></li>
+    <li><router-link v-bind:to="{ name: 'register' }">Registro</router-link></li>
   </ul>
 
   <div class="section">Ayuda</div>

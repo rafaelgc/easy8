@@ -3,7 +3,12 @@
     <h1>Iniciar sesión</h1>
 
     <form v-on:submit="authenticate">
-      <alert type="error" v-bind:visible="showLoginError">Las credenciales son incorrectas o el usuario no está registrado.</alert>
+      <alert type="error" v-bind:visible="showLoginError">
+        {{ loginErrorMessage }}
+      </alert>
+      <alert type="success" v-bind:visible="registerSuccess">
+        Se ha enviado un correo de verificación a tu correo electrónico. Accede a él para verificar tu cuenta.
+      </alert>
       <div class="input-block">
         <label>Correo electrónico</label>
         <input name="email" class="input wide big" v-model="login.email">
@@ -29,7 +34,9 @@ export default {
         email: '',
         password: ''
       },
-      showLoginError: false
+      showLoginError: false,
+      loginErrorMessage: '',
+      registerSuccess: false
     }
   },
   methods: {
@@ -39,12 +46,20 @@ export default {
       this.$store.dispatch('login', this.login).then(function (response) {
         self.$router.push({ name: 'explorer' });
         self.showLoginError = false;
-      }).catch(function () {
+      }).catch(function (response) {
+        console.log(response);
         self.showLoginError = true;
+        self.loginErrorMessage = response.body.message;
         console.log('Error');
       });
 
       ev.preventDefault();
+    }
+  },
+  created: function () {
+    if (this.$route.query.email) {
+        this.login.email = this.$route.query.email;
+        this.registerSuccess = true;
     }
   }
 }
