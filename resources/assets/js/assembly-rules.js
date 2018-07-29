@@ -8,31 +8,12 @@
  */
 
 export default {
-  writeAddress(dirOrTag, memory, environment) {
-    //La dirección que se quiere guardar en la memoria
-    // puede se una dirección real o una etiqueta.
-
-    if (environment.isTag(dirOrTag)) {
-      //Si es una etiqueta se añade a la lista de etiquetas
-      //sin resolver. (Las etiquetas son resueltas más tarde).
-      environment.addUnresolvedTag(dirOrTag, memory.assemblyPointer);
-      //Como se desconoce la dirección de salto, se guarda un 0
-      //de manera provisional.
-      memory.writeByte(0);
-    }
-    else {
-      //Si es una dirección real tan sólo hay que
-      //guardar la dirección.
-      memory.writeByte(parseInt(dirOrTag, 16));
-    }
-  },
-
   /*
    Ensamblaje de instrucciones que se codifican con un sólo byte
    como STOP o INC RA
    */
-  oneByteAssembly(memory, params) {
-    memory.writeByte(this.code);
+  oneByteAssembly(assembler, params) {
+    assembler.writeByte(this.code);
     return true;
   },
 
@@ -40,16 +21,16 @@ export default {
    Ensamblaje de instrucciones que se codifican con dos bytes
    y que tienen el formato MNEMOTECNICO + RA + DIRECCION/VALOR
    */
-  raValueAssembly(memory, params, environment) {
+  raValueAssembly(assembler, params) {
     if (params[0] !== 'RA') return false;
 
-    memory.writeByte(this.code);
+    assembler.writeByte(this.code);
     //La entrada viene codificada en hexadecimal pero se convierte
     //a entero.
 
     //TODO: COMPROBAR FORMATO DE params[1]
 
-    this.writeAddress(params[1], memory, environment);
+    assembler.writeAddressOrTag(params[1]);
     //memory.writeByte(parseInt(params[1], 16));
 
     return true;
@@ -61,19 +42,19 @@ export default {
    -MOVE DIR, RA
    Hay que diferenciarlas usando su código.
    */
-  moveAssembly(memory, params, environment) {
+  moveAssembly(assembler, params) {
     if (this.code === 1 && params[0] === 'RA') {
-      memory.writeByte(this.code);
+      assembler.writeByte(this.code);
       //TODO
       //memory.writeByte(parseInt(params[1], 16));
-      this.writeAddress(params[1], memory, environment);
+      assembler.writeAddressOrTag(params[1]);
       return true;
     }
     else if (this.code === 2 && params[1] === 'RA') {
-      memory.writeByte(this.code);
+      assembler.writeByte(this.code);
       //TODO
       //memory.writeByte(parseInt(params[0], 16));
-      this.writeAddress(params[0], memory, environment);
+      assembler.writeAddressOrTag(params[0]);
       return true;
     }
     else {
@@ -85,9 +66,9 @@ export default {
    Ensamblaje de instrucciones que se codifican con dos bytes
    y que tienen el formano MNEMOTECNICO + DIRECCION/VALOR.
    */
-  valueDirAssembly(memory, params, environment) {
-    memory.writeByte(this.code);
-    this.writeAddress(params[0], memory, environment);
+  valueDirAssembly(assembler, params) {
+    assembler.writeByte(this.code);
+    assembler.writeAddressOrTag(params[0]);
     return true;
   }
 

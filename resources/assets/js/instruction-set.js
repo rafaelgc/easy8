@@ -285,8 +285,8 @@ export default [
   {
     mnemotic: 'BYTE',
     code: -1,
-    assembly: function (memory, params) {
-      memory.writeByte(parseInt(params[0], 16));
+    assembly: function (assembler, params) {
+      assembler.writeByte(parseInt(params[0], 16));
       return true;
     }
   }

@@ -15,8 +15,10 @@
 
 <script>
 import RuntimeEnvironment from '../runtime-environment';
+import Assembler from '../assembler';
 
 import instructionSet from '../instruction-set';
+
 export default {
   data: function () {
     return {
@@ -30,7 +32,10 @@ export default {
 
     assembly: function () {
       console.log('assembly');
-      this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+      //this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+      var assembler = new Assembler(this.runtimeEnvironment.getMemory(), instructionSet);
+      assembler.setOnSyntaxError(this.onSyntaxError);
+      assembler.assembly(this.$store.state.simulator.content);
 
       this.runtimeEnvironment.getMemory().print();
     },

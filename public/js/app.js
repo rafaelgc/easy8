@@ -54126,7 +54126,8 @@ exports.push([module.i, "\n#editor {\n  z-index: 0;\n  border: solid 1px black;\
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__runtime_environment__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__instruction_set__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__assembler__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__instruction_set__ = __webpack_require__(80);
 //
 //
 //
@@ -54142,6 +54143,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 
@@ -54157,7 +54160,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     assembly: function assembly() {
       console.log('assembly');
-      this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+      //this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
+      var assembler = new __WEBPACK_IMPORTED_MODULE_1__assembler__["a" /* default */](this.runtimeEnvironment.getMemory(), __WEBPACK_IMPORTED_MODULE_2__instruction_set__["a" /* default */]);
+      assembler.setOnSyntaxError(this.onSyntaxError);
+      assembler.assembly(this.$store.state.simulator.content);
 
       this.runtimeEnvironment.getMemory().print();
     },
@@ -54197,7 +54203,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       self.$store.state.simulator.content = editor.getValue();
     });
 
-    this.runtimeEnvironment = new __WEBPACK_IMPORTED_MODULE_0__runtime_environment__["a" /* default */](__WEBPACK_IMPORTED_MODULE_1__instruction_set__["a" /* default */]);
+    this.runtimeEnvironment = new __WEBPACK_IMPORTED_MODULE_0__runtime_environment__["a" /* default */](__WEBPACK_IMPORTED_MODULE_2__instruction_set__["a" /* default */]);
     this.runtimeEnvironment.setCallbacks({
       onMemoryUpdate: this.onMemoryUpdate,
       onRegisterUpdate: this.onRegisterUpdate,
@@ -54243,9 +54249,6 @@ var RuntimeEnvironment = function () {
     this.sleeping = false;
     this.finished = false;
 
-    this.tagsTable = {};
-    this.unresolvedTags = [];
-
     this.callbacks = {};
   }
 
@@ -54271,117 +54274,6 @@ var RuntimeEnvironment = function () {
       callbacks.onRegistersUpdate && this.registers.onUpdate(callbacks.onRegistersUpdate);
       callbacks.onOutputUpdate && this.io.onOutputUpdate(callbacks.onOutputUpdate);
       callbacks.onInputRequest && this.io.onInputRequest(callbacks.onInputRequest);
-    }
-  }, {
-    key: 'assembly',
-    value: function assembly(sourceCode) {
-      this.sourceCode = sourceCode;
-
-      var lines = sourceCode.split('\n');
-
-      this.tagsTable = {};
-      this.unresolvedTags = [];
-
-      //Reiniciar la memoria.
-      this.memory.clear();
-
-      var success = true;
-
-      for (var i = 0; i < lines.length; i++) {
-
-        if (!lines[i]) {
-          continue;
-        }
-
-        var tokens = this.parseLine(lines[i]);
-
-        console.log(tokens);
-
-        //tokens[0] debe contener el comentario si la línea es un comentario.
-        //tokens[1] contiene el mnemotécnico.
-        //tokens[2] y tokens[3] contendrán los parámetros, si procede.
-        //token[4] contendrá la etiqueta.
-        if (!tokens) {
-          this.callbacks.onSyntaxError && this.callbacks.onSyntaxError(lines[i]);
-          success = false;
-          break;
-        }
-
-        //Si tokens.tag tiene algún valor significa que
-        //hay una etiqueta y hay que almacenar
-        //la dirección en la tabla de etiquetas que se usará posteriormente
-        //en la etapa de resolución.
-        if (tokens.tag) {
-          this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
-        }
-
-        if (!tokens.mnemotecnic) {
-          //Es un comentario o un blanco, se pasa a la siguiente línea.
-          continue;
-        }
-
-        //Buscar las instrucciones que coinciden en el array instructionSet.
-        //Generalmente solo habrá un resulado pero alguna instrucción
-        //aparece dos veces.
-        var instructions = this.getInstructionsByMnemotic(tokens.mnemotecnic);
-
-        console.log('A');
-        this.callbacks.onSyntaxError('Holi');
-        console.log('B');
-
-        if (instructions.length === 0) {
-          console.log(this.callbacks);
-          //No se ha encontrado la instrucción correspondiente a un
-          //mnemotécnico. Probablemente está mal escrito.
-          this.callbacks.onSyntaxError && this.callbacks.onSyntaxError(lines[i]);
-          success = false;
-          break;
-        }
-
-        //TODO: si todas devuelven false, error de sintaxis.
-        for (var j = 0; j < instructions.length; j++) {
-          if (instructions[j].assembly(this.memory, [tokens.param1, tokens.param2], this)) {
-            break;
-          }
-        }
-      }
-
-      //Etapa de resolución.
-      if (!this.resolveTags()) {
-        success = false;
-        this.callbacks.onSyntaxError('Etiqueta no encontrada.');
-      }
-
-      if (!success) {
-        this.memory.clear();
-      }
-    }
-  }, {
-    key: 'parseLine',
-    value: function parseLine(line) {
-      if (!line) return null;
-
-      //La expresión regular comprueba que la instrucción tenga una de las
-      //siguientes estructuras:
-      //1. X Y Z  (P. ej.: MOVE RA, DIR)
-      //2. X Y    (P. ej.: IN 01)
-      //3. X      (P. ej.: STOP)
-      //4. #COMENTARIO
-      //5. [blancos]
-      //Notar que la expresión regular se usa para comprobar la estructura
-      //general de la instrucción y para tokenizarla. Sin embargo, los distintos
-      //tokens no son validados. Ese trabajo se delega al método assembly de
-      //la instrucción de turno.
-      var results = line.match(/^(?:(?:\s*#.*)|(?:\s+)|(?:\s*(@\w+):\s*(?:#.*)?)|(?:\s*(?:(@\w+):)?\s*(\w+)(?:\s+(@?\w+)\s*(?:,\s*(@?\w+))?)?\s*(#.*)?))$/);
-
-      if (!results) return null;
-
-      return {
-        tag: results[2] ? results[2] : results[1],
-        mnemotecnic: results[3],
-        param1: results[4],
-        param2: results[5]
-      };
     }
   }, {
     key: 'run',
@@ -54474,82 +54366,13 @@ var RuntimeEnvironment = function () {
       this.sleeping = false;
     }
   }, {
-    key: 'addUnresolvedTag',
+    key: 'getInstructionByCode',
 
-
-    /*Si, durante el ensamblado, alguna instrucción hace referencia
-     * a una etiqueta, se almacena la etiqueta y en qué posición habría
-     * que guardar la dirección a la que referencia.
-     *
-     * Tras el ensamblado, cuando ya se deberían conocer las direcciones
-     * de todas las etiquetas, se inicia la etapa de resolución.
-     * */
-    value: function addUnresolvedTag(tag, memoryAddress) {
-      //Se almacena la etiqueta del tag sin resolver
-      //y la dirección en memoria DONDE SE DEBERÁ ESCRIBIR LA DIRECCIÓN DEFINITIVA.
-      this.unresolvedTags.push({ tag: tag, address: memoryAddress });
-    }
-  }, {
-    key: 'isTag',
-    value: function isTag(token) {
-      if (token[0] == '@') {
-        return true;
-      }
-    }
-  }, {
-    key: 'resolveTags',
-
-
-    /*
-     * La etapa de resolución se inicia cuando se ha realizado el ensamblado.
-     * En este punto ya, salvo que el programador cometa un error, ya se
-     * conoce aqué dirección referencian todas las etiquetas.
-     * Por tanto, aquí habrá que buscar todas las instrucciones que usaban
-     * alguna etiqueta para reemplazarla por la dirección real en memoria.
-     * */
-    value: function resolveTags() {
-      for (var i = 0; i < this.unresolvedTags.length; i++) {
-        // address contendrá la dirección a la que se referencia
-        var address = this.tagsTable[this.unresolvedTags[i].tag];
-        if (address === undefined) {
-          return false;
-        }
-
-        //unresolvedTags[i].address es la dirección donde se
-        //usó la etiqueta y donde habrá que escribir la dirección
-        //definitiva.
-        this.memory.writeAddress(this.unresolvedTags[i].address, address);
-      }
-
-      return true;
-    }
 
     /*
      AUXILIARES
      */
 
-    /*
-     Devuelve las instrucciones que tienen como mnemotécnico
-     el que se pasa por parámetro. Notar que devuelve un array
-     porque puede haber varias instrucciones con el mismo
-     mnemotécnico.
-     */
-
-  }, {
-    key: 'getInstructionsByMnemotic',
-    value: function getInstructionsByMnemotic(mnemotic) {
-      var resInstructions = [];
-
-      for (var i = 0; i < this.instructionSet.length; i++) {
-        if (this.instructionSet[i].mnemotic === mnemotic) {
-          resInstructions.push(this.instructionSet[i]);
-        }
-      }
-
-      return resInstructions;
-    }
-  }, {
-    key: 'getInstructionByCode',
     value: function getInstructionByCode(code) {
       for (var i = 0; i < this.instructionSet.length; i++) {
         if (code === this.instructionSet[i].code) {
@@ -55133,8 +54956,8 @@ var IO = function () {
 }, {
   mnemotic: 'BYTE',
   code: -1,
-  assembly: function assembly(memory, params) {
-    memory.writeByte(parseInt(params[0], 16));
+  assembly: function assembly(assembler, params) {
+    assembler.writeByte(parseInt(params[0], 16));
     return true;
   }
 }]);
@@ -55154,31 +54977,12 @@ var IO = function () {
  */
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  writeAddress: function writeAddress(dirOrTag, memory, environment) {
-    //La dirección que se quiere guardar en la memoria
-    // puede se una dirección real o una etiqueta.
-
-    if (environment.isTag(dirOrTag)) {
-      //Si es una etiqueta se añade a la lista de etiquetas
-      //sin resolver. (Las etiquetas son resueltas más tarde).
-      environment.addUnresolvedTag(dirOrTag, memory.assemblyPointer);
-      //Como se desconoce la dirección de salto, se guarda un 0
-      //de manera provisional.
-      memory.writeByte(0);
-    } else {
-      //Si es una dirección real tan sólo hay que
-      //guardar la dirección.
-      memory.writeByte(parseInt(dirOrTag, 16));
-    }
-  },
-
-
   /*
    Ensamblaje de instrucciones que se codifican con un sólo byte
    como STOP o INC RA
    */
-  oneByteAssembly: function oneByteAssembly(memory, params) {
-    memory.writeByte(this.code);
+  oneByteAssembly: function oneByteAssembly(assembler, params) {
+    assembler.writeByte(this.code);
     return true;
   },
 
@@ -55187,16 +54991,16 @@ var IO = function () {
    Ensamblaje de instrucciones que se codifican con dos bytes
    y que tienen el formato MNEMOTECNICO + RA + DIRECCION/VALOR
    */
-  raValueAssembly: function raValueAssembly(memory, params, environment) {
+  raValueAssembly: function raValueAssembly(assembler, params) {
     if (params[0] !== 'RA') return false;
 
-    memory.writeByte(this.code);
+    assembler.writeByte(this.code);
     //La entrada viene codificada en hexadecimal pero se convierte
     //a entero.
 
     //TODO: COMPROBAR FORMATO DE params[1]
 
-    this.writeAddress(params[1], memory, environment);
+    assembler.writeAddressOrTag(params[1]);
     //memory.writeByte(parseInt(params[1], 16));
 
     return true;
@@ -55209,18 +55013,18 @@ var IO = function () {
    -MOVE DIR, RA
    Hay que diferenciarlas usando su código.
    */
-  moveAssembly: function moveAssembly(memory, params, environment) {
+  moveAssembly: function moveAssembly(assembler, params) {
     if (this.code === 1 && params[0] === 'RA') {
-      memory.writeByte(this.code);
+      assembler.writeByte(this.code);
       //TODO
       //memory.writeByte(parseInt(params[1], 16));
-      this.writeAddress(params[1], memory, environment);
+      assembler.writeAddressOrTag(params[1]);
       return true;
     } else if (this.code === 2 && params[1] === 'RA') {
-      memory.writeByte(this.code);
+      assembler.writeByte(this.code);
       //TODO
       //memory.writeByte(parseInt(params[0], 16));
-      this.writeAddress(params[0], memory, environment);
+      assembler.writeAddressOrTag(params[0]);
       return true;
     } else {
       return false;
@@ -55232,9 +55036,9 @@ var IO = function () {
    Ensamblaje de instrucciones que se codifican con dos bytes
    y que tienen el formano MNEMOTECNICO + DIRECCION/VALOR.
    */
-  valueDirAssembly: function valueDirAssembly(memory, params, environment) {
-    memory.writeByte(this.code);
-    this.writeAddress(params[0], memory, environment);
+  valueDirAssembly: function valueDirAssembly(assembler, params) {
+    assembler.writeByte(this.code);
+    assembler.writeAddressOrTag(params[0]);
     return true;
   }
 });
@@ -55538,6 +55342,244 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Assembler = function () {
+  function Assembler(memory, instructionSet) {
+    _classCallCheck(this, Assembler);
+
+    this.memory = memory;
+    this.instructionSet = instructionSet;
+
+    this.assemblyPointer = 0;
+
+    this.tagsTable = {};
+    this.unresolvedTags = [];
+  }
+
+  _createClass(Assembler, [{
+    key: 'setOnSyntaxError',
+    value: function setOnSyntaxError(callback) {
+      this.onSyntaxError = callback;
+    }
+  }, {
+    key: 'writeByte',
+    value: function writeByte(byte) {
+      this.memory.writeAddress(this.assemblyPointer, byte);
+      this.assemblyPointer++;
+    }
+  }, {
+    key: 'writeAddressOrTag',
+    value: function writeAddressOrTag(dirOrTag) {
+      //La dirección que se quiere guardar en la memoria
+      // puede se una dirección real o una etiqueta.
+
+      if (this.isTag(dirOrTag)) {
+        //Si es una etiqueta se añade a la lista de etiquetas
+        //sin resolver. (Las etiquetas son resueltas más tarde).
+        this.addUnresolvedTag(dirOrTag, this.assemblyPointer);
+
+        //Como se desconoce la dirección de salto, se guarda un 0
+        //de manera provisional.
+        this.writeByte(0);
+      } else {
+        //Si es una dirección real tan sólo hay que
+        //guardar la dirección.
+        this.writeByte(parseInt(dirOrTag, 16));
+      }
+    }
+
+    /*Si, durante el ensamblado, alguna instrucción hace referencia
+     * a una etiqueta, se almacena la etiqueta y en qué posición habría
+     * que guardar la dirección a la que referencia.
+     *
+     * Tras el ensamblado, cuando ya se deberían conocer las direcciones
+     * de todas las etiquetas, se inicia la etapa de resolución.
+     * */
+
+  }, {
+    key: 'addUnresolvedTag',
+    value: function addUnresolvedTag(tag, memoryAddress) {
+      //Se almacena la etiqueta del tag sin resolver
+      //y la dirección en memoria DONDE SE DEBERÁ ESCRIBIR LA DIRECCIÓN DEFINITIVA.
+      this.unresolvedTags.push({ tag: tag, address: memoryAddress });
+    }
+  }, {
+    key: 'isTag',
+    value: function isTag(token) {
+      if (token[0] == '@') {
+        return true;
+      }
+    }
+  }, {
+    key: 'assembly',
+    value: function assembly(sourceCode) {
+      this.assemblyPointer = 0;
+
+      var lines = sourceCode.split('\n');
+
+      this.tagsTable = {};
+      this.unresolvedTags = [];
+
+      //Reiniciar la memoria.
+      this.memory.clear();
+
+      var success = true;
+
+      for (var i = 0; i < lines.length; i++) {
+
+        if (!lines[i]) {
+          continue;
+        }
+
+        var tokens = this.parseLine(lines[i]);
+
+        //tokens[0] debe contener el comentario si la línea es un comentario.
+        //tokens[1] contiene el mnemotécnico.
+        //tokens.param1 y tokens.param2 contendrán los parámetros, si procede.
+        //token.tag contendrá la etiqueta.
+        if (!tokens) {
+          this.onSyntaxError && this.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //Si tokens.tag tiene algún valor significa que
+        //hay una etiqueta y hay que almacenar
+        //la dirección en la tabla de etiquetas que se usará posteriormente
+        //en la etapa de resolución.
+        if (tokens.tag) {
+          this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
+        }
+
+        if (!tokens.mnemotic) {
+          //Es un comentario o un blanco, se pasa a la siguiente línea.
+          continue;
+        }
+
+        //Buscar las instrucciones que coinciden en el array instructionSet.
+        //Generalmente solo habrá un resulado pero alguna instrucción
+        //aparece dos veces.
+        var instructions = this.getInstructionsByMnemotic(tokens.mnemotic);
+
+        if (instructions.length === 0) {
+          //No se ha encontrado la instrucción correspondiente a un
+          //mnemotécnico. Probablemente está mal escrito.
+          this.onSyntaxError && this.onSyntaxError(lines[i]);
+          success = false;
+          break;
+        }
+
+        //TODO: si todas devuelven false, error de sintaxis.
+        for (var j = 0; j < instructions.length; j++) {
+          if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
+            break;
+          }
+        }
+      }
+
+      //Etapa de resolución.
+      if (!this.resolveTags()) {
+        success = false;
+        this.onSyntaxError && this.onSyntaxError('Etiqueta no encontrada.');
+      }
+
+      if (!success) {
+        this.memory.clear();
+      }
+    }
+  }, {
+    key: 'parseLine',
+    value: function parseLine(line) {
+      if (!line) return null;
+
+      //La expresión regular comprueba que la instrucción tenga una de las
+      //siguientes estructuras:
+      //1. X Y Z  (P. ej.: MOVE RA, DIR)
+      //2. X Y    (P. ej.: IN 01)
+      //3. X      (P. ej.: STOP)
+      //4. #COMENTARIO
+      //5. [blancos]
+      //Notar que la expresión regular se usa para comprobar la estructura
+      //general de la instrucción y para tokenizarla. Sin embargo, los distintos
+      //tokens no son validados. Ese trabajo se delega al método assembly de
+      //la instrucción de turno.
+      var results = line.match(/^(?:(?:\s*#.*)|(?:\s+)|(?:\s*(@\w+):\s*(?:#.*)?)|(?:\s*(?:(@\w+):)?\s*(\w+)(?:\s+(@?\w+)\s*(?:,\s*(@?\w+))?)?\s*(#.*)?))$/);
+
+      if (!results) return null;
+
+      return {
+        tag: results[2] ? results[2] : results[1],
+        mnemotic: results[3],
+        param1: results[4],
+        param2: results[5]
+      };
+    }
+
+    /*
+     * La etapa de resolución se inicia cuando se ha realizado el ensamblado.
+     * En este punto ya, salvo que el programador cometa un error, ya se
+     * conoce aqué dirección referencian todas las etiquetas.
+     * Por tanto, aquí habrá que buscar todas las instrucciones que usaban
+     * alguna etiqueta para reemplazarla por la dirección real en memoria.
+     * */
+
+  }, {
+    key: 'resolveTags',
+    value: function resolveTags() {
+      for (var i = 0; i < this.unresolvedTags.length; i++) {
+        // address contendrá la dirección a la que se referencia
+        var address = this.tagsTable[this.unresolvedTags[i].tag];
+        if (address === undefined) {
+          return false;
+        }
+
+        //unresolvedTags[i].address es la dirección donde se
+        //usó la etiqueta y donde habrá que escribir la dirección
+        //definitiva.
+        this.memory.writeAddress(this.unresolvedTags[i].address, address);
+      }
+
+      return true;
+    }
+
+    /*
+     Devuelve las instrucciones que tienen como mnemotécnico
+     el que se pasa por parámetro. Notar que devuelve un array
+     porque puede haber varias instrucciones con el mismo
+     mnemotécnico.
+     */
+
+  }, {
+    key: 'getInstructionsByMnemotic',
+    value: function getInstructionsByMnemotic(mnemotic) {
+      var resInstructions = [];
+
+      for (var i = 0; i < this.instructionSet.length; i++) {
+        if (this.instructionSet[i].mnemotic === mnemotic) {
+          resInstructions.push(this.instructionSet[i]);
+        }
+      }
+
+      return resInstructions;
+    }
+  }]);
+
+  return Assembler;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Assembler);
 
 /***/ })
 /******/ ]);
