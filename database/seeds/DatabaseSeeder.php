@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             'surname' => 'Gonzalez',
             'email' => 'rafag.1858@gmail.com',
             'password' => bcrypt('1234'),
-            'api_token' => str_random(60)
+            'api_token' => str_random(60),
+            'status' => 1
         ]);
 
         ///////////////////////////////////
