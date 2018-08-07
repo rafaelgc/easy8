@@ -6,10 +6,43 @@
       <a class="btn">Parar</a>
       <a class="btn">Ejecutar paso</a>
     </div>
-    <div class="editor-container">
-      <textarea id="editor" v-model="$store.state.simulator.content"></textarea>  
+
+    <div class="editor-and-periphericals">
+      <div class="editor-container">
+        <textarea id="editor" v-model="$store.state.simulator.content"></textarea>
+      </div>
+
+      <div class="input-container">
+        <div v-if="peripherals.keyboard.visible">
+          <div class="name">Teclado<span class="close" v-on:click="peripherals.keyboard.visible = false">x</span></div>
+          <div class="component">
+            <HexKeyboard v-on:keyPress="hexKeyboardKeyPress"></HexKeyboard>
+          </div>
+        </div>
+
+        <div v-if="peripherals.leds.visible">
+          <div class="name">LEDS<span class="close" v-on:click="peripherals.leds.visible = false">x</span></div>
+          <div class="component">
+            <Leds v-bind:value="leds"></Leds>
+          </div>
+        </div>
+
+        <div v-if="peripherals.switches.visible">
+          <div class="name">Switches<span class="close" v-on:click="peripherals.switches.visible = false">x</span></div>
+          <div class="component">
+            <Switches v-on:changed="changed"></Switches>
+          </div>
+        </div>
+
+        <div v-if="peripherals.temperatureSensor.visible">
+          <div class="name">Sensor de temperatura<span class="close" v-on:click="peripherals.temperatureSensor.visible = false">x</span></div>
+          <div class="component">
+            <Temperature></Temperature>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
   </div>
 </template>
 
@@ -19,10 +52,40 @@ import Assembler from '../assembler';
 
 import instructionSet from '../instruction-set';
 
+import HexKeyboard from './HexKeyboard.vue';
+Vue.component('HexKeyboard', HexKeyboard);
+
+import Leds from './Leds.vue';
+Vue.component('Leds', Leds);
+
+import Switches from './Switches.vue';
+Vue.component('Switches', Switches);
+
+import Temperature from './Temperature.vue';
+Vue.component('Temperature', Temperature);
+
 export default {
   data: function () {
     return {
+      leds: 10,
 
+      peripherals: {
+        keyboard: {
+          visible: true
+        },
+
+        leds: {
+          visible: true
+        },
+
+        switches: {
+          visible: true
+        },
+
+        temperatureSensor: {
+          visible: true
+        }
+      }
     }
   },
   methods: {
@@ -57,6 +120,14 @@ export default {
 
     onInputRequest: function () {
 
+    },
+
+    hexKeyboardKeyPress: function (val) {
+      //this.leds = val.value;
+    },
+
+    changed: function (val) {
+      this.leds = val;
     }
   },
   created: function() {},
@@ -103,13 +174,53 @@ export default {
     padding: 15px;
   }
 
+  .editor-and-periphericals {
+    display: flex;
+  }
+
   .editor-container {
     padding: 10px;
+    width: 50%;
+
   }
 
   .CodeMirror {
       border: solid 1px #d6d6d6 !important;
       height: 600px !important;
+  }
+
+  .input-container {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+
+    height: 600px;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+
+  .name {
+    border-bottom: solid 1px #d6d6d6;
+    padding: 5px;
+    margin-bottom: 5px;
+    color: #656565;
+    text-transform: uppercase;
+    font-size: 90%;
+  }
+
+  .close {
+    float: right;
+    cursor: pointer;
+  }
+
+  .component {
+    padding: 5px;
+  }
+
+  .input-container > * {
+    background-color: white;
+    margin: 3px;
+    border: solid 1px #d6d6d6;
   }
 
 

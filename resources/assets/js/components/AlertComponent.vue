@@ -29,3 +29,36 @@ export default {
   }
 
 </style>
+
+
+<template>
+</template>
+
+<script>
+
+</script>
+
+<style>
+    .keyboard {
+        width: 200px;
+    }
+
+    .hex-keyboard {
+        width: 200px;
+        height: 200px;
+        background-color: #fafafa;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .keyboard .display {
+        padding: 5px;
+        background-color: white;
+        text-align: right;
+        border: solid 1px #2e383c;
+    }
+
+    .hex-keyboard button {
+        flex-basis: 25%;
+    }
+</style>

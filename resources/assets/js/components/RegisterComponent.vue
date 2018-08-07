@@ -4,7 +4,7 @@
 
     <form v-on:submit="register">
 
-      <alert type="error" visible="true" v-for="error in errors">{{ error }}</alert>
+      <alert type="error" visible="true" v-bind:key="error" v-for="error in errors">{{ error }}</alert>
 
       <div class="input-block">
         <label>Nombre</label>
