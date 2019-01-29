@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $userId = DB::table('users')->insertGetId([
-            'name' => 'Rafa',
-            'surname' => 'Gonzalez',
-            'email' => 'rafag.1858@gmail.com',
-            'password' => bcrypt('1234'),
+            'name' => 'Demo',
+            'surname' => 'Demo',
+            'email' => 'demo@demo.com',
+            'password' => bcrypt('123456'),
             'api_token' => str_random(60),
             'status' => 1
         ]);
@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         $rootId = DB::table('entries')->insertGetId([
             'parent_id' => null,
             'owner_id' => $userId,
-            'name' => 'Root'
+            'name' => 'root'
         ]);
 
         DB::table('folders')->insert([
