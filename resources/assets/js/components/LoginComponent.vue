@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import Alert from './AlertComponent.vue';
 export default {
   data: function () {
     return {

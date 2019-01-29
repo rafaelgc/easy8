@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Folder extends Model
 {
     public $primaryKey = 'entry_id';
-    protected $guarded = [''];
+    protected $fillable = ['inbox', 'inbox_name'];
     public $timestamps = false;
 
     public function entry() {

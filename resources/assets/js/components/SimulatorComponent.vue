@@ -5,9 +5,11 @@
       <a class="btn" v-on:click="assembly()">Ensamblar</a>
       <a class="btn">Parar</a>
       <a class="btn">Ejecutar paso</a>
+      <a class="btn right" v-if="view == 1" v-on:click="view = 0">Ir al editor</a>
+      <a class="btn right" v-if="view == 0" v-on:click="view = 1">Ir al simulador</a>
     </div>
 
-    <div class="editor-and-periphericals">
+    <div v-if="view == 0" class="editor-and-periphericals">
       <div class="editor-container">
         <textarea id="editor" v-model="$store.state.simulator.content"></textarea>
       </div>
@@ -43,6 +45,10 @@
       </div>
     </div>
 
+    <div v-if="view == 1" class="peripheral">
+
+    </div>
+
   </div>
 </template>
 
@@ -67,6 +73,7 @@ Vue.component('Temperature', Temperature);
 export default {
   data: function () {
     return {
+      view: 0,
       leds: 10,
 
       peripherals: {
@@ -164,7 +171,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   #editor {
     z-index: 0;
     border: solid 1px black;
@@ -172,6 +179,10 @@ export default {
 
   .button-area {
     padding: 15px;
+  }
+
+  .button-area .right {
+    float: right;
   }
 
   .editor-and-periphericals {

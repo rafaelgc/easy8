@@ -30,14 +30,6 @@ export default {
 
 </style>
 
-
-<template>
-</template>
-
-<script>
-
-</script>
-
 <style>
     .keyboard {
         width: 200px;

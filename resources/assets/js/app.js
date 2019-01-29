@@ -3,6 +3,7 @@ window.Vue = require('vue');
 import VueRouter from 'vue-router';
 import Vuex from 'vuex'
 import VueResource from 'vue-resource';
+import Entry from './entry';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -75,7 +76,7 @@ const router = new VueRouter({
 const store = new Vuex.Store({
   state: {
     api: {
-      folder: Vue.resource('folder'),
+      folder: Vue.resource('folder{/entryId}'),
       source: Vue.resource('source{/entryId}'),
       entry:  Vue.resource('entry{/entryId}')
     },
@@ -88,7 +89,11 @@ const store = new Vuex.Store({
       folders: [],
       sources: [],
       breadcrumbs: [],
-      selectionCount: 0
+      selectionCount: 0,
+      uniqueSelectedEntry: null,
+      loading: false,
+      editingEntry: null,
+      cutEntries: [],
     },
     simulator: {
       entry: null,
@@ -101,6 +106,12 @@ const store = new Vuex.Store({
     },
     inRoot: function (state) {
       return state.explorer.breadcrumbs.length == 1;
+    },
+    loading: function (state) {
+      return state.explorer.loading;
+    },
+    cuttedEntries: function (state) {
+      return state.explorer.cutEntries;
     }
   },
   mutations: {
@@ -129,6 +140,11 @@ const store = new Vuex.Store({
     }
   },
   actions: {
+
+    ////////////////////////////////////////////////////////
+    ///                AUTHENTICATION                   ////
+    ////////////////////////////////////////////////////////
+
     login: function (context, data) {
       var login = new Vue.resource('login');
 
@@ -156,6 +172,13 @@ const store = new Vuex.Store({
 
       return register.save({}, data);
     },
+
+    ////////////////////////////////////////////////////////
+    ///                  FILE EXPLORER                  ////
+    ////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////
+    ///          FILE CREATION AND MODIFICATION          ///
 
     // Creates a folder in the current working directory and
     // reloads.
@@ -190,62 +213,32 @@ const store = new Vuex.Store({
       });
     },
 
-    // Loads folders contained in the id entry. Does not update
-    // the breadcrumbs.
-    loadFolders: function (context, id) {
-      return context.state.api.folder.get({parent: id, api_token: context.state.login.token}).then(function (response) {
-        context.state.explorer.folders = response.body;
-      });
+    updateEditingFolder: function (context) {
+      context.state.api.folder.save({ entryId: context.state.explorer.editingEntry.id, api_token: context.state.login.token }, context.state.explorer.editingEntry).then(function (response) {
+        // To update  the folders:
+        context.dispatch('listDirectory', context.getters.cwd.id);
+      })
     },
 
-    // Loads sources contained in the id entry. Does not update
-    // the breadcrumbs.
-    loadSources: function (context, id) {
-      return context.state.api.source.get({parent: id, api_token: context.state.login.token}).then(function (response) {
-        context.state.explorer.sources = response.body;
-      });
-    },
-
-    // Loads folders and sources. Doesn't modifies the breadcrumbs. Use
-    // enterDirectory and leaveDirectory.
-    listDirectory: function (context, id) {
-      context.dispatch('loadFolders', id);
-      context.dispatch('loadSources', id);
-    },
-
-    enterDirectory: function (context, entry) {
-      context.state.explorer.folders = [];
-      context.state.explorer.sources = [];
-
-      context.state.explorer.breadcrumbs.push(entry);
-      context.dispatch('listDirectory', entry.id);
-
-      context.dispatch('clearSelection');
-    },
-
-    leaveDirectory: function (context, breadcrumbIndex) {
-      context.state.explorer.folders = [];
-      context.state.explorer.sources = [];
-
-      context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
-      context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id)
-
-      context.dispatch('clearSelection');
-    },
-
-    loadSource: function (context, id) {
-      return context.state.api.source.get({ api_token: context.state.login.token, entryId: id });
-    },
-
-    select: function (context, entry) {
-      if (entry.selected) {
-        entry.selected = false;
-        context.commit('decrementSelectionCount');
+    cutSelectedEntries: function (context) {
+      context.state.explorer.cutEntries.splice(0, context.state.explorer.cutEntries.length);
+      var entries = context.state.explorer.folders.concat(context.state.explorer.sources);
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].selected) {
+          context.state.explorer.cutEntries.push(entries[i]);
+          Vue.set(entries[i], 'cutting', true);
+          console.log(entries[i].name);
+        }
       }
-      else {
-        Vue.set(entry, 'selected', true);
-        context.commit('incrementSelectionCount');
+    },
+
+    pasteEntries: function (context) {
+      for (var i = 0; i < context.state.explorer.cutEntries.length; i++) {
+        var entry = context.state.explorer.cutEntries[i];
+        context.state.api.entry.save({ entryId: entry.id }, { parent_id: context.getters.cwd.id, api_token: context.state.login.token });
       }
+      context.state.explorer.cutEntries.splice(0, context.state.explorer.cutEntries.length);
+      context.dispatch('listDirectory', context.getters.cwd.id);
     },
 
     deleteSelectedEntries: function (context) {
@@ -272,10 +265,98 @@ const store = new Vuex.Store({
       return context.state.api.entry.delete({ entryId: id, api_token: context.state.login.token });
     },
 
+    ////////////////////////////////////////////////////////
+    ///                    NAVIGATION                    ///
+
+    // Loads folders contained in the id entry. Does not update
+    // the breadcrumbs.
+    loadFolders: function (context, id) {
+      return context.state.api.folder.get({parent: id, api_token: context.state.login.token}).then(function (response) {
+        context.state.explorer.folders = response.body;
+      });
+    },
+
+    // Loads sources contained in the id entry. Does not update
+    // the breadcrumbs.
+    loadSources: function (context, id) {
+      return context.state.api.source.get({parent: id, api_token: context.state.login.token}).then(function (response) {
+        context.state.explorer.sources = response.body;
+      });
+    },
+
+    loadSource: function (context, id) {
+      return context.state.api.source.get({ api_token: context.state.login.token, entryId: id });
+    },
+
+    // Loads folders and sources. Doesn't modifies the breadcrumbs. Use
+    // enterDirectory and leaveDirectory.
+    listDirectory: function (context, id) {
+      context.state.explorer.loading = true;
+      Promise.all([
+        context.dispatch('loadFolders', id),
+        context.dispatch('loadSources', id)]).then(function () {
+        context.state.explorer.loading = false;
+        context.dispatch('clearSelection');
+      });
+    },
+
+    enterDirectory: function (context, entry) {
+      context.state.explorer.folders = [];
+      context.state.explorer.sources = [];
+
+      context.state.explorer.breadcrumbs.push(entry);
+      context.dispatch('listDirectory', entry.id);
+
+    },
+
+    leaveDirectory: function (context, breadcrumbIndex) {
+      if (breadcrumbIndex == -1) { breadcrumbIndex = context.state.explorer.breadcrumbs.length - 2; }
+      context.state.explorer.folders = [];
+      context.state.explorer.sources = [];
+
+      context.state.explorer.breadcrumbs.splice(breadcrumbIndex + 1, context.state.explorer.breadcrumbs.length - breadcrumbIndex);
+      context.dispatch('listDirectory', context.state.explorer.breadcrumbs[breadcrumbIndex].id);
+    },
+
+    select: function (context, entry) {
+      console.log(entry);
+      if (entry.selected) {
+        entry.selected = false;
+        context.commit('decrementSelectionCount');
+      }
+      else {
+        Vue.set(entry, 'selected', true);
+        context.commit('incrementSelectionCount');
+      }
+
+      if (context.state.explorer.selectionCount == 1) {
+        for (var i = 0; i < context.state.explorer.folders.length; i++) {
+          if (context.state.explorer.folders[i].selected) {
+            context.state.explorer.uniqueSelectedEntry = context.state.explorer.folders[i];
+            break;
+          }
+        }
+
+        for (var i = 0; i < context.state.explorer.sources.length; i++) {
+          if (context.state.explorer.sources[i].selected) {
+            context.state.explorer.uniqueSelectedEntry = context.state.explorer.sources[i];
+            break;
+          }
+        }
+      }
+      else {
+        context.state.explorer.uniqueSelectedEntry = null;
+      }
+    },
+
+    editSelectedEntry: function (context) {
+      context.state.explorer.editingEntry = Entry.clone(context.state.explorer.uniqueSelectedEntry);
+    },
+
     clearSelection: function (context) {
       context.commit('setSelectionCount', 0);
+      context.state.explorer.uniqueSelectedEntry = null;
     }
-    
   }
 });
 

@@ -6,12 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Entry extends Model
 {
-    protected $fillable = ['parent_id', 'owner_id', 'name'];
+    protected $fillable = ['name'];
     public function folder() {
         return $this->hasOne('App\Folder');
     }
 
     public function source() {
         return $this->hasOne('App\Source');
+    }
+
+    public static function repeated($entryId, $parent, $name) {
+        return self::where(['parent_id' => $parent, 'name' => $name])
+            ->where('id', '!=', $entryId)->exists();
+    }
+
+    public static function alreadyExists($parent, $name) {
+        return self::where(['parent_id' => $parent, 'name' => $name])->exists();
     }
 }
