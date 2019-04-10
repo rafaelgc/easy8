@@ -1,5 +1,8 @@
 export default class Assembler {
-
+  /**
+   * @param memory La memoria donde se escribirá el programa ensamblado.
+   * @param instructionSet Set de instrucciones.
+   */
   constructor(memory, instructionSet) {
     this.memory = memory;
     this.instructionSet = instructionSet;
@@ -59,6 +62,7 @@ export default class Assembler {
   }
 
   assembly(sourceCode) {
+    // Posición de la memoria donde se va a escribir la instrucción:
     this.assemblyPointer = 0;
 
     var lines = sourceCode.split('\n');
@@ -85,7 +89,7 @@ export default class Assembler {
       //token.tag contendrá la etiqueta.
       if (!tokens) {
         this.onSyntaxError &&
-        this.onSyntaxError(lines[i]);
+        this.onSyntaxError(lines[i], i);
         success = false;
         break;
       }
@@ -97,7 +101,6 @@ export default class Assembler {
       if (tokens.tag) {
         this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
       }
-
 
       if (!tokens.mnemotic) {
         //Es un comentario o un blanco, se pasa a la siguiente línea.
@@ -114,12 +117,14 @@ export default class Assembler {
         //No se ha encontrado la instrucción correspondiente a un
         //mnemotécnico. Probablemente está mal escrito.
         this.onSyntaxError &&
-        this.onSyntaxError(lines[i]);
+        this.onSyntaxError(lines[i], i);
         success = false;
         break;
       }
 
       //TODO: si todas devuelven false, error de sintaxis.
+      // Se recorre cada una de las instrucciones que han hecho matching y se
+      // trata de ensamblar con cada una de ellas.
       for (var j = 0; j < instructions.length; j++) {
         if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
           break;
@@ -130,7 +135,6 @@ export default class Assembler {
     //Etapa de resolución.
     if (!this.resolveTags()) {
       success = false;
-      this.onSyntaxError && this.onSyntaxError('Etiqueta no encontrada.');
     }
 
     if (!success) {
@@ -177,6 +181,7 @@ export default class Assembler {
       // address contendrá la dirección a la que se referencia
       var address = this.tagsTable[this.unresolvedTags[i].tag];
       if (address === undefined) {
+        this.onSyntaxError && this.onSyntaxError('Etiqueta ' + this.unresolvedTags[i].tag + ' no encontrada.', -1);
         return false;
       }
 
@@ -192,7 +197,7 @@ export default class Assembler {
 
   /*
    Devuelve las instrucciones que tienen como mnemotécnico
-   el que se pasa por parámetro. Notar que devuelve un array
+   el que se pasa por parámetro. Nota que devuelve un array
    porque puede haber varias instrucciones con el mismo
    mnemotécnico.
    */

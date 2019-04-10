@@ -28,7 +28,7 @@ export default class Memory {
 
   //Reinicia la memoria.
   clear() {
-    this.bytes = [];
+    this.bytes.length = 0;
     for (var i = 0; i < this.size; i++) {
       this.bytes.push(0);
     }

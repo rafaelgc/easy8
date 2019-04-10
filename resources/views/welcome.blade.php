@@ -17,8 +17,8 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
         <!-- CodeMirror -->
-        <link rel="stylesheet" href="js/codemirror/lib/codemirror.css">
-        <script src="js/codemirror/lib/codemirror.js"></script>
+        <!--<link rel="stylesheet" href="js/codemirror/lib/codemirror.css">
+        <script src="js/codemirror/lib/codemirror.js"></script>-->
 
     </head>
     <body>

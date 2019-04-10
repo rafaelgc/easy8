@@ -15,9 +15,11 @@ Vue.use(VueResource);
 
 let baseUrl = '';
 if (process.env.NODE_ENV === 'production') {
-  Vue.http.options.root = 'http://localhost:8000/api';
+  console.log('PRODUCTION API');
+  Vue.http.options.root = 'http://vps483433.ovh.net/api';
 }
 else {
+  console.log('DEVELOPMENT API');
   Vue.http.options.root = 'http://localhost:8000/api';
 }
 

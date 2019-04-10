@@ -7,15 +7,17 @@
       <a class="btn">Ejecutar paso</a>
       <a class="btn right" v-if="view == 1" v-on:click="view = 0">Ir al editor</a>
       <a class="btn right" v-if="view == 0" v-on:click="view = 1">Ir al simulador</a>
+      <div style="clear: both"></div>
     </div>
 
     <div v-if="view == 0" class="editor-and-periphericals">
       <div class="editor-container">
-        <textarea id="editor" v-model="$store.state.simulator.content"></textarea>
+        <codemirror v-model="$store.state.simulator.content" :options="cmOptions"></codemirror>
+        <!--<textarea ref="editor" v-model="$store.state.simulator.content"></textarea>-->
       </div>
 
       <div class="input-container">
-        <div v-if="peripherals.keyboard.visible">
+        <!--<div v-if="peripherals.keyboard.visible">
           <div class="name">Teclado<span class="close" v-on:click="peripherals.keyboard.visible = false">x</span></div>
           <div class="component">
             <HexKeyboard v-on:keyPress="hexKeyboardKeyPress"></HexKeyboard>
@@ -42,7 +44,32 @@
             <Temperature></Temperature>
           </div>
         </div>
+        -->
       </div>
+
+      <div class="memory-displays">
+        <div class="memory code">
+          <h2>Memoria de código</h2>
+          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+        </div>
+
+        <div class="memory data">
+          <h2>Memoria de datos</h2>
+          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+        </div>
+
+        <div class="memory heap">
+          <h2>Memoria de pila</h2>
+          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+        </div>
+
+        <div class="memory heap">
+          <h2>Puertos</h2>
+          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+        </div>
+
+      </div>
+
     </div>
 
     <div v-if="view == 1" class="peripheral">
@@ -70,11 +97,19 @@ Vue.component('Switches', Switches);
 import Temperature from './Temperature.vue';
 Vue.component('Temperature', Temperature);
 
+import { codemirror } from 'vue-codemirror'
+import 'codemirror/lib/codemirror.css'
+
 export default {
+  components: {
+    codemirror: codemirror
+  },
   data: function () {
     return {
       view: 0,
       leds: 10,
+
+      memory: null,
 
       peripherals: {
         keyboard: {
@@ -92,6 +127,16 @@ export default {
         temperatureSensor: {
           visible: true
         }
+      },
+
+      cmOptions: {
+        // codemirror options
+        tabSize: 4,
+        mode: 'text/javascript',
+        theme: 'base16-dark',
+        lineNumbers: true,
+        line: true,
+        // more codemirror options, 更多 codemirror 的高级配置...
       }
     }
   },
@@ -110,8 +155,9 @@ export default {
       this.runtimeEnvironment.getMemory().print();
     },
 
-    onSyntaxError: function (message) {
-      console.log(message);
+    onSyntaxError: function (message, line) {
+      alert('Error en la línea ' + line + ': ' + message);
+      /*console.log(message);*/
     },
 
     onMemoryUpdate: function () {
@@ -142,21 +188,21 @@ export default {
     var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
-    var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+    /*var editor = CodeMirror.fromTextArea(this.$refs.editor, {
       lineNumbers: true,
       mode: "simplemode"
-    });
+    });*/
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
-      editor.setValue(response.body.source.content);
+      //editor.setValue(response.body.source.content);
       self.$store.state.simulator.entry = response.body;
 
       self.$store.state.simulator.content = response.body.source.content;
     });
 
-    editor.on('change', function () {
+    /*editor.on('change', function () {
       self.$store.state.simulator.content = editor.getValue();
-    });
+    });*/
 
     this.runtimeEnvironment = new RuntimeEnvironment(instructionSet);
     this.runtimeEnvironment.setCallbacks({
@@ -167,14 +213,14 @@ export default {
       onInputRequest: this.onInputRequest
     });
 
+    this.memory = this.runtimeEnvironment.getMemory().getData();
   }
 };
 </script>
 
 <style scoped>
-  #editor {
-    z-index: 0;
-    border: solid 1px black;
+  * {
+    box-sizing: border-box;
   }
 
   .button-area {
@@ -187,27 +233,15 @@ export default {
 
   .editor-and-periphericals {
     display: flex;
+    flex-wrap: wrap;
   }
 
   .editor-container {
     padding: 10px;
     width: 50%;
-
-  }
-
-  .CodeMirror {
-      border: solid 1px #d6d6d6 !important;
-      height: 600px !important;
   }
 
   .input-container {
-    width: 50%;
-    display: flex;
-    flex-wrap: wrap;
-
-    height: 600px;
-    align-items: flex-start;
-    align-content: flex-start;
   }
 
   .name {
@@ -233,6 +267,41 @@ export default {
     margin: 3px;
     border: solid 1px #d6d6d6;
   }
+
+  .memory-displays {
+    width: 100%;
+    display: flex;
+  }
+
+  .memory-displays .memory {
+    flex-grow: 1;
+    border: solid 1px #eeeeee;
+    background-color: white;
+    margin: 10px;
+    flex-basis: 25%;
+  }
+
+  .memory-displays .memory h2 {
+    padding: 10px 0;
+    margin: 0;
+    font-size: 80%;
+    text-align: center;
+    color: #4c4c4c;
+  }
+
+  .memory-displays .memory .entry {
+    padding: 3px 10px;
+    font-size: 80%;
+  }
+
+  .memory-displays .memory .entry:nth-child(even) {
+    background-color: #fcfcfc;
+  }
+
+  .memory-displays .memory .entry:hover {
+    background-color: #d9d9d9;
+  }
+
 
 
 </style>
