@@ -15,15 +15,8 @@ export default class Memory {
     this.registers = registers;
     this.size = size ? size : 256;
     this.bytes = [];
-    this.assemblyPointer = 0;
 
     this.clear();
-  }
-
-  //Escribe bytes de manera sucesiva. Usado durante el ensamblado.
-  writeByte(byte) {
-    this.bytes[this.assemblyPointer] = byte;
-    this.assemblyPointer++;
   }
 
   //Reinicia la memoria.
@@ -32,26 +25,13 @@ export default class Memory {
     for (var i = 0; i < this.size; i++) {
       this.bytes.push(0);
     }
-    this.assemblyPointer = 0;
-  }
-
-  //Lee el contenido apuntado por el contador de programa.
-  readByte() {
-    return this.bytes[this.registers.get('PC')];
-  }
-
-  //Mueve hacia adelante el contador de programa.
-  //Devuelve el contenido de la memoria en ese punto.
-  nextByte() {
-    this.registers.incr('PC');
-    return this.bytes[this.registers.get('PC')];
   }
 
   //Escribir un valor en una dirección.
   writeAddress(address, value) {
     this.bytes[address] = value;
 
-    if (this.onUpdateCallback) this.onUpdateCallback(this);
+    if (this.onUpdateCallback) this.onUpdateCallback(this, address, value);
   }
 
   //Leer un valor de una dirección.

@@ -1,79 +1,84 @@
 <template>
-  <div>
+  <div class="main-layout">
     <div class="button-area">
-      <a class="btn primary" v-on:click="assemblyAndRun()">Ensamblar y ejecutar</a>
-      <a class="btn" v-on:click="assembly()">Ensamblar</a>
-      <a class="btn">Parar</a>
-      <a class="btn">Ejecutar paso</a>
-      <a class="btn right" v-if="view == 1" v-on:click="view = 0">Ir al editor</a>
-      <a class="btn right" v-if="view == 0" v-on:click="view = 1">Ir al simulador</a>
+      <button class="btn primary" v-on:click="assemblyAndRun()">Ensamblar y ejecutar</button>
+      <button class="btn" v-on:click="assembly()">Ensamblar</button>
+      <button class="btn">Parar</button>
+      <button class="btn" v-on:click="runStep">Ejecutar paso</button>
+      <button class="btn right" v-if="view == 1" v-on:click="view = 0">Ir al editor</button>
+      <button class="btn right" v-if="view == 0" v-on:click="view = 1">Ir al simulador</button>
       <div style="clear: both"></div>
     </div>
 
-    <div v-if="view == 0" class="editor-and-periphericals">
+    <div v-if="view == 0" class="editor-and-registers">
       <div class="editor-container">
         <codemirror v-model="$store.state.simulator.content" :options="cmOptions"></codemirror>
         <!--<textarea ref="editor" v-model="$store.state.simulator.content"></textarea>-->
       </div>
 
-      <div class="input-container">
-        <!--<div v-if="peripherals.keyboard.visible">
-          <div class="name">Teclado<span class="close" v-on:click="peripherals.keyboard.visible = false">x</span></div>
-          <div class="component">
-            <HexKeyboard v-on:keyPress="hexKeyboardKeyPress"></HexKeyboard>
-          </div>
+      <div class="registers" v-if="registers">
+
+        <div class="register">
+          <h2>RA</h2>
+          <div class="value">{{ registers.ra | toHex }}</div>
         </div>
 
-        <div v-if="peripherals.leds.visible">
-          <div class="name">LEDS<span class="close" v-on:click="peripherals.leds.visible = false">x</span></div>
-          <div class="component">
-            <Leds v-bind:value="leds"></Leds>
-          </div>
+        <div class="register">
+          <h2>PC</h2>
+          <div class="value">{{ registers.pc | toHex }}</div>
         </div>
 
-        <div v-if="peripherals.switches.visible">
-          <div class="name">Switches<span class="close" v-on:click="peripherals.switches.visible = false">x</span></div>
-          <div class="component">
-            <Switches v-on:changed="changed"></Switches>
-          </div>
+        <div class="register">
+          <h2>RET</h2>
+          <div class="value">{{ registers.ret | toHex }}</div>
         </div>
 
-        <div v-if="peripherals.temperatureSensor.visible">
-          <div class="name">Sensor de temperatura<span class="close" v-on:click="peripherals.temperatureSensor.visible = false">x</span></div>
-          <div class="component">
-            <Temperature></Temperature>
-          </div>
+        <div class="register">
+          <h2>SP</h2>
+          <div class="value">{{ registers.sp | toHex }}</div>
         </div>
-        -->
       </div>
+    </div>
 
+    <div class="editor-and-registers">
       <div class="memory-displays">
         <div class="memory code">
           <h2>Memoria de código</h2>
-          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+          <div class="scroll">
+            <div v-if="memory" v-for="(entry, index) in memory" ref="codeMemory" class="entry" :class="{ highlight: index == registers.pc }">
+             <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+            </div>
+          </div>
         </div>
 
         <div class="memory data">
           <h2>Memoria de datos</h2>
-          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+          <div class="scroll">
+            <div v-if="memory" v-for="(entry, index) in memory" ref="dataMemory" class="entry" :class="{ highlight: index == lastModifiedMemoryAddress }">
+              <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+            </div>
+          </div>
         </div>
 
         <div class="memory heap">
           <h2>Memoria de pila</h2>
-          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+          <div class="scroll">
+            <div v-if="memory" v-for="(entry, index) in memory" ref="stackMemory" class="entry" :class="{ highlight: index == registers.sp }">
+              <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+            </div>
+          </div>
         </div>
 
         <div class="memory heap">
           <h2>Puertos</h2>
-          <div v-if="memory" v-for="entry in memory" class="entry">{{ entry }}</div>
+          <div class="scroll">
+            <div v-if="memory" v-for="(entry, index) in ports" class="entry" :class="{ highlight: index == lastModifiedPort }">
+              <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+            </div>
+          </div>
         </div>
 
       </div>
-
-    </div>
-
-    <div v-if="view == 1" class="peripheral">
-
     </div>
 
   </div>
@@ -100,16 +105,31 @@ Vue.component('Temperature', Temperature);
 import { codemirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
+import { IODevices } from '../io';
+
 export default {
   components: {
     codemirror: codemirror
+  },
+  filters: {
+    toHex(value) {
+      var hex = value.toString(16).toUpperCase();
+      return '0x' + (hex.length < 2 ? '0' : '') + hex;
+    }
   },
   data: function () {
     return {
       view: 0,
       leds: 10,
 
+      assembler: null,
+
       memory: null,
+      registers: null,
+      ports: null,
+
+      lastModifiedMemoryAddress: -1,
+      lastModifiedPort: -1,
 
       peripherals: {
         keyboard: {
@@ -147,73 +167,74 @@ export default {
 
     assembly: function () {
       console.log('assembly');
-      //this.runtimeEnvironment.assembly(this.$store.state.simulator.content);
-      var assembler = new Assembler(this.runtimeEnvironment.getMemory(), instructionSet);
-      assembler.setOnSyntaxError(this.onSyntaxError);
-      assembler.assembly(this.$store.state.simulator.content);
+      this.assembler.setOnSyntaxError(this.onSyntaxError);
+      this.assembler.assembly(this.$store.state.simulator.content);
 
       this.runtimeEnvironment.getMemory().print();
+      this.runtimeEnvironment.resetProgram();
+    },
+
+    runStep() {
+      this.runtimeEnvironment.runStep();
+
+      this.$refs.codeMemory[Math.max(this.runtimeEnvironment.getRegisters().get('PC') - 4, 0)].scrollIntoView();
     },
 
     onSyntaxError: function (message, line) {
       alert('Error en la línea ' + line + ': ' + message);
-      /*console.log(message);*/
     },
 
-    onMemoryUpdate: function () {
-      console.log('Memory Updated');
+    onMemoryUpdate: function (memory, address, value) {
+      // Scroll hacia la dirección modificada sólo cuando estamos ejecutando.
+      // Esto es así para evitar mover el scroll cuando ensamblamos.
+      if (!this.assembler.isAssembling()) {
+        this.lastModifiedMemoryAddress = address;
+        this.$refs.dataMemory[Math.max(address - 4, 0)].scrollIntoView();
+      }
     },
 
-    onRegisterUpdate: function () {
-
+    onPortUpdate: function (io, address, value) {
+      console.log('UPATED');
+      this.lastModifiedPort = address;
+      this.$refs.ports[Math.max(address - 4, 0)].scrollIntoView();
     },
 
-    onOutputUpdate: function () {
+    onRegisterUpdate: function (register, value) {
+      console.log(register);
+      if (register == 'SP') {
+        this.$refs.stackMemory[Math.max(value - 4, 0)].scrollIntoView();
+      }
     },
-
-    onInputRequest: function () {
-
-    },
-
-    hexKeyboardKeyPress: function (val) {
-      //this.leds = val.value;
-    },
-
-    changed: function (val) {
-      this.leds = val;
-    }
   },
   created: function() {},
   mounted: function() {
     var self = this;
     var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
-    /*var editor = CodeMirror.fromTextArea(this.$refs.editor, {
-      lineNumbers: true,
-      mode: "simplemode"
-    });*/
-
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
-      //editor.setValue(response.body.source.content);
       self.$store.state.simulator.entry = response.body;
 
       self.$store.state.simulator.content = response.body.source.content;
     });
 
-    /*editor.on('change', function () {
-      self.$store.state.simulator.content = editor.getValue();
-    });*/
-
     this.runtimeEnvironment = new RuntimeEnvironment(instructionSet);
     this.runtimeEnvironment.setCallbacks({
       onMemoryUpdate: this.onMemoryUpdate,
       onRegisterUpdate: this.onRegisterUpdate,
-      onOutputUpdate: this.onOutputUpdate,
-      onSyntaxError: this.onSyntaxError,
-      onInputRequest: this.onInputRequest
+      onPortUpdate: this.onPortUpdate
     });
 
     this.memory = this.runtimeEnvironment.getMemory().getData();
+    this.registers = this.runtimeEnvironment.getRegisters().getData();
+    this.ports = this.runtimeEnvironment.getIo().getData();
+
+    this.assembler = new Assembler(this.runtimeEnvironment.getMemory(), instructionSet);
+
+    // Para poder manipular los puertos desde la consola del navegador.
+    window.easy8 = {
+      io: this.runtimeEnvironment.getIo(),
+      IODevices: IODevices
+    };
   }
 };
 </script>
@@ -221,6 +242,16 @@ export default {
 <style scoped>
   * {
     box-sizing: border-box;
+  }
+
+  .main-layout {
+    display: flex;
+    flex-direction: column;
+    /*height: 100%;
+    max-height: 100%;*/
+    height: calc(100vh - 40px);
+
+    overflow-y: auto;
   }
 
   .button-area {
@@ -231,54 +262,73 @@ export default {
     float: right;
   }
 
-  .editor-and-periphericals {
+  .editor-and-registers {
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
+    flex-basis: 40%;
+    padding-bottom: 10px;
   }
 
   .editor-container {
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     width: 50%;
   }
 
-  .input-container {
-  }
-
-  .name {
-    border-bottom: solid 1px #d6d6d6;
-    padding: 5px;
-    margin-bottom: 5px;
-    color: #656565;
-    text-transform: uppercase;
-    font-size: 90%;
-  }
-
-  .close {
-    float: right;
-    cursor: pointer;
-  }
-
-  .component {
-    padding: 5px;
-  }
-
-  .input-container > * {
-    background-color: white;
-    margin: 3px;
+  .editor-container .vue-codemirror {
     border: solid 1px #d6d6d6;
+    height: 100%;
+  }
+
+  .editor-container .vue-codemirror >>> .CodeMirror {
+    height: 100%;
+  }
+
+  .registers {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    align-items: flex-start;
+  }
+
+  .registers .register {
+    padding: 13px 25px;
+    border: solid 1px #cbcbcb;
+    margin: 0 5px;
+    min-width: 75px;
+    background-color: white;
+  }
+
+  .registers .register h2 {
+    font-size: 80%;
+    margin: 0 0 5px 0;
+    padding: 0;
+    text-align: center;
+    color: #525252;
+  }
+
+  .registers .register .value {
+    text-align: center;
+    font-size: 110%;
+    font-family: monospace;
   }
 
   .memory-displays {
     width: 100%;
     display: flex;
+    /*max-height: 100%;*/
+    overflow-y: hidden;
   }
 
   .memory-displays .memory {
     flex-grow: 1;
-    border: solid 1px #eeeeee;
+    border: solid 1px #cbcbcb;
     background-color: white;
     margin: 10px;
     flex-basis: 25%;
+    /*overflow-y: auto;*/
+    display: flex;
+    flex-direction: column;
   }
 
   .memory-displays .memory h2 {
@@ -289,9 +339,19 @@ export default {
     color: #4c4c4c;
   }
 
+  .memory-displays .memory .scroll {
+    overflow-y: scroll;
+  }
+
   .memory-displays .memory .entry {
+    font-family: monospace;
     padding: 3px 10px;
-    font-size: 80%;
+    font-size: 12px;
+  }
+
+  .memory-displays .memory .entry .address {
+    color: #6b6b6b;
+    margin-right: 10px;
   }
 
   .memory-displays .memory .entry:nth-child(even) {
@@ -299,9 +359,11 @@ export default {
   }
 
   .memory-displays .memory .entry:hover {
-    background-color: #d9d9d9;
+    background-color: #eeeeee;
   }
 
-
+  .memory-displays .memory .entry.highlight {
+    background-color: #dfdfdf;
+  }
 
 </style>

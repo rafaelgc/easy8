@@ -45,7 +45,7 @@ export default {
   moveAssembly(assembler, params) {
     if (this.code === 1 && params[0] === 'RA') {
       assembler.writeByte(this.code);
-      //TODO
+      //TODO Mejorar errores
       //memory.writeByte(parseInt(params[1], 16));
       assembler.writeAddressOrTag(params[1]);
       return true;

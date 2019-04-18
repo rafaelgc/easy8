@@ -2,28 +2,47 @@
  INPUT/OUTPUT
  */
 
+export const IODevices = {
+  KEYBOARD: 0,
+  DISPLAY: 1,
+  K_BUTTON: 2,
+  TEMPERATURE_SENSOR: 6,
+  SWITCHES: 8,
+  LEDS: 9,
+  BUTTON: 170,
+};
+
+import Vue from 'vue';
+
 export default class IO {
+
   constructor() {
     this.output = 0;
+    this.ports = Array(256).fill(0);
+    this.onUpdateCallback = null;
   }
 
-  /*Método para establecer el valor de la salida.*/
-  setOutput(output) {
-    this.output = ALU.ca2ToInt(output, 8);
-    this.onUpdateOutputCallback && this.onUpdateOutputCallback(this.output);
+  clear() {
+    for (var i = 0; i < this.ports.length; i++) {
+      this.ports[i] = 0;
+    }
   }
 
-  /*Método para solicitar la entrada de un dato.*/
-  getInputRequest(func) {
-    this.onInputRequestCallback && this.onInputRequestCallback(func);
+  readPort(port) {
+    return this.ports[port];
   }
 
-  onOutputUpdate(func) {
-    this.onUpdateOutputCallback = func;
+  writePort(port, value) {
+    this.ports[port] = value;
+    this.onUpdateCallback && this.onUpdateCallback(this, port, value);
   }
 
-  onInputRequest(func) {
-    this.onInputRequestCallback = func;
+  getData() {
+    return this.ports;
+  }
+
+  onUpdate(callback) {
+    this.onUpdateCallback = callback;
   }
 
 }

@@ -28,6 +28,7 @@
  */
 
 import assemblyRules from './assembly-rules';
+import ALU from './alu';
 
 export default [
   /*CODIFICADOS EN UN BYTE*/
@@ -89,16 +90,16 @@ export default [
     mnemotic: 'MOVEI',
     code: 0,
     assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      registers.set('RA', memory.nextByte());
+    run: function (memory, registers, io, environment) {
+      registers.set('RA', environment.nextByte());
     }
   },
   {
     mnemotic: 'MOVE',
     code: 1,
     assembly: assemblyRules.moveAssembly,
-    run: function (memory, registers) {
-      var addr = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var addr = environment.nextByte();
       registers.set('RA', memory.readAddress(addr));
     }
   },
@@ -106,8 +107,8 @@ export default [
     mnemotic: 'MOVE',
     code: 2,
     assembly: assemblyRules.moveAssembly,
-    run: function (memory, registers) {
-      var v = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var v = environment.nextByte();
       memory.writeAddress(v, registers.get('RA'));
     }
   },
@@ -115,16 +116,16 @@ export default [
     mnemotic: 'ADDI',
     code: 3,
     assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      registers.incr('RA', memory.nextByte());
+    run: function (memory, registers, io, environment) {
+      registers.incr('RA', environment.nextByte());
     }
   },
   {
     mnemotic: 'ADD',
     code: 4,
     assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      var addr = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var addr = environment.nextByte();
       registers.incr('RA', memory.readAddress(addr));
     }
   },
@@ -132,37 +133,37 @@ export default [
     mnemotic: 'SUBI',
     code: 5,
     assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      registers.decr('RA', memory.nextByte());
+    run: function (memory, registers, io, environment) {
+      registers.decr('RA', environment.nextByte());
     }
   },
   {
     mnemotic: 'SUB',
     code: 6,
     assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      var addr = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var addr = environment.nextByte();
       registers.decr('RA', memory.readAddress(addr));
     }
   },
   {
     mnemotic: 'COMPAREI',
     code: 9,
-    assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      var val = memory.nextByte();
-      var res = ALU.sum(registers.get('RA'), -val, 8);
+    assembly: assemblyRules.valueDirAssembly,
+    run: function (memory, registers, io, environment) {
+      var val = environment.nextByte();
+      var res = ALU.sum(registers.get('RA'), -val, 4);
       registers.set('Z', res.result === 0 ? 1 : 0);
-      registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
+      registers.set('N', ALU.isNegative(res.result, 4) ? 1 : 0);
       registers.set('C', res.carry);
     }
   },
   {
     mnemotic: 'COMPARE',
     code: 10,
-    assembly: assemblyRules.raValueAssembly,
-    run: function (memory, registers) {
-      var val = memory.readAddress(memory.nextByte());
+    assembly: assemblyRules.valueDirAssembly,
+    run: function (memory, registers, io, environment) {
+      var val = memory.readAddress(environment.nextByte());
       var res = ALU.sum(registers.get('RA'), -val, 8);
       registers.set('Z', res.result === 0 ? 1 : 0);
       registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
@@ -173,12 +174,12 @@ export default [
     mnemotic: 'JUMP',
     code: 11,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers, environment) {
-      //Memory.nextByte() desplaza el PC a la
+    run: function (memory, registers, io, environment) {
+      //environment.nextByte() desplaza el PC a la
       //siguiente posición y devuelve el contenido
       //de la memoria en ese punto. En este caso, esa posición
       //contiene la dirección objetivo del salto.
-      var target = memory.nextByte();
+      var target = environment.nextByte();
 
       //Se establece el contador de programa
       //para que la siguiente instrucción a ejecutar
@@ -192,8 +193,8 @@ export default [
     mnemotic: 'JLESS',
     code: 12,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers) {
-      var target = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var target = environment.nextByte();
 
       if (registers.get('N')) {
         registers.set('PC', target - 1);
@@ -204,8 +205,8 @@ export default [
     mnemotic: 'JGREATER',
     code: 13,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers) {
-      var target = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var target = environment.nextByte();
 
       if (!registers.get('N') && !registers.get('Z')) {
         registers.set('PC', target - 1);
@@ -216,8 +217,8 @@ export default [
     mnemotic: 'JEQUAL',
     code: 14,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers) {
-      var target = memory.nextByte();
+    run: function (memory, registers, io, environment) {
+      var target = environment.nextByte();
       if (registers.get('Z') === 1) {
         registers.set('PC', target - 1);
       }
@@ -227,7 +228,7 @@ export default [
     mnemotic: 'CALL',
     code: 17,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers) {
+    run: function (memory, registers, io, environment) {
       registers.set('RET', registers.get('PC') + 1);
       //Se suma +1 para que registers.ret apunte a
       //la dirección donde está el parámetro del CALL
@@ -235,7 +236,7 @@ export default [
       //debe ser la dirección anterior al objetivo porque
       //en el bucle de ejecución de las instrucciones se realizará
       //un incremento justo después de la ejecución del salto.
-      var target = memory.nextByte() - 1;
+      var target = environment.nextByte() - 1;
       registers.set('PC', target);
 
     }
@@ -245,25 +246,17 @@ export default [
     code: 19,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
-      if (memory.nextByte() == 0) {
-        runtimeEnvironment.sleep();
-        io.getInputRequest(function (input) {
-          registers.set('RA', parseInt(input, 16));
-          runtimeEnvironment.wakeUp();
-          console.log('retomar ejecucion: ' + registers.get('PC'));
-        });
-      }
+      var port = runtimeEnvironment.nextByte();
+      registers.set('RA', io.readPort(port));
     }
   },
   {
     mnemotic: 'OUT',
     code: 20,
     assembly: assemblyRules.valueDirAssembly,
-    run: function (memory, registers, io) {
-      var port = memory.nextByte();
-      if (port == 1) {
-        io.setOutput(registers.get('RA'));
-      }
+    run: function (memory, registers, io, environment) {
+      var port = environment.nextByte();
+      io.writePort(port, registers.get('RA'));
     }
   },
   {
@@ -271,7 +264,7 @@ export default [
     code: 22,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
-      runtimeEnvironment.sleep(memory.nextByte() * 1000);
+      runtimeEnvironment.sleep(runtimeEnvironment.nextByte() * 1000);
     }
   },
   {

@@ -9,12 +9,11 @@
  -N: si, tras una operación, RA es negativo, N = 1.
  */
 
+import ALU from './alu';
+
 export default class Registers {
   constructor() {
-    this.reset();
-  }
-
-  reset() {
+    this.onUpdateCallback = null;
     this.regs = {
       ra: 0,
       ret: 0,
@@ -25,16 +24,28 @@ export default class Registers {
       sp: 0
     };
   }
-  
+
+  getData() {
+    return this.regs;
+  }
+
+  reset() {
+    for (var reg in this.regs) {
+      this.regs[reg] = 0;
+    }
+  }
+
   get(reg) {
     return this.regs[reg.toLowerCase()];
   }
   
   set(reg, value) {
     this.regs[reg.toLowerCase()] = value;
-    this.onUpdateCallback && this.onUpdateCallback(reg, value);
-  
-    //this.updateZero(reg);
+    console.log(reg, value);
+    if (this.onUpdateCallback) {
+      console.log('port');
+      this.onUpdateCallback(reg, value);
+    }
   }
   
   incr(reg, value) {
@@ -47,8 +58,6 @@ export default class Registers {
     this.updateZero(reg);
     this.updateCarry(reg, newValue.carry);
     this.updateNegative(reg);
-  
-    this.onUpdateCallback && this.onUpdateCallback(reg, value);
   }
   
   decr(reg, value) {

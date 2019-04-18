@@ -27,21 +27,27 @@ export default class RuntimeEnvironment {
     return this.memory;
   }
 
+  getRegisters() {
+    return this.registers;
+  }
+
+  getIo() {
+    return this.io;
+  }
+
   setCallbacks(callbacks) {
     /*Callbacks posibles:
      *
      * onMemoryUpdate -> la memoria principal ha sido actualizada.
      * onRegisterUpdate -> un registro ha sido actualizado.
-     * onOutputUpdate -> la salida ha sido actualizada.
-     * onSyntaxError -> error de sintaxis durante el ensamblado.
-     * onInputRequest -> el programa solicita la entrada de algún dato.
      * */
     this.callbacks = callbacks;
+
+    console.log(callbacks);
   
     callbacks.onMemoryUpdate && this.memory.onUpdate(callbacks.onMemoryUpdate);
-    callbacks.onRegistersUpdate && this.registers.onUpdate(callbacks.onRegistersUpdate);
-    callbacks.onOutputUpdate && this.io.onOutputUpdate(callbacks.onOutputUpdate);
-    callbacks.onInputRequest && this.io.onInputRequest(callbacks.onInputRequest);
+    callbacks.onRegisterUpdate && this.registers.onUpdate(callbacks.onRegisterUpdate);
+    callbacks.onPortUpdate && this.io.onUpdate(callbacks.onPortUpdate);
   };
 
   run() {
@@ -67,8 +73,8 @@ export default class RuntimeEnvironment {
     }, 2);
   };
   
-  runStep(goForward) {
-    var byte = this.memory.readByte();
+  runStep() {
+    var byte = this.memory.readAddress(this.registers.get('PC'));
     console.log('PC: ' + this.registers.get('PC'));
   
     var instruction = this.getInstructionByCode(byte);
@@ -77,11 +83,12 @@ export default class RuntimeEnvironment {
     if (!instruction) {
       console.log('Error de ejecución.');
       this.stop();
-      //TODO
+      //TODO RuntimeError.
     }
     else if (!instruction.run) {
       console.log('Sin implementación para: ');
       console.log(instruction);
+      // TODO RuntimeError.
       this.stop();
     }
     else {
@@ -92,14 +99,24 @@ export default class RuntimeEnvironment {
         //Cuando una instrucción detiene la ejecución se quiere
         //que el PC se mantenga en esa instrucción y no pase a
         //la siguiente.
-        this.memory.nextByte();
+        this.nextByte();
       }
     }
   };
+
+  //Lee el contenido apuntado por el contador de programa.
+  readByte() {
+    return this.memory.readAddress([this.registers.get('PC')]);
+  }
+
+  //Mueve hacia adelante el contador de programa.
+  //Devuelve el contenido de la memoria en ese punto.
+  nextByte() {
+    this.registers.incr('PC');
+    return this.memory.readAddress([this.registers.get('PC')]);
+  }
   
   resetProgram() {
-    //this.assembly(this.sourceCode);
-  
     //Reiniciar registros.
     this.registers.reset();
   
@@ -125,13 +142,13 @@ export default class RuntimeEnvironment {
   };
   
   wakeUp() {
-  
     if (!this.sleeping) return;
     this.sleeping = false;
   };
-  
 
-
+  isRunning() {
+    return this.running;
+  }
 
   /*
    AUXILIARES

@@ -9,8 +9,18 @@ export default class Assembler {
 
     this.assemblyPointer = 0;
 
+    // tagsTable es un array asociativo en el que la clave es
+    // una etiqueta y el valor es la dirección a la que apunta.
     this.tagsTable = {};
+
+    // unresolvedTags almacena cada una de las referencias que se
+    // hace a una etiqueta. Cuando se termina el proceso de ensamblado,
+    // que será cuando se conozca a qué dirección hace referencia cada
+    // etiqueta, se revisan los usos de esas etiquetas en unresolvedTags
+    // y se 'resuelve'.
     this.unresolvedTags = [];
+
+    this.assembling = false;
   }
 
   setOnSyntaxError(callback) {
@@ -62,6 +72,8 @@ export default class Assembler {
   }
 
   assembly(sourceCode) {
+    this.assembling = true;
+
     // Posición de la memoria donde se va a escribir la instrucción:
     this.assemblyPointer = 0;
 
@@ -99,7 +111,7 @@ export default class Assembler {
       //la dirección en la tabla de etiquetas que se usará posteriormente
       //en la etapa de resolución.
       if (tokens.tag) {
-        this.tagsTable[tokens.tag] = this.memory.assemblyPointer;
+        this.tagsTable[tokens.tag] = this.assemblyPointer;
       }
 
       if (!tokens.mnemotic) {
@@ -111,7 +123,6 @@ export default class Assembler {
       //Generalmente solo habrá un resulado pero alguna instrucción
       //aparece dos veces.
       var instructions = this.getInstructionsByMnemotic(tokens.mnemotic);
-
 
       if (instructions.length === 0) {
         //No se ha encontrado la instrucción correspondiente a un
@@ -140,6 +151,8 @@ export default class Assembler {
     if (!success) {
       this.memory.clear();
     }
+
+    this.assembling = false;
   }
 
   parseLine(line) {
@@ -177,6 +190,8 @@ export default class Assembler {
    * alguna etiqueta para reemplazarla por la dirección real en memoria.
    * */
   resolveTags() {
+    console.log('resolve tags');
+    console.log(this.tagsTable);
     for (var i = 0; i < this.unresolvedTags.length; i++) {
       // address contendrá la dirección a la que se referencia
       var address = this.tagsTable[this.unresolvedTags[i].tag];
@@ -211,6 +226,10 @@ export default class Assembler {
     }
 
     return resInstructions;
+  }
+
+  isAssembling() {
+    return this.assembling;
   }
 
 }

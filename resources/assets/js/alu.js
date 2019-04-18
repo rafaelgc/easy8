@@ -3,7 +3,7 @@
  Conjunto de funciones matemáticas.
  */
 
-class ALU {
+export default class ALU {
   static hexCa2ToInt(hex, bits) {
     var integer = parseInt(hex, 16); // 256 | 2
     return ca2ToInt(integer, bits);
@@ -42,7 +42,7 @@ class ALU {
       n1 = n1 >> 1;
       n2 = n2 >> 1;
   
-      var s = bitSum(b1, b2, carry);
+      var s = this.bitSum(b1, b2, carry);
       resultI = (resultI << 1) | s.result;
       carry = s.carry;
   
