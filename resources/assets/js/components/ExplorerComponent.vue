@@ -71,12 +71,12 @@
 </template>
 
 <script>
+
+import resources from '../resources';
+
 export default {
   data: function () {
-    return {
-      folder: this.$resource('folder'),
-      source: this.$resource('source'),
-    }
+    return {}
   },
   methods: {
     enterDirectory: function (entry) {
@@ -92,17 +92,18 @@ export default {
     },
 
     select: function (entry) {
+      console.log('select');
       this.$store.dispatch('select', entry);
     },
 
     clearSelection: function () {
       console.log('clear');
       for (var i = 0; i < this.$store.state.explorer.folders.length; i++) {
-        this.$store.state.explorer.folders[i].selected = false;
+        this.$store.explorer.state.folders[i].selected = false;
       }
 
       for (var i = 0; i < this.$store.state.explorer.sources.length; i++) {
-        this.$store.state.explorer.sources[i].selected = false;
+        this.$store.explorer.state.sources[i].selected = false;
       }
     },
 
@@ -112,7 +113,7 @@ export default {
     },
 
     closeFolderSettings: function () {
-      this.$store.state.explorer.editingEntry = null;
+      this.$store.explorer.state.editingEntry = null;
     }
   },
   created: function () {
@@ -122,7 +123,7 @@ export default {
       // We want to show the contents of the root folder. Since we
       // don't know its id we first request it.
 
-      this.folder.get({parent: null, api_token: this.$store.state.login.token}).then(function (response) {
+      resources.folder.get({ parent: null }).then(function (response) {
         console.log(response);
         var root = response.body[0];
 
