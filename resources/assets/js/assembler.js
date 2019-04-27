@@ -153,6 +153,8 @@ export default class Assembler {
     }
 
     this.assembling = false;
+
+    return success;
   }
 
   parseLine(line) {

@@ -1,13 +1,14 @@
-require('./bootstrap');
-window.Vue = require('vue');
+import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Vuex from 'vuex'
 import VueResource from 'vue-resource';
 import Entry from './entry';
+import VueToasted from 'vue-toasted';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(VueResource);
+Vue.use(VueToasted);
 
 //////////////////////////////////////////
 ///             API CONFIG             ///
@@ -26,15 +27,15 @@ else {
 //////////////////////////////////////////
 ///               ROUTER               ///
 //////////////////////////////////////////
-Vue.component('alert', require('./components/AlertComponent.vue'));
+Vue.component('alert', require('./components/AlertComponent.vue').default);
 
 const routes = [
   {
     name: 'register',
     path: '/register',
     components: {
-        'working-area': require('./components/RegisterComponent.vue'),
-        'main-menu': require('./components/LoginMenuComponent.vue')
+        'working-area': require('./components/RegisterComponent.vue').default,
+        'main-menu': require('./components/LoginMenuComponent.vue').default
     },
     meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
@@ -42,8 +43,8 @@ const routes = [
     name: 'login',
     path: '/', alias: '/login',
     components: {
-      'working-area': require('./components/LoginComponent.vue'),
-      'main-menu': require('./components/LoginMenuComponent.vue')
+      'working-area': require('./components/LoginComponent.vue').default,
+      'main-menu': require('./components/LoginMenuComponent.vue').default
     },
     meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
@@ -51,8 +52,8 @@ const routes = [
     name: 'explorer',
     path: '/explorer',
     components: {
-      'working-area': require('./components/ExplorerComponent.vue'),
-      'main-menu': require('./components/ExplorerMenuComponent.vue')
+      'working-area': require('./components/ExplorerComponent.vue').default,
+      'main-menu': require('./components/ExplorerMenuComponent.vue').default
     },
     meta: { requiresAuth: true }
   },
@@ -61,8 +62,8 @@ const routes = [
     name: 'simulator',
     path: '/simulator/:entryId?',
     components: {
-      'working-area': require('./components/SimulatorComponent.vue'),
-      'main-menu': require('./components/SimulatorMenuComponent.vue')
+      'working-area': require('./components/SimulatorComponent.vue').default,
+      'main-menu': require('./components/SimulatorMenuComponent.vue').default
     },
     meta: { requiresAuth: true }
   },
@@ -383,10 +384,23 @@ router.beforeEach(function (to, from, next) {
 });
 
 //////////////////////////////////////////
+///     INTERCEPT UNAUTHENTICATED      ///
+//////////////////////////////////////////
+Vue.http.interceptors.push(function(request) {
+  return function(response) {
+    if (response.status == 401 || response.status == 403) {
+      store.dispatch('logout');
+      router.push({ name: 'login' });
+    }
+  };
+});
+
+//////////////////////////////////////////
 ///            VUE INSTANCE            ///
 //////////////////////////////////////////
 
 const app = new Vue({
+  /*el: '#app',*/
   router: router,
   store: store,
   resource: VueResource,
