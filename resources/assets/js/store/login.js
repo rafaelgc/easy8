@@ -25,11 +25,7 @@ export default {
       var login = new Vue.resource('login');
 
       return login.save({}, data).then(function (response) {
-        console.log(response);
-        context.commit('setToken', response.body.api_token);
-        context.commit('authenticate');
-        Vue.http.headers.common['Authorization'] = 'Bearer ' + response.body.api_token;
-
+        context.dispatch('loginWithToken', response.body.api_token);
         window.localStorage.setItem('token', response.body.api_token);
       });
     },
@@ -37,6 +33,7 @@ export default {
     loginWithToken: function (context, token) {
       context.commit('setToken', token);
       context.commit('authenticate');
+      Vue.http.headers.common['Authorization'] = 'Bearer ' + token;
     },
 
     logout: function (context) {

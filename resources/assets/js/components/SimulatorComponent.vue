@@ -1,17 +1,13 @@
 <template>
   <div class="main-layout">
     <div class="button-area">
-      <button class="btn primary" v-on:click="assemblyAndRun()">Ensamblar y ejecutar</button>
       <button class="btn" v-on:click="assembly()">Ensamblar</button>
-      <button class="btn">Parar</button>
       <button class="btn" v-on:click="runStep">Ejecutar paso</button>
-      <button class="btn right" v-if="view == 1" v-on:click="view = 0">Ir al editor</button>
-      <button class="btn right" v-if="view == 0" v-on:click="view = 1">Ir al simulador</button>
       <div style="clear: both"></div>
     </div>
 
     <div class="editor-and-registers">
-      <div v-if="view == 0" class="editor-container">
+      <div v-if="view == 'editor'" class="editor-container">
         <codemirror v-model="$store.state.simulator.content" :options="cmOptions"></codemirror>
       </div>
       <div v-else class="simulator-container">
@@ -1235,7 +1231,6 @@ export default {
   },
   data: function () {
     return {
-      view: 0,
       leds: 10,
 
       assembler: null,
@@ -1247,26 +1242,6 @@ export default {
       lastModifiedMemoryAddress: -1,
       lastModifiedPort: -1,
 
-      showDevice: true,
-
-      peripherals: {
-        keyboard: {
-          visible: true
-        },
-
-        leds: {
-          visible: true
-        },
-
-        switches: {
-          visible: true
-        },
-
-        temperatureSensor: {
-          visible: true
-        }
-      },
-
       cmOptions: {
         // codemirror options
         tabSize: 4,
@@ -1274,22 +1249,21 @@ export default {
         theme: 'base16-dark',
         lineNumbers: true,
         line: true,
-        // more codemirror options, 更多 codemirror 的高级配置...
       }
     }
   },
+  computed: {
+    view() {
+      return this.$store.state.simulator.view;
+    }
+  },
   methods: {
-    assemblyAndRun: function () {
-      console.log(this.$store.state.simulator.content);
-    },
-
     assembly: function () {
       console.log('assembly');
       if (this.assembler.assembly(this.$store.state.simulator.content)) {
         this.$toasted.success('¡Hecho!', { duration: 5000 });
       }
 
-      this.runtimeEnvironment.getMemory().print();
       this.runtimeEnvironment.resetProgram();
     },
 

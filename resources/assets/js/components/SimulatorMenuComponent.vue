@@ -6,10 +6,19 @@
     <li><a v-on:click="download()" class="clickable">Descargar</a></li>
     <li><router-link v-bind:to="{ name: 'explorer' }">Volver al explorador</router-link></li>
   </ul>
+  <div class="section no-sep">Programa</div>
+  <ul>
+    <li><a href="#">Ensamblar</a></li>
+    <li><a href="#">Limpiar memoria</a></li>
+    <li><a href="#">Limpiar registros</a></li>
+    <li><a href="#">Ejecutar</a></li>
+    <li><a href="#">Ejecutar paso</a></li>
+    <li><a href="#">Parar</a></li>
+  </ul>
   <div class="section no-sep">Vista</div>
   <ul>
-    <li><a href="#">Editor</a></li>
-    <li><a href="#">Simulador</a></li>
+    <li><a href="#" v-on:click="$store.dispatch('goToEditor')">Editor</a></li>
+    <li><a href="#" v-on:click="$store.dispatch('goToSimulator')">Simulador</a></li>
   </ul>
 </div>
 </template>
