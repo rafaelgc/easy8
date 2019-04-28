@@ -29,11 +29,20 @@ export default class IO {
   }
 
   readPort(port) {
-    return this.ports[port];
+    var value = this.ports[port];
+
+    // Las especificaciones del simulador requieren que, al leer el
+    // puerto el botón rojo, se resetee su valor.
+    if (port == IODevices.K_BUTTON) {
+      this.writePort(IODevices.K_BUTTON, 0);
+    }
+
+    return value;
   }
 
   writePort(port, value) {
-    this.ports[port] = value;
+    //this.ports[port] = value; TODO
+    Vue.set(this.ports, port, value);
     this.onUpdateCallback && this.onUpdateCallback(this, port, value);
   }
 

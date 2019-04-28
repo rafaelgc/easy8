@@ -1,3 +1,5 @@
+import resources from '../resources';
+
 export default {
   state: {
     entry: null,
@@ -5,6 +7,12 @@ export default {
     view: 'editor',
 
     assembler: null,
+  },
+
+  getters: {
+    currentView(state) {
+      return state.view;
+    }
   },
 
   mutations: {
@@ -22,6 +30,14 @@ export default {
     },
     goToEditor(context) {
       context.dispatch('setView', 'editor');
-    }
+    },
+    updateSource: function (context) {
+      console.log('hola');
+      console.log(context);
+      return resources.source.save({ entryId: context.state.entry.id }, {
+          content: context.state.content
+        }).then(function (response) {
+      });
+    },
   }
 }

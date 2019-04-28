@@ -72,12 +72,6 @@ export default {
     },
 
     // Updates the opened file.
-    updateSource: function (context) {
-      return resources.source.save({ entryId: context.state.simulator.entry.id }, {
-        content: context.state.simulator.content
-      }).then(function (response) {
-      });
-    },
 
     updateEditingFolder: function (context) {
       resources.folder.save({ entryId: context.state.editingEntry.id }, context.state.editingEntry).then(function (response) {

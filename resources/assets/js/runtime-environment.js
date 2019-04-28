@@ -60,7 +60,7 @@ export default class RuntimeEnvironment {
     this.running = true;
     this.sleeping = false;
   
-    this.resetProgram();
+    //this.resetRegisters();
   
     var self = this;
   
@@ -70,7 +70,7 @@ export default class RuntimeEnvironment {
         self.runStep();
       }
   
-    }, 2);
+    }, 50);
   };
   
   runStep() {
@@ -116,7 +116,7 @@ export default class RuntimeEnvironment {
     return this.memory.readAddress([this.registers.get('PC')]);
   }
   
-  resetProgram() {
+  resetRegisters() {
     //Reiniciar registros.
     this.registers.reset();
   

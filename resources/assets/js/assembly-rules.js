@@ -69,6 +69,7 @@ export default {
   valueDirAssembly(assembler, params) {
     assembler.writeByte(this.code);
     assembler.writeAddressOrTag(params[0]);
+    // TODO check params[0] is numeric.
     return true;
   }
 

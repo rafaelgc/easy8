@@ -1,72 +1,79 @@
 <template>
-  <div class="file-explorer">
-    <div class="breadcrumb">
-      <span v-for="(crumb, index) in $store.state.explorer.breadcrumbs" v-bind:key="crumb.id" v-on:click="goBackTo(index)">{{ crumb.name }}/</span>
-    </div>
-    <div class="empty-folder" v-if="!$store.getters.loading && $store.state.explorer.folders.length == 0 && $store.state.explorer.sources.length == 0">
-      Parece que esta carpeta está vacía. ¯\_(ツ)_/¯
-    </div>
-    <a v-if="!$store.getters.inRoot" class="entry folder" v-on:dblclick="goBackTo(-1)">
-      <div class="decoration"></div>
-      ../
-    </a>
-    <a class="entry folder" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
-      <div class="decoration"></div>
-      {{ entry.name }}
-    </a>
-    <a class="entry file" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">{{ entry.name }}</a>
+  <div>
+    <nav class="main-menu">
+      <explorer-menu></explorer-menu>
+    </nav>
+    <div class="working-area">
+      <div class="file-explorer">
+        <div class="breadcrumb">
+          <span v-for="(crumb, index) in $store.state.explorer.breadcrumbs" v-bind:key="crumb.id" v-on:click="goBackTo(index)">{{ crumb.name }}/</span>
+        </div>
+        <div class="empty-folder" v-if="!$store.getters.loading && $store.state.explorer.folders.length == 0 && $store.state.explorer.sources.length == 0">
+          Parece que esta carpeta está vacía. ¯\_(ツ)_/¯
+        </div>
+        <a v-if="!$store.getters.inRoot" class="entry folder" v-on:dblclick="goBackTo(-1)">
+          <div class="decoration"></div>
+          ../
+        </a>
+        <a class="entry folder" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
+          <div class="decoration"></div>
+          {{ entry.name }}
+        </a>
+        <a class="entry file" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">{{ entry.name }}</a>
 
-    <div v-if="$store.state.explorer.editingEntry" class="folder-editor" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
-      <h2>Carpeta</h2>
-      <form action="">
-        <div class="input-block">
-          <label>Nombre</label>
-          <input class="wide big" v-model="$store.state.explorer.editingEntry.name">
+        <div v-if="$store.state.explorer.editingEntry" class="folder-editor" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
+          <h2>Carpeta</h2>
+          <form action="">
+            <div class="input-block">
+              <label>Nombre</label>
+              <input class="wide big" v-model="$store.state.explorer.editingEntry.name">
+            </div>
+
+            <div class="separator">
+              <h3>Buzón</h3>
+              <hr>
+            </div>
+
+            <div class="inbox">
+              <div class="input-block">
+                <label><input type="checkbox" v-model="$store.state.explorer.editingEntry.folder.inbox">Es un buzón</label>
+              </div>
+              <template v-if="$store.state.explorer.editingEntry.folder.inbox">
+                <div class="input-block">
+                  <label>Nombre del buzón</label>
+                  <input class="wide" v-model="$store.state.explorer.editingEntry.folder.inbox_name">
+                </div>
+                <div class="input-block">
+                  <label>Contraseña</label>
+                  <input class="wide" type="password" v-model="$store.state.explorer.editingEntry.folder.inbox_password">
+                </div>
+              </template>
+            </div>
+
+            <button class="btn" v-on:click="closeFolderSettings()">Cancelar</button>
+            <button class="btn primary" v-on:click="saveFolderSettings()">Guardar</button>
+          </form>
         </div>
 
-        <div class="separator">
-          <h3>Buzón</h3>
-          <hr>
-        </div>
-
-        <div class="inbox">
-          <div class="input-block">
-            <label><input type="checkbox" v-model="$store.state.explorer.editingEntry.folder.inbox">Es un buzón</label>
-          </div>
-          <template v-if="$store.state.explorer.editingEntry.folder.inbox">
+        <div v-if="false" class="folder-editor" v-bind:class="{ 'visible': true }">
+          <h2>Enviar fichero</h2>
+          <form action="">
             <div class="input-block">
               <label>Nombre del buzón</label>
-              <input class="wide" v-model="$store.state.explorer.editingEntry.folder.inbox_name">
+              <input class="input wide big" >
             </div>
             <div class="input-block">
               <label>Contraseña</label>
-              <input class="wide" type="password" v-model="$store.state.explorer.editingEntry.folder.inbox_password">
+              <input class="input wide big" type="password" >
             </div>
-          </template>
+
+            <button class="btn" v-on:click="closeFolderSettings()">Cancelar</button>
+            <button class="btn primary" v-on:click="saveFolderSettings()">Enviar</button>
+          </form>
         </div>
 
-        <button class="btn" v-on:click="closeFolderSettings()">Cancelar</button>
-        <button class="btn primary" v-on:click="saveFolderSettings()">Guardar</button>
-      </form>
+      </div>
     </div>
-
-    <div v-if="false" class="folder-editor" v-bind:class="{ 'visible': true }">
-      <h2>Enviar fichero</h2>
-      <form action="">
-        <div class="input-block">
-          <label>Nombre del buzón</label>
-          <input class="input wide big" >
-        </div>
-        <div class="input-block">
-          <label>Contraseña</label>
-          <input class="input wide big" type="password" >
-        </div>
-
-        <button class="btn" v-on:click="closeFolderSettings()">Cancelar</button>
-        <button class="btn primary" v-on:click="saveFolderSettings()">Enviar</button>
-      </form>
-    </div>
-
   </div>
 </template>
 
@@ -75,6 +82,9 @@
 import resources from '../resources';
 
 export default {
+  components: {
+    'explorer-menu': require('./ExplorerMenuComponent.vue').default
+  },
   data: function () {
     return {}
   },

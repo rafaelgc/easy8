@@ -8,17 +8,17 @@
   </ul>
   <div class="section no-sep">Programa</div>
   <ul>
-    <li><a href="#">Ensamblar</a></li>
-    <li><a href="#">Limpiar memoria</a></li>
-    <li><a href="#">Limpiar registros</a></li>
-    <li><a href="#">Ejecutar</a></li>
-    <li><a href="#">Ejecutar paso</a></li>
-    <li><a href="#">Parar</a></li>
+    <li><a href="#" v-on:click="$emit('assembly')">Ensamblar</a></li>
+    <li><a href="#" v-on:click="$emit('clean-memory')">Limpiar memoria</a></li>
+    <li><a href="#" v-on:click="$emit('clean-registers')">Limpiar registros</a></li>
+    <li><a href="#" v-on:click="$emit('run')">Ejecutar</a></li>
+    <li><a href="#" v-on:click="$emit('run-step')">Ejecutar paso</a></li>
+    <li><a href="#" v-on:click="$emit('stop')">Parar</a></li>
   </ul>
   <div class="section no-sep">Vista</div>
   <ul>
-    <li><a href="#" v-on:click="$store.dispatch('goToEditor')">Editor</a></li>
-    <li><a href="#" v-on:click="$store.dispatch('goToSimulator')">Simulador</a></li>
+    <li><a href="#" v-on:click="$store.dispatch('goToEditor')" v-bind:style="{'text-decoration': $store.getters.currentView == 'editor' ? 'underline' : 'none'}">Editor</a></li>
+    <li><a href="#" v-on:click="$store.dispatch('goToSimulator')" v-bind:style="{'text-decoration': $store.getters.currentView == 'simulator' ? 'underline' : 'none'}">Simulador</a></li>
   </ul>
 </div>
 </template>

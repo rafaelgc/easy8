@@ -16,23 +16,14 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-        <!-- CodeMirror -->
-        <!--<link rel="stylesheet" href="js/codemirror/lib/codemirror.css">
-        <script src="js/codemirror/lib/codemirror.js"></script>-->
-
     </head>
     <body>
         <div id="app">
             <header>
                 Easy8
             </header>
-            <nav class="main-menu">
-              <router-view name="main-menu"></router-view>
-            </nav>
 
-            <div class="working-area">
-                <router-view name="working-area"></router-view>
-            </div>
+            <router-view name="main-view"></router-view>
 
         </div>
 

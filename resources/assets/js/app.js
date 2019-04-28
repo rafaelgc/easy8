@@ -25,8 +25,8 @@ const routes = [
     name: 'register',
     path: '/register',
     components: {
-        'working-area': require('./components/RegisterComponent.vue').default,
-        'main-menu': require('./components/LoginMenuComponent.vue').default
+        'main-view': require('./components/RegisterComponent.vue').default,
+
     },
     meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
@@ -34,8 +34,7 @@ const routes = [
     name: 'login',
     path: '/', alias: '/login',
     components: {
-      'working-area': require('./components/LoginComponent.vue').default,
-      'main-menu': require('./components/LoginMenuComponent.vue').default
+      'main-view': require('./components/LoginComponent.vue').default
     },
     meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
@@ -43,8 +42,7 @@ const routes = [
     name: 'explorer',
     path: '/explorer',
     components: {
-      'working-area': require('./components/ExplorerComponent.vue').default,
-      'main-menu': require('./components/ExplorerMenuComponent.vue').default
+      'main-view': require('./components/ExplorerComponent.vue').default
     },
     meta: { requiresAuth: true }
   },
@@ -53,8 +51,7 @@ const routes = [
     name: 'simulator',
     path: '/simulator/:entryId?',
     components: {
-      'working-area': require('./components/SimulatorComponent.vue').default,
-      'main-menu': require('./components/SimulatorMenuComponent.vue').default
+      'main-view': require('./components/SimulatorComponent.vue').default
     },
     meta: { requiresAuth: true }
   },
