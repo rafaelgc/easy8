@@ -391,6 +391,7 @@
 
   g:not(#g4629) {
     cursor: pointer;
+    user-select: none;
   }
 
 

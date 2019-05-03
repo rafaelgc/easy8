@@ -1,3 +1,5 @@
+import { IODevices } from './io';
+
 export default class Assembler {
   /**
    * @param memory La memoria donde se escribirá el programa ensamblado.
@@ -11,7 +13,7 @@ export default class Assembler {
 
     // tagsTable es un array asociativo en el que la clave es
     // una etiqueta y el valor es la dirección a la que apunta.
-    this.tagsTable = {};
+    this.tagsTable = this.getHelperTags();
 
     // unresolvedTags almacena cada una de las referencias que se
     // hace a una etiqueta. Cuando se termina el proceso de ensamblado,
@@ -79,7 +81,7 @@ export default class Assembler {
 
     var lines = sourceCode.split('\n');
 
-    this.tagsTable = {};
+    this.tagsTable = this.getHelperTags();
     this.unresolvedTags = [];
 
     //Reiniciar la memoria.
@@ -232,6 +234,22 @@ export default class Assembler {
 
   isAssembling() {
     return this.assembling;
+  }
+
+  // Aunque los tags se supone que asocian una etiqueta con una
+  // dirección de la memoria, resulta muy conveniente que se asocien
+  // con puertos para que el usuario no tenga que conocer los puertos
+  // donde están conectados los periféricos.
+  getHelperTags() {
+    return {
+      '@__RED_BUTTON': IODevices.K_BUTTON,
+      '@__GREEN_BUTTON': IODevices.BUTTON,
+      '@__DISPLAY': IODevices.DISPLAY,
+      '@__KEYBOARD': IODevices.KEYBOARD,
+      '@__LEDS': IODevices.LEDS,
+      '@__SWITCHES': IODevices.SWITCHES,
+      '@__TEMPERATURE_SENSOR': IODevices.TEMPERATURE_SENSOR
+    };
   }
 
 }

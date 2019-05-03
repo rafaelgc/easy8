@@ -6,7 +6,8 @@
         v-on:clean-memory="cleanMemory"
         v-on:clean-registers="cleanRegisters"
         v-on:run="run"
-        v-on:run-step="runStep"></simulator-menu>
+        v-on:run-step="runStep"
+        v-on:stop="stop"></simulator-menu>
     </div>
     <div class="working-area">
       <div class="main-layout">
@@ -93,29 +94,6 @@
                   cx="71.305214"
                   cy="214.05313"
                   r="4.1010418" />
-                <rect
-                  style="fill:#666666;fill-opacity:1;stroke-width:0.23512554"
-                  id="rect4648"
-                  width="29.633333"
-                  height="19.314583"
-                  x="116.15208"
-                  y="136.66251" />
-                <rect
-                  style="fill:#666666;fill-opacity:1;stroke-width:0.23512554"
-                  id="rect4648-1"
-                  width="29.633333"
-                  height="19.314583"
-                  x="28.310406"
-                  y="103.7219" />
-                <rect
-                  style="fill:#666666;fill-opacity:1;stroke-width:0.16046408"
-                  id="rect4648-1-9"
-                  width="29.633333"
-                  height="8.9958324"
-                  x="28.310406"
-                  y="135.73637"
-                  inkscape:transform-center-x="-12.964583"
-                  inkscape:transform-center-y="-5.0524545" />
                 <path
                   style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.26458332"
                   d="m 30.504219,183.40157 0.35595,0.0351 c -0.43308,1.06093 -0.433483,2.08392 -0.496954,3.11653 l -0.332564,0.006 c 0.07581,-1.05054 0.006,-2.10693 0.473568,-3.15746 z"
@@ -713,157 +691,6 @@
                   x="52.414062"
                   y="167.0092"
                   transform="matrix(0.99999928,-0.00119613,4.5275122e-4,0.9999999,0,0)" />
-                <rect
-                  style="fill:#c83737;fill-opacity:1;stroke-width:0.08671817"
-                  id="rect4610-4"
-                  width="25.523891"
-                  height="10.759797"
-                  x="30.711691"
-                  y="207.61729" />
-                <g
-                  id="g4770-2-4-8"
-                  transform="matrix(0.8909091,0,0,0.83837577,11.792982,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2-1-8"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6-2-9"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770"
-                  transform="matrix(0.89090909,0,0,0.83837577,3.3299775,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-2"
-                  transform="matrix(0.8909091,0,0,0.83837577,6.1509788,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-2-4"
-                  transform="matrix(0.8909091,0,0,0.83837577,8.9719805,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2-1"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6-2"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-28"
-                  transform="matrix(0.8909091,0,0,0.83837577,14.613984,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-8"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-8"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-2-6"
-                  transform="matrix(0.8909091,0,0,0.83837577,17.434984,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2-8"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6-3"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-2-4-83"
-                  transform="matrix(0.8909091,0,0,0.83837577,20.255986,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2-1-3"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6-2-3"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
-                <g
-                  id="g4770-2-4-8-8"
-                  transform="matrix(0.8909091,0,0,0.83837577,23.076987,34.374477)">
-                  <rect
-                    y="209.81667"
-                    x="32.646973"
-                    height="6.5481033"
-                    width="2.5724692"
-                    id="rect4749-2-1-8-0"
-                    style="fill:#b3b3b3;fill-opacity:1;stroke-width:0.27457109" />
-                  <rect
-                    y="213.1375"
-                    x="32.646973"
-                    height="3.2272794"
-                    width="2.5724692"
-                    id="rect4749-4-6-2-9-4"
-                    style="fill:#ffffff;fill-opacity:1;stroke-width:0.19275929" />
-                </g>
                 <path
                   style="fill:#ffffff;fill-opacity:0.71063831;stroke-width:0.40050295"
                   d="m 67.834237,154.59261 -12.322762,12.33568 v 0.2651 L 67.967044,154.7249 Z"
@@ -1013,6 +840,18 @@
                 <!-- KEYBOARD -->
                 <hex-keyboard v-on:key-press="keyboardKeyPress"></hex-keyboard>
 
+                <!-- ECHO DISPLAY -->
+                <display>{{ ports[IODevices.KEYBOARD] | toHex(true)  }}</display>
+
+                <!-- DISPLAY -->
+                <display v-bind:x="28" v-bind:y="104">{{ ports[IODevices.DISPLAY] | toHex(true)  }}</display>
+
+                <!-- LED STRIP -->
+                <led-strip v-bind:value="ports[IODevices.LEDS]"></led-strip>
+
+                <!-- SWITCHES -->
+                <switches v-on:changed="switchesChanged"></switches>
+
               </g>
             </svg>
           </div>
@@ -1101,12 +940,15 @@ export default {
   components: {
     'simulator-menu': require('./SimulatorMenuComponent.vue').default,
     'codemirror': codemirror,
-    'hex-keyboard': require('./HexKeyboard.vue').default
+    'hex-keyboard': require('./HexKeyboard.vue').default,
+    'display': require('./Display.vue').default,
+    'led-strip': require('./Leds.vue').default,
+    'switches': require('./Switches.vue').default
   },
   filters: {
-    toHex(value) {
+    toHex(value, uppercasePrefix) {
       var hex = value.toString(16).toUpperCase();
-      return '0x' + (hex.length < 2 ? '0' : '') + hex;
+      return (uppercasePrefix ? '0X' : '0x') + (hex.length < 2 ? '0' : '') + hex;
     }
   },
   data: function () {
@@ -1129,7 +971,8 @@ export default {
         theme: 'base16-dark',
         lineNumbers: true,
         line: true,
-      }
+      },
+      IODevices: IODevices
     }
   },
   computed: {
@@ -1164,6 +1007,10 @@ export default {
       this.runtimeEnvironment.runStep();
 
       this.$refs.codeMemory[Math.max(this.runtimeEnvironment.getRegisters().get('PC') - 4, 0)].scrollIntoView();
+    },
+
+    stop() {
+      this.runtimeEnvironment.stop();
     },
 
     onSyntaxError: function (message, line) {
@@ -1205,6 +1052,10 @@ export default {
 
     keyboardKeyPress(data) {
       this.runtimeEnvironment.getIo().writePort(IODevices.KEYBOARD, data.value);
+    },
+
+    switchesChanged(value) {
+      this.runtimeEnvironment.getIo().writePort(IODevices.SWITCHES, value);
     }
   },
   created: function() {
