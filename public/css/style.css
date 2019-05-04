@@ -199,3 +199,65 @@ border-left-color: #fd5252;
 .alert.error {
   border-color: #ff4c51;
 }*/
+
+/*****************************************
+***             MODAL                  ***
+*****************************************/
+
+.modal {
+  position: fixed;
+  width: 500px;
+  max-width: 100%;
+  background-color: white;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.75);
+  z-index: 10001;
+  border: solid 1px #D1D1D1;
+  display: none;
+}
+
+.modal.visible {
+  display: block;
+  animation-name: entry-animation;
+  animation-duration: 0.2s;
+}
+
+.modal h2 {
+  font-size: 120%;
+  color: #616161;
+  /*background-color: #f6f6f6;*/
+  padding: 15px;
+  font-weight: normal;
+  margin: 0;
+  border-top: solid 5px #1e7fce;
+  border-bottom: solid 1px #e9e9e9;
+}
+
+.modal form {
+  padding: 15px;
+}
+
+.modal .input-block {
+  margin-bottom: 15px;
+}
+
+.modal .separator h3 {
+  font-weight: bold;
+  background-color: white;
+  display: inline-block;
+  color: #777777;
+  margin: 0 0 0 10px;
+  padding: 0 5px;
+  text-transform: uppercase;
+  font-size: 90%;
+}
+
+.modal .separator hr {
+  position: relative;
+  top: -1.1em;
+  border: solid 1px #e7e7e7;
+  z-index: -1;
+}

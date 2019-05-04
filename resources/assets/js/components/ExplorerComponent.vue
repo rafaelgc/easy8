@@ -21,7 +21,7 @@
         </a>
         <a class="entry file" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">{{ entry.name }}</a>
 
-        <div v-if="$store.state.explorer.editingEntry" class="folder-editor" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
+        <div v-if="$store.state.explorer.editingEntry" class="modal" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
           <h2>Carpeta</h2>
           <form action="">
             <div class="input-block">
@@ -55,7 +55,7 @@
           </form>
         </div>
 
-        <div v-if="false" class="folder-editor" v-bind:class="{ 'visible': true }">
+        <div v-if="false" class="modal" v-bind:class="{ 'visible': true }">
           <h2>Enviar fichero</h2>
           <form action="">
             <div class="input-block">
@@ -234,62 +234,5 @@ export default {
     text-align: center;
   }
 
-  .folder-editor {
-    position: fixed;
-    width: 500px;
-    max-width: 100%;
-    background-color: white;
-    top: 100px;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    box-shadow: 0px 0px 3px -1px rgba(0,0,0,0.75);
-    z-index: 10001;
-    border: solid 1px #D1D1D1;
-    display: none;
-  }
-
-  .folder-editor.visible {
-    display: block;
-    animation-name: entry-animation;
-    animation-duration: 0.2s;
-  }
-
-  .folder-editor h2 {
-    font-size: 120%;
-    color: #616161;
-    /*background-color: #f6f6f6;*/
-    padding: 15px;
-    font-weight: normal;
-    margin: 0;
-    border-top: solid 5px #1e7fce;
-    border-bottom: solid 1px #e9e9e9;
-  }
-
-  .folder-editor form {
-    padding: 15px;
-  }
-
-  .folder-editor .input-block {
-    margin-bottom: 15px;
-  }
-
-  .folder-editor .separator h3 {
-    font-weight: bold;
-    background-color: white;
-    display: inline-block;
-    color: #777777;
-    margin: 0 0 0 10px;
-    padding: 0 5px;
-    text-transform: uppercase;
-    font-size: 90%;
-  }
-
-  .folder-editor .separator hr {
-    position: relative;
-    top: -1.1em;
-    border: solid 1px #e7e7e7;
-    z-index: -1;
-  }
 
 </style>

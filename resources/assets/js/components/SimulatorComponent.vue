@@ -114,13 +114,6 @@
                   inkscape:connector-curvature="0"
                   sodipodi:nodetypes="ccccc" />
                 <rect
-                  style="fill:#1a1a1a;fill-opacity:1;stroke-width:0.24669017"
-                  id="rect4680"
-                  width="3.4395833"
-                  height="5.0601563"
-                  x="29.645016"
-                  y="178.75963" />
-                <rect
                   style="fill:#333333;fill-opacity:1;stroke-width:0.26458332"
                   id="rect5067"
                   width="11.973675"
@@ -852,6 +845,15 @@
                 <!-- SWITCHES -->
                 <switches v-on:changed="switchesChanged"></switches>
 
+                <!-- TEMPERATURE -->
+                <rect
+                  style="fill:#1a1a1a;fill-opacity:1;stroke-width:0.24669017; cursor: pointer"
+                  id="rect4680"
+                  width="3.4395833"
+                  height="5.0601563"
+                  x="29.645016"
+                  y="178.75963" v-on:click="showTemperatureModal = !showTemperatureModal"/>
+
               </g>
             </svg>
           </div>
@@ -877,6 +879,17 @@
               <h2>SP</h2>
               <div class="value">{{ registers.sp | toHex }}</div>
             </div>
+
+            <div class="register">
+              <h2>Z</h2>
+              <div class="value">{{ registers.z | toHex }}</div>
+            </div>
+
+            <div class="register">
+              <h2>N</h2>
+              <div class="value">{{ registers.n | toHex }}</div>
+            </div>
+
           </div>
         </div>
         <div class="simulator-row memory-displays">
@@ -918,6 +931,21 @@
         </div>
 
       </div>
+
+      <!-- MODAL PARA CONFIGURAR LA TEMPERATURA -->
+      <div class="modal" v-bind:class="{ 'visible': showTemperatureModal }">
+        <h2>Temperatura del ambiente</h2>
+        <form v-on:submit.prevent="">
+          <div style="margin-bottom: 15px; color: #464646">Desde aquí puedes establecer la temperatura que leerá el sensor.</div>
+
+          <label style="display: block; margin-bottom: 15px">Temperatura: <b>{{ ports[IODevices.TEMPERATURE_SENSOR] }}ºC</b></label>
+          <temperature-slider v-on:changed="temperatureChanged"></temperature-slider>
+
+          <div style="margin-top: 15px">
+            <button class="btn" v-on:click="showTemperatureModal = false">Cerrar</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
@@ -943,7 +971,8 @@ export default {
     'hex-keyboard': require('./HexKeyboard.vue').default,
     'display': require('./Display.vue').default,
     'led-strip': require('./Leds.vue').default,
-    'switches': require('./Switches.vue').default
+    'switches': require('./Switches.vue').default,
+    'temperature-slider': require('./Temperature.vue').default
   },
   filters: {
     toHex(value, uppercasePrefix) {
@@ -953,8 +982,6 @@ export default {
   },
   data: function () {
     return {
-      leds: 10,
-
       assembler: null,
 
       memory: null,
@@ -963,6 +990,8 @@ export default {
 
       lastModifiedMemoryAddress: -1,
       lastModifiedPort: -1,
+
+      showTemperatureModal: false,
 
       cmOptions: {
         // codemirror options
@@ -1056,6 +1085,10 @@ export default {
 
     switchesChanged(value) {
       this.runtimeEnvironment.getIo().writePort(IODevices.SWITCHES, value);
+    },
+
+    temperatureChanged(value) {
+      this.runtimeEnvironment.getIo().writePort(IODevices.TEMPERATURE_SENSOR, Number(value));
     }
   },
   created: function() {
@@ -1095,6 +1128,18 @@ export default {
       io: this.runtimeEnvironment.getIo(),
       IODevices: IODevices
     };
+
+    window.addEventListener('keypress', (event) => {
+      if (!event.ctrlKey) return;
+
+      if (event.code == 'KeyQ') {
+        this.$store.dispatch('switchView');
+      }
+      else if (event.code == 'KeyW') {
+
+      }
+
+    });
   }
 };
 </script>

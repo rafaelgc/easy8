@@ -152,9 +152,9 @@ export default [
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
       var val = environment.nextByte();
-      var res = ALU.sum(registers.get('RA'), -val, 4);
+      var res = ALU.sum(registers.get('RA'), -val, 8);
       registers.set('Z', res.result === 0 ? 1 : 0);
-      registers.set('N', ALU.isNegative(res.result, 4) ? 1 : 0);
+      registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
       registers.set('C', res.carry);
     }
   },

@@ -31,6 +31,9 @@ export default {
     goToEditor(context) {
       context.dispatch('setView', 'editor');
     },
+    switchView(context) {
+      context.commit('setView', context.state.view == 'simulator' ? 'editor' : 'simulator');
+    },
     updateSource: function (context) {
       console.log('hola');
       console.log(context);

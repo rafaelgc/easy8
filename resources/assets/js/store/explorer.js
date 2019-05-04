@@ -1,5 +1,6 @@
 import resources from  '../resources';
 import Vue from 'vue';
+import Entry from '../entry';
 
 export default {
   state: {
