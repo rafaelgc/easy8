@@ -860,34 +860,43 @@
 
           <div class="registers" v-if="registers">
 
-            <div class="register">
-              <h2>RA</h2>
-              <div class="value">{{ registers.ra | toHex }}</div>
+            <div class="registers-row">
+              <div class="register">
+                <h2>RA</h2>
+                <div class="value">{{ registers.ra | toHex }}</div>
+              </div>
+
+              <div class="register">
+                <h2>PC</h2>
+                <div class="value">{{ registers.pc | toHex }}</div>
+              </div>
+
+              <div class="register">
+                <h2>RET</h2>
+                <div class="value">{{ registers.ret | toHex }}</div>
+              </div>
+
+              <div class="register">
+                <h2>SP</h2>
+                <div class="value">{{ registers.sp | toHex }}</div>
+              </div>
             </div>
 
-            <div class="register">
-              <h2>PC</h2>
-              <div class="value">{{ registers.pc | toHex }}</div>
-            </div>
+            <div class="registers-row">
+              <div class="register">
+                <h2>Z</h2>
+                <div class="value">{{ registers.z | toHex }}</div>
+              </div>
 
-            <div class="register">
-              <h2>RET</h2>
-              <div class="value">{{ registers.ret | toHex }}</div>
-            </div>
+              <div class="register">
+                <h2>N</h2>
+                <div class="value">{{ registers.n | toHex }}</div>
+              </div>
 
-            <div class="register">
-              <h2>SP</h2>
-              <div class="value">{{ registers.sp | toHex }}</div>
-            </div>
-
-            <div class="register">
-              <h2>Z</h2>
-              <div class="value">{{ registers.z | toHex }}</div>
-            </div>
-
-            <div class="register">
-              <h2>N</h2>
-              <div class="value">{{ registers.n | toHex }}</div>
+              <div class="register">
+                <h2>C</h2>
+                <div class="value">{{ registers.c | toHex }}</div>
+              </div>
             </div>
 
           </div>
@@ -923,7 +932,7 @@
           <div class="memory">
             <h2>Puertos</h2>
             <div class="scroll">
-              <div v-if="memory" v-for="(entry, index) in ports" ref="ports" class="entry" :class="{ highlight: index == lastModifiedPort }">
+              <div v-if="ports" v-for="(entry, index) in ports" ref="ports" class="entry" :class="{ highlight: index == lastModifiedPort }">
                 <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
               </div>
             </div>
@@ -933,7 +942,7 @@
       </div>
 
       <!-- MODAL PARA CONFIGURAR LA TEMPERATURA -->
-      <div class="modal" v-bind:class="{ 'visible': showTemperatureModal }">
+      <div v-if="showTemperatureModal" class="modal" v-bind:class="{ 'visible': showTemperatureModal }">
         <h2>Temperatura del ambiente</h2>
         <form v-on:submit.prevent="">
           <div style="margin-bottom: 15px; color: #464646">Desde aquí puedes establecer la temperatura que leerá el sensor.</div>
@@ -959,10 +968,12 @@ import Assembler from '../assembler';
 
 import instructionSet from '../instruction-set';
 
-import { codemirror } from 'vue-codemirror'
+import { codemirror, CodeMirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
 import { IODevices } from '../io';
+
+CodeMirror.defineMode("easy8asm", require('../syntax').default);
 
 export default {
   components: {
@@ -996,10 +1007,11 @@ export default {
       cmOptions: {
         // codemirror options
         tabSize: 4,
-        mode: 'text/javascript',
-        theme: 'base16-dark',
+        //mode: 'text/javascript',
+        //theme: 'base16-dark',
         lineNumbers: true,
         line: true,
+        mode: 'easy8asm'
       },
       IODevices: IODevices
     }
@@ -1020,6 +1032,10 @@ export default {
     },
 
     cleanMemory() {
+
+    },
+
+    cleanPorts() {
 
     },
 
@@ -1089,14 +1105,30 @@ export default {
 
     temperatureChanged(value) {
       this.runtimeEnvironment.getIo().writePort(IODevices.TEMPERATURE_SENSOR, Number(value));
+    },
+
+    ////////////////////////////////////
+    ///      ATAJOS DE TECLADO       ///
+    ////////////////////////////////////
+
+    handleKeyPress(event) {
+      if (!event.ctrlKey) return;
+
+      console.log(event);
+      if (event.code == 'KeyQ') {
+        this.$store.dispatch('switchView');
+      }
+      else if (event.code == 'KeyW') {
+
+      }
     }
+
   },
   created: function() {
   },
   mounted: function() {
     console.log('MOUNTED');
     var self = this;
-    var regex = /(?:MOVEI|MOVE|COMPAREI|COMPARE|JUMP|JLESS|JEQUAL|JGREATER|ADDI|ADD|INC|SUBI|SUB|DEC|CALL|RET|PUSH|POP|STOP|IN|OUT)\b/;
 
     this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
       self.$store.state.simulator.entry = response.body;
@@ -1128,18 +1160,13 @@ export default {
       io: this.runtimeEnvironment.getIo(),
       IODevices: IODevices
     };
+    window.addEventListener('keypress', this.handleKeyPress);
 
-    window.addEventListener('keypress', (event) => {
-      if (!event.ctrlKey) return;
+    console.log(CodeMirror);
 
-      if (event.code == 'KeyQ') {
-        this.$store.dispatch('switchView');
-      }
-      else if (event.code == 'KeyW') {
-
-      }
-
-    });
+  },
+  destroyed: function () {
+    window.removeEventListener('keypress', this.handleKeyPress);
   }
 };
 </script>
@@ -1197,11 +1224,19 @@ export default {
   }
 
   .registers {
+    align-self: flex-start;
     display: flex;
     justify-content: center;
     width: 50%;
     max-width: 600px;
     align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .registers-row {
+    display: flex;
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .registers .register {
