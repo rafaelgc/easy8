@@ -16,11 +16,11 @@ export default class Memory {
     this.size = size ? size : 256;
     this.bytes = [];
 
-    this.clear();
+    this.clean();
   }
 
   //Reinicia la memoria.
-  clear() {
+  clean() {
     this.bytes.length = 0;
     for (var i = 0; i < this.size; i++) {
       this.bytes.push(0);

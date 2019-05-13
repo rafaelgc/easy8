@@ -45,7 +45,6 @@ export default class ALU {
       var s = this.bitSum(b1, b2, carry);
       resultI = (resultI << 1) | s.result;
       carry = s.carry;
-  
     }
   
     var result = 0;
@@ -60,6 +59,17 @@ export default class ALU {
     return {result: result, carry: carry};
   
   };
+
+  static sumUpdatingFlags(n1, n2, bits, registers) {
+    var res = this.sum(n1, n2, bits);
+    registers.set('Z', res.result === 0 ? 1 : 0);
+    registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
+    registers.set('C', res.carry);
+    registers.set('V', ALU.overflowed(n1, n2, res.result, bits) ? 1 : 0);
+    registers.set('NV', registers.get('N') ^ registers.get('V'));
+
+    return res;
+  }
   
   /**
    * Suma de dos bits.
@@ -84,8 +94,14 @@ export default class ALU {
   
   static isNegative(number, bits) {
     var mask = 1 << (bits - 1);
-    return (mask & number) > 0;
+    return (number != 0) && ((mask & number) > 0);
   };
+
+  static overflowed(operand1, operand2, result, bits) {
+    console.log(operand1, operand2, result, bits);
+    return (this.isNegative(operand1, bits) && this.isNegative(operand2, bits) && !this.isNegative(result, bits)) ||
+      (!this.isNegative(operand1, bits) && !this.isNegative(operand2, bits) && this.isNegative(result, bits));
+  }
 
 }
 

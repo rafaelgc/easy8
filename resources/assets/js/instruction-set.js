@@ -70,10 +70,11 @@ export default [
     code: 16,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
+      var top = memory.readAddress(registers.get('SP') + 1);
       if (registers.get('SP') < memory.size - 1) {
-        //TODO: ¿se pone a 0?
         registers.incr('SP', 1);
         memory.writeAddress(registers.get('SP'), 0);
+        registers.set('RA', top);
       }
     }
   },
@@ -117,7 +118,7 @@ export default [
     code: 3,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
-      registers.incr('RA', environment.nextByte());
+      registers.incrUpdatingFlags('RA', environment.nextByte());
     }
   },
   {
@@ -126,7 +127,7 @@ export default [
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
       var addr = environment.nextByte();
-      registers.incr('RA', memory.readAddress(addr));
+      registers.incrUpdatingFlags('RA', memory.readAddress(addr));
     }
   },
   {
@@ -134,7 +135,7 @@ export default [
     code: 5,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
-      registers.decr('RA', environment.nextByte());
+      registers.decrUpdatingFlags('RA', environment.nextByte());
     }
   },
   {
@@ -143,7 +144,7 @@ export default [
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
       var addr = environment.nextByte();
-      registers.decr('RA', memory.readAddress(addr));
+      registers.decrUpdatingFlags('RA', memory.readAddress(addr));
     }
   },
   {
@@ -152,10 +153,7 @@ export default [
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
       var val = environment.nextByte();
-      var res = ALU.sum(registers.get('RA'), -val, 8);
-      registers.set('Z', res.result === 0 ? 1 : 0);
-      registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
-      registers.set('C', res.carry);
+      ALU.sumUpdatingFlags(registers.get('RA'), -val, 8, registers);
     }
   },
   {
@@ -164,10 +162,7 @@ export default [
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
       var val = memory.readAddress(environment.nextByte());
-      var res = ALU.sum(registers.get('RA'), -val, 8);
-      registers.set('Z', res.result === 0 ? 1 : 0);
-      registers.set('N', ALU.isNegative(res.result, 8) ? 1 : 0);
-      registers.set('C', res.carry);
+      ALU.sumUpdatingFlags(registers.get('RA'), -val, 8, registers);
     }
   },
   {
@@ -264,12 +259,21 @@ export default [
     code: 22,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
+      var addr = runtimeEnvironment.nextByte();
+      runtimeEnvironment.sleep(memory.readAddress(addr) * 1000);
+    }
+  },
+  {
+    mnemotic: 'SLEEPI',
+    code: 23,
+    assembly: assemblyRules.valueDirAssembly,
+    run: function (memory, registers, io, runtimeEnvironment) {
       runtimeEnvironment.sleep(runtimeEnvironment.nextByte() * 1000);
     }
   },
   {
     mnemotic: 'RAND',
-    code: 23,
+    code: 24,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
       registers.set('RA', Math.floor(Math.random() * 255) + 1);
@@ -282,6 +286,46 @@ export default [
       assembler.writeByte(parseInt(params[0], 16));
       return true;
     }
-  }
+  },
+  {
+    mnemotic: 'LOAD_Z',
+    code: 25,
+    assembly: assemblyRules.oneByteAssembly,
+    run: function (memory, registers) {
+      registers.set('RA', registers.get('Z'));
+    }
+  },
+  {
+    mnemotic: 'LOAD_N',
+    code: 26,
+    assembly: assemblyRules.oneByteAssembly,
+    run: function (memory, registers) {
+      registers.set('RA', registers.get('N'));
+    }
+  },
+  {
+    mnemotic: 'LOAD_C',
+    code: 27,
+    assembly: assemblyRules.oneByteAssembly,
+    run: function (memory, registers) {
+      registers.set('RA', registers.get('C'));
+    }
+  },
+  {
+    mnemotic: 'LOAD_V',
+    code: 28,
+    assembly: assemblyRules.oneByteAssembly,
+    run: function (memory, registers) {
+      registers.set('RA', registers.get('V'));
+    }
+  },
+  {
+    mnemotic: 'LOAD_NV',
+    code: 29,
+    assembly: assemblyRules.oneByteAssembly,
+    run: function (memory, registers) {
+      registers.set('RA', registers.get('NV'));
+    }
+  },
 
 ];

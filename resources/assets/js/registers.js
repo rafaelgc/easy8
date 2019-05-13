@@ -18,10 +18,13 @@ export default class Registers {
       ra: 0,
       ret: 0,
       pc: 0,
-      z: 0,
-      c: 0,
-      n: 0,
-      sp: 0
+      sp: 0,
+      // FLAGS
+      z: 0, // Zero
+      c: 0, // Carry
+      n: 0, // Negative
+      v: 0, // Overflow
+      nv: 0, // N xor V
     };
   }
 
@@ -49,21 +52,25 @@ export default class Registers {
   }
   
   incr(reg, value) {
-    if (!value) value = 1;
-  
+    if (value == undefined) value = 1;
     var newValue = ALU.sum(this.get(reg), value, 8);
-  
     this.set(reg, newValue.result);
-  
-    this.updateZero(reg);
-    this.updateCarry(reg, newValue.carry);
-    this.updateNegative(reg);
   }
   
   decr(reg, value) {
-    if (!value) value = 1;
-  
+    if (value == undefined) value = 1;
     this.incr(reg, -value);
+  }
+
+  incrUpdatingFlags(reg, value) {
+    if (value == undefined) value = 1;
+    var newValue = ALU.sumUpdatingFlags(this.get(reg), value, 8, this);
+    this.set(reg, newValue.result);
+  }
+
+  decrUpdatingFlags(reg, value) {
+    if (value == undefined) value = 1;
+    this.incrUpdatingFlags(reg, -value);
   }
   
   updateZero(reg) {
@@ -86,6 +93,12 @@ export default class Registers {
   updateNegative(reg) {
     if ('ra' === reg.toLowerCase()) {
       this.set('N', ALU.isNegative(this.get('RA'), 8) ? 1 : 0);
+    }
+  }
+
+  updateOverflow(reg, operand1, operand2, result, bits) {
+    if ('ra' == reg.toLowerCase()) {
+      this.set('V', ALU.overflowed(operand1, operand2, result, bits) ? 1 : 0);
     }
   }
   

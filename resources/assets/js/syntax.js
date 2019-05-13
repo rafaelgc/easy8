@@ -11,9 +11,14 @@ export default function () {
     token(stream, state) {
       if (stream.match(regex)) {
         return "keyword"
-      } else if (stream.match(/#.*/)) {
+      }
+      else if (stream.match(/@[a-zA-z0-9]+/)) {
+        return "variable-2"
+      }
+      else if (stream.match(/#.*/)) {
         return "comment"
-      } else {
+      }
+      else {
         stream.next();
         return null
       }

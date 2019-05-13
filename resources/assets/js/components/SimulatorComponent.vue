@@ -2,12 +2,8 @@
   <div>
     <div class="main-menu">
       <simulator-menu
-        v-on:assembly="assembly"
-        v-on:clean-memory="cleanMemory"
-        v-on:clean-registers="cleanRegisters"
-        v-on:run="run"
-        v-on:run-step="runStep"
-        v-on:stop="stop"></simulator-menu>
+        v-on:save="save"
+        v-on:download="download"></simulator-menu>
     </div>
     <div class="working-area">
       <div class="main-layout">
@@ -859,6 +855,19 @@
           </div>
 
           <div class="registers" v-if="registers">
+            <div class="buttons" style="width: 100%">
+              <button class="btn primary small" v-on:click="assembly"><i class="fas fa-hammer"></i>Ensamblar</button>
+              <button class="btn primary small" v-on:click="run">
+                <template v-if="!running"><i class="fas fa-play"></i>Ejecutar</template>
+                <template v-if="running"><i class="fas fa-pause"></i>Parar</template>
+              </button>
+              <button class="btn small" v-on:click="runStep"><i class="fas fa-step-forward"></i>Paso</button>
+            </div>
+            <div class="buttons" style="width: 100%; margin-top: 5px">
+              <button class="btn primary small" v-on:click="cleanAll">Limpiar todo</button>
+              <button class="btn small" v-on:click="cleanMemory">Limpiar memoria</button>
+              <button class="btn small" v-on:click="cleanRegisters">Limpiar registros</button>
+            </div>
 
             <div class="registers-row">
               <div class="register">
@@ -897,8 +906,17 @@
                 <h2>C</h2>
                 <div class="value">{{ registers.c | toHex }}</div>
               </div>
-            </div>
 
+              <div class="register">
+                <h2>V</h2>
+                <div class="value">{{ registers.v | toHex }}</div>
+              </div>
+
+              <div class="register">
+                <h2>N⊕V</h2>
+                <div class="value">{{ registers.nv | toHex }}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="simulator-row memory-displays">
@@ -1004,11 +1022,10 @@ export default {
 
       showTemperatureModal: false,
 
+      running: false,
+
       cmOptions: {
-        // codemirror options
         tabSize: 4,
-        //mode: 'text/javascript',
-        //theme: 'base16-dark',
         lineNumbers: true,
         line: true,
         mode: 'easy8asm'
@@ -1022,6 +1039,27 @@ export default {
     }
   },
   methods: {
+
+    save: function () {
+      this.$store.dispatch('updateSource').then(() => {
+        this.$toasted.success('¡Guardado!', { duration: 1500 });
+      });
+
+    },
+
+    download: function () {
+      var element = document.createElement('a');
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.$store.state.simulator.content));
+      element.setAttribute('download', this.$store.state.simulator.entry.name);
+
+      element.style.display = 'none';
+      document.body.appendChild(element);
+
+      element.click();
+
+      document.body.removeChild(element);
+    },
+
     assembly: function () {
       console.log('assembly');
       if (this.assembler.assembly(this.$store.state.simulator.content)) {
@@ -1031,21 +1069,30 @@ export default {
       this.runtimeEnvironment.resetRegisters();
     },
 
-    cleanMemory() {
-
+    cleanAll() {
+      this.cleanMemory();
+      this.cleanRegisters();
     },
 
-    cleanPorts() {
-
+    cleanMemory() {
+      this.runtimeEnvironment.getMemory().clean();
+      this.$toasted.success('Memoria limpiada correctamente.', { duration: 1500 });
     },
 
     cleanRegisters() {
       this.runtimeEnvironment.resetRegisters();
-      this.$toasted.success('Registros limpiados correctamente.', { duration: 5000 });
+      this.$toasted.success('Registros limpiados correctamente.', { duration: 1500 });
     },
 
     run() {
-      this.runtimeEnvironment.run();
+      if (this.running) {
+        this.running = false;
+        this.runtimeEnvironment.stop();
+      }
+      else {
+        this.running = true;
+        this.runtimeEnvironment.run();
+      }
     },
 
     runStep() {
@@ -1057,6 +1104,10 @@ export default {
     stop() {
       this.runtimeEnvironment.stop();
     },
+
+    ////////////////////////////////////
+    ///   CALLBACKS DEL SIMULADOR    ///
+    ////////////////////////////////////
 
     onSyntaxError: function (message, line) {
       alert('Error en la línea ' + line + ': ' + message);
@@ -1082,6 +1133,10 @@ export default {
       if (register == 'SP') {
         this.$refs.stackMemory[Math.max(value - 4, 0)].scrollIntoView();
       }
+    },
+
+    onExecutionFinished() {
+      this.running = false;
     },
 
     ////////////////////////////////////
@@ -1140,7 +1195,8 @@ export default {
     this.runtimeEnvironment.setCallbacks({
       onMemoryUpdate: this.onMemoryUpdate,
       onRegisterUpdate: this.onRegisterUpdate,
-      onPortUpdate: this.onPortUpdate
+      onPortUpdate: this.onPortUpdate,
+      onExecutionFinished: this.onExecutionFinished
     });
 
     this.memory = this.runtimeEnvironment.getMemory().getData();
@@ -1259,6 +1315,10 @@ export default {
     text-align: center;
     font-size: 110%;
     font-family: monospace;
+  }
+
+  .buttons {
+    padding: 5px;
   }
 
   .memory-displays {

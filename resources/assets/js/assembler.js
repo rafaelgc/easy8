@@ -85,7 +85,7 @@ export default class Assembler {
     this.unresolvedTags = [];
 
     //Reiniciar la memoria.
-    this.memory.clear();
+    this.memory.clean();
 
     var success = true;
 
@@ -151,7 +151,7 @@ export default class Assembler {
     }
 
     if (!success) {
-      this.memory.clear();
+      this.memory.clean();
     }
 
     this.assembling = false;

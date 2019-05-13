@@ -22,7 +22,7 @@ export default class IO {
     this.onUpdateCallback = null;
   }
 
-  clear() {
+  clean() {
     for (var i = 0; i < this.ports.length; i++) {
       this.ports[i] = 0;
     }

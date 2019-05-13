@@ -94,6 +94,7 @@ export default class RuntimeEnvironment {
     else {
       if (instruction.run(this.memory, this.registers, this.io, this)) {
         this.stop();
+        if (this.callbacks.onExecutionFinished) this.callbacks.onExecutionFinished();
       }
       else {
         //Cuando una instrucción detiene la ejecución se quiere
