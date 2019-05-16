@@ -15,11 +15,15 @@
           <div class="decoration"></div>
           ../
         </a>
-        <a class="entry folder" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
+        <!-- LISTADO DE CARPETAS -->
+        <a class="entry folder" v-bind:title="entry.name" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.folders" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="enterDirectory(entry)">
           <div class="decoration"></div>
-          {{ entry.name }}
+          {{ entry.name.slice(0, 13) }}
         </a>
-        <a class="entry file" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">{{ entry.name }}</a>
+        <!-- LISTADO DE FICHEROS -->
+        <a class="entry file" v-bind:title="entry.name" v-bind:class="{selected: entry.selected, cutting: entry.cutting}" v-for="entry in $store.state.explorer.sources" v-bind:key="entry.id" v-on:click="select(entry)" v-on:dblclick="openSource(entry)">
+          {{ entry.name.slice(0, 13) }}
+        </a>
 
         <div v-if="$store.state.explorer.editingEntry" class="modal" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
           <h2>Carpeta</h2>

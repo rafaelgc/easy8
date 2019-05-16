@@ -18,8 +18,10 @@
         <label>Contraseña</label>
         <input name="password" class="input wide big" type="password" v-model="login.password">
       </div>
-      
-      <button class="btn primary">Iniciar sesión</button>
+
+      <div style="text-align: right">
+        <button class="btn primary">Iniciar sesión</button>
+      </div>
 
     </form>
 
@@ -70,7 +72,7 @@ export default {
 
 .login-area {
   width: 500px;
-  margin: 35px auto;
+  margin: 65px auto;
   padding: 25px 30px 30px 30px;
   background-color: white;
 }

@@ -2,6 +2,8 @@
   <div>
     <div class="main-menu">
       <simulator-menu
+        v-bind:numeric-format="numericFormat"
+        v-on:format-changed="formatChanged"
         v-on:save="save"
         v-on:download="download"></simulator-menu>
     </div>
@@ -861,60 +863,63 @@
                 <template v-if="!running"><i class="fas fa-play"></i>Ejecutar</template>
                 <template v-if="running"><i class="fas fa-pause"></i>Parar</template>
               </button>
-              <button class="btn small" v-on:click="runStep"><i class="fas fa-step-forward"></i>Paso</button>
-            </div>
-            <div class="buttons" style="width: 100%; margin-top: 5px">
+              <button class="btn small step" v-on:click="runStep"><i class="fas fa-step-forward"></i>Paso</button>
               <button class="btn primary small" v-on:click="cleanAll">Limpiar todo</button>
               <button class="btn small" v-on:click="cleanMemory">Limpiar memoria</button>
               <button class="btn small" v-on:click="cleanRegisters">Limpiar registros</button>
             </div>
+            <div class="buttons" style="width: 100%; margin-top: 5px">
+
+            </div>
 
             <div class="registers-row">
+              <div class="title">Registros</div>
               <div class="register">
                 <h2>RA</h2>
-                <div class="value">{{ registers.ra | toHex }}</div>
+                <div class="value">{{ registers.ra | format(numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>PC</h2>
-                <div class="value">{{ registers.pc | toHex }}</div>
+                <div class="value">{{ registers.pc | format(numericFormat == 'decimal-signed' ? 'decimal-unsigned' : numericFormat)}}</div>
               </div>
 
               <div class="register">
                 <h2>RET</h2>
-                <div class="value">{{ registers.ret | toHex }}</div>
+                <div class="value">{{ registers.ret | format(numericFormat == 'decimal-signed' ? 'decimal-unsigned' : numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>SP</h2>
-                <div class="value">{{ registers.sp | toHex }}</div>
+                <div class="value">{{ registers.sp | format(numericFormat == 'decimal-signed' ? 'decimal-unsigned' : numericFormat) }}</div>
               </div>
             </div>
 
             <div class="registers-row">
+              <div class="title">Flags</div>
               <div class="register">
                 <h2>Z</h2>
-                <div class="value">{{ registers.z | toHex }}</div>
+                <div class="value">{{ registers.z | format(numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>N</h2>
-                <div class="value">{{ registers.n | toHex }}</div>
+                <div class="value">{{ registers.n | format(numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>C</h2>
-                <div class="value">{{ registers.c | toHex }}</div>
+                <div class="value">{{ registers.c | format(numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>V</h2>
-                <div class="value">{{ registers.v | toHex }}</div>
+                <div class="value">{{ registers.v | format(numericFormat) }}</div>
               </div>
 
               <div class="register">
                 <h2>N⊕V</h2>
-                <div class="value">{{ registers.nv | toHex }}</div>
+                <div class="value">{{ registers.nv | format(numericFormat) }}</div>
               </div>
             </div>
           </div>
@@ -924,7 +929,7 @@
             <h2>Memoria de código</h2>
             <div class="scroll">
               <div v-if="memory" v-for="(entry, index) in memory" ref="codeMemory" class="entry" :class="{ highlight: index == registers.pc }">
-                <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+                <span class="address"> {{ index | format('hex') }}</span> <span class="value">{{ entry | format(numericFormat) }}</span>
               </div>
             </div>
           </div>
@@ -933,7 +938,7 @@
             <h2>Memoria de datos</h2>
             <div class="scroll">
               <div v-if="memory" v-for="(entry, index) in memory" ref="dataMemory" class="entry" :class="{ highlight: index == lastModifiedMemoryAddress }">
-                <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+                <span class="address"> {{ index | format('hex') }}</span> <span class="value">{{ entry | format(numericFormat) }}</span>
               </div>
             </div>
           </div>
@@ -942,7 +947,7 @@
             <h2>Memoria de pila</h2>
             <div class="scroll">
               <div v-if="memory" v-for="(entry, index) in memory" ref="stackMemory" class="entry" :class="{ highlight: index == registers.sp }">
-                <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+                <span class="address"> {{ index | format('hex') }}</span> <span class="value">{{ entry | format(numericFormat) }}</span>
               </div>
             </div>
           </div>
@@ -951,7 +956,7 @@
             <h2>Puertos</h2>
             <div class="scroll">
               <div v-if="ports" v-for="(entry, index) in ports" ref="ports" class="entry" :class="{ highlight: index == lastModifiedPort }">
-                <span class="address"> {{ index | toHex }}</span> <span class="value">{{ entry | toHex }}</span>
+                <span class="address"> {{ index | format('hex') }}</span> <span class="value">{{ entry | format(numericFormat) }}</span>
               </div>
             </div>
           </div>
@@ -983,7 +988,7 @@ import Vue from 'vue';
 
 import RuntimeEnvironment from '../runtime-environment';
 import Assembler from '../assembler';
-
+import ALU from '../alu';
 import instructionSet from '../instruction-set';
 
 import { codemirror, CodeMirror } from 'vue-codemirror'
@@ -992,6 +997,11 @@ import 'codemirror/lib/codemirror.css'
 import { IODevices } from '../io';
 
 CodeMirror.defineMode("easy8asm", require('../syntax').default);
+
+function padStart(string, length) {
+  while (string.length < length) { string = '0' + string; }
+  return string;
+}
 
 export default {
   components: {
@@ -1004,13 +1014,36 @@ export default {
     'temperature-slider': require('./Temperature.vue').default
   },
   filters: {
+    format(value, format, uppercasePrefix) {
+      if (format == 'hex') {
+        var hex = value.toString(16).toUpperCase();
+        return (uppercasePrefix ? '0X' : '0x') + (hex.length < 2 ? '0' : '') + hex;
+      }
+      else if (format == 'decimal-unsigned') {
+        return value;
+      }
+      else if (format == 'decimal-signed') {
+        return ALU.ca2ToInt(value, 8);
+      }
+      else if (format == 'bin') {
+
+        return '0b' + padStart(value.toString(2), 8);
+      }
+      else {
+        return 'UNKNOWN';
+      }
+    },
+
     toHex(value, uppercasePrefix) {
+
       var hex = value.toString(16).toUpperCase();
       return (uppercasePrefix ? '0X' : '0x') + (hex.length < 2 ? '0' : '') + hex;
     }
   },
   data: function () {
     return {
+      numericFormat: 'bin',
+
       assembler: null,
 
       memory: null,
@@ -1103,6 +1136,10 @@ export default {
 
     stop() {
       this.runtimeEnvironment.stop();
+    },
+
+    formatChanged: function (format) {
+      this.numericFormat = format;
     },
 
     ////////////////////////////////////
@@ -1256,7 +1293,7 @@ export default {
   .editor-container {
     padding: 0 10px 10px 10px;
     width: 50%;
-    max-width: 600px;
+    max-width: 500px;
   }
 
   .editor-container .vue-codemirror {
@@ -1269,9 +1306,9 @@ export default {
   }
 
   .simulator-container {
-    padding: 10px 0;
+    padding: 0 0 10px 0;
     width: 50%;
-    max-width: 600px;
+    max-width: 500px;
   }
 
   .simulator-container svg {
@@ -1282,17 +1319,28 @@ export default {
   .registers {
     align-self: flex-start;
     display: flex;
-    justify-content: center;
     width: 50%;
-    max-width: 600px;
-    align-items: flex-start;
+    max-width: 700px;
     flex-wrap: wrap;
   }
 
   .registers-row {
     display: flex;
+    flex-wrap: wrap;
     width: 100%;
     margin-bottom: 10px;
+    border: solid 1px #b3b3b3;
+    padding: 10px;
+    justify-content: center;
+  }
+
+  .registers-row .title {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 85%;
+    font-family: monospace;
+    text-transform: uppercase;
   }
 
   .registers .register {
@@ -1317,8 +1365,12 @@ export default {
     font-family: monospace;
   }
 
-  .buttons {
-    padding: 5px;
+  .buttons .btn {
+    margin-bottom: 5px;
+  }
+
+  .buttons .step {
+    margin-right: 15px;
   }
 
   .memory-displays {

@@ -9,7 +9,7 @@
     <div class="section">Selección ({{ $store.state.explorer.selectionCount }})</div>
     <ul>
       <li v-if="$store.state.explorer.uniqueSelectedEntry && $store.state.explorer.uniqueSelectedEntry.folder"><a class="clickable" v-on:click="editSelectedEntry()"><i class="fas fa-info-circle"></i>Propiedades</a></li>
-      <li v-if="$store.state.explorer.uniqueSelectedEntry && $store.state.explorer.uniqueSelectedEntry.source"><a class="clickable" v-on:click="sendSelectedEntry()"><i class="fas fa-envelope"></i>Enviar</a></li>
+      <!--<li v-if="$store.state.explorer.uniqueSelectedEntry && $store.state.explorer.uniqueSelectedEntry.source"><a class="clickable" v-on:click="sendSelectedEntry()"><i class="fas fa-envelope"></i>Enviar</a></li>-->
       <li><a class="clickable" v-on:click="cutSelectedEntries()"><i class="fas fa-cut"></i>Cortar</a></li>
       <li v-if="$store.getters.cuttedEntries.length > 0"><a class="clickable" v-on:click="pasteEntries()"><i class="fas fa-paste"></i>Pegar</a></li>
       <li><a class="clickable" v-on:click="deleteSelectedEntries()"><i class="fas fa-trash"></i>Eliminar</a></li>
