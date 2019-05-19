@@ -1042,7 +1042,7 @@ export default {
   },
   data: function () {
     return {
-      numericFormat: 'bin',
+      numericFormat: 'hex',
 
       assembler: null,
 
