@@ -11,7 +11,7 @@ class UserController extends Controller
     public function show(Request $request, User $user) {
         return $user;
     }
-    public function store(Request $request) {
+    public function post(Request $request) {
 
         // User input validation.
         $request->validate([

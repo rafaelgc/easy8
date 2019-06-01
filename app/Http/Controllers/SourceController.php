@@ -20,7 +20,7 @@ class SourceController extends Controller
     {
         return Entry::where([
             'owner_id' => $request->user()->id,
-            'parent_id' => $request->input('parent', null)
+            'parent_id' => $request->input('parent_id', null)
         ])->whereHas('source')->with(['source'])->get();
     }
 

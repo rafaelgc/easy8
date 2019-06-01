@@ -17,18 +17,16 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::post('/user', 'UserController@store');
 Route::post('/login', 'UserController@login');
+Route::post('/user', 'UserController@store');
 
 Route::middleware('auth:api')->group(function () {
     // Obtener los datos del usuario.
     Route::get('/user/{user}', 'UserController@show');
 
-    // Obtiene las carpetas de un determinado padre.
-    // Entrada: parent (opcional). Si es nulo o no se especifica obtendrán la carpeta root.
     Route::get('/folder', 'FolderController@index');
     Route::post('/folder', 'FolderController@store');
-    Route::post('/folder/{id}', 'EntryController@updateFoºlder');
+    Route::post('/folder/{id}', 'FolderController@update')->middleware('can:update,entry');
     Route::delete('/folder/{entry}', 'FolderController@destroy')->middleware('can:delete,entry');
 
     Route::post('/entry/{id}', 'EntryController@update');

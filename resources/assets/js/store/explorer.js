@@ -52,12 +52,12 @@ export default {
     createFolder: function (context, data) {
       if (!data.name) return;
 
-      data.parent = context.state.breadcrumbs[context.state.breadcrumbs.length - 1].id;
+      data.parent_id = context.state.breadcrumbs[context.state.breadcrumbs.length - 1].id;
       console.log(data);
       console.log(context.state.breadcrumbs);
       return resources.folder.save({}, data).then(function (response) {
         // To update  the folders:
-        context.dispatch('loadFolders', data.parent);
+        context.dispatch('loadFolders', data.parent_id);
       });
     },
 
@@ -73,7 +73,6 @@ export default {
     },
 
     // Updates the opened file.
-
     updateEditingFolder: function (context) {
       resources.folder.save({ entryId: context.state.editingEntry.id }, context.state.editingEntry).then(function (response) {
         // To update  the folders:
@@ -136,7 +135,7 @@ export default {
     // Loads folders contained in the id entry. Does not update
     // the breadcrumbs.
     loadFolders: function (context, id) {
-      return resources.folder.get({ parent: id }).then(function (response) {
+      return resources.folder.get({ parent_id: id }).then(function (response) {
         context.state.folders = response.body;
       });
     },
@@ -144,7 +143,7 @@ export default {
     // Loads sources contained in the id entry. Does not update
     // the breadcrumbs.
     loadSources: function (context, id) {
-      return resources.source.get({ parent: id }).then(function (response) {
+      return resources.source.get({ parent_id: id }).then(function (response) {
         context.state.sources = response.body;
       });
     },

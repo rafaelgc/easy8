@@ -27,36 +27,16 @@
 
         <div v-if="$store.state.explorer.editingEntry" class="modal" v-bind:class="{ 'visible': $store.state.explorer.editingEntry }">
           <h2>Carpeta</h2>
-          <form action="">
-            <div class="input-block">
-              <label>Nombre</label>
-              <input class="wide big" v-model="$store.state.explorer.editingEntry.name">
-            </div>
-
-            <div class="separator">
-              <h3>Buzón</h3>
-              <hr>
-            </div>
-
-            <div class="inbox">
+            <form>
               <div class="input-block">
-                <label><input type="checkbox" v-model="$store.state.explorer.editingEntry.folder.inbox">Es un buzón</label>
+                <label>Nombre</label>
+                <input class="wide big" v-model="$store.state.explorer.editingEntry.name">
               </div>
-              <template v-if="$store.state.explorer.editingEntry.folder.inbox">
-                <div class="input-block">
-                  <label>Nombre del buzón</label>
-                  <input class="wide" v-model="$store.state.explorer.editingEntry.folder.inbox_name">
-                </div>
-                <div class="input-block">
-                  <label>Contraseña</label>
-                  <input class="wide" type="password" v-model="$store.state.explorer.editingEntry.folder.inbox_password">
-                </div>
-              </template>
-            </div>
 
-            <button class="btn" v-on:click="closeFolderSettings()">Cancelar</button>
-            <button class="btn primary" v-on:click="saveFolderSettings()">Guardar</button>
-          </form>
+              <button class="btn" v-on:click="$store.state.explorer.editingEntry = null">Cancelar</button>
+              <button class="btn primary" v-on:click="saveFolderSettings()">Guardar</button>
+            </form>
+
         </div>
 
         <div v-if="false" class="modal" v-bind:class="{ 'visible': true }">
@@ -128,6 +108,7 @@ export default {
 
     closeFolderSettings: function () {
       this.$store.explorer.state.editingEntry = null;
+      alert('eeee');
     }
   },
   created: function () {
