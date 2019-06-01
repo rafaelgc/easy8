@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(Request $request) {
+    public function show(Request $request, User $user) {
+        return $user;
+    }
+    public function store(Request $request) {
 
         // User input validation.
         $request->validate([
@@ -44,7 +47,7 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
-            return $user;
+            return $user->makeVisible('api_token');
         }
         else if ($user && $user->status == 0) {
             return response()->json(['message' => 'User not verified.'], 403);

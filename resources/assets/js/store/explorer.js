@@ -64,11 +64,11 @@ export default {
     createSource: function (context, data) {
       if (!data.name) return;
 
-      data.parent = context.state.breadcrumbs[context.state.breadcrumbs.length - 1].id;
+      data.parent_id = context.state.breadcrumbs[context.state.breadcrumbs.length - 1].id;
 
       return resources.source.save({}, data).then(function (response) {
         // To update  the folders:
-        context.dispatch('loadSources', data.parent);
+        context.dispatch('loadSources', data.parent_id);
       });
     },
 
@@ -106,13 +106,13 @@ export default {
       var promises = [];
       for (var i = 0; i < context.state.folders.length; i++) {
         if (context.state.folders[i].selected) {
-          promises.push(context.dispatch('deleteEntry', context.state.folders[i].id));
+          promises.push(context.dispatch('deleteFolder', context.state.folders[i].id));
         }
       }
 
       for (var i = 0; i < context.state.sources.length; i++) {
         if (context.state.sources[i].selected) {
-          promises.push(context.dispatch('deleteEntry', context.state.sources[i].id));
+          promises.push(context.dispatch('deleteSource', context.state.sources[i].id));
         }
       }
 
@@ -122,8 +122,12 @@ export default {
       });
     },
 
-    deleteEntry: function (context, id) {
-      return resources.entry.delete({ entryId: id });
+    deleteFolder: function (context, id) {
+      return resources.folder.delete({ entryId: id });
+    },
+
+    deleteSource: function (context, id) {
+      return resources.source.delete({ entryId: id });
     },
 
     ////////////////////////////////////////////////////////
@@ -146,6 +150,7 @@ export default {
     },
 
     loadSource: function (context, id) {
+      console.log('se va a mandar la peticion');
       return resources.source.get({ entryId: id });
     },
 

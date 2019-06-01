@@ -21,12 +21,6 @@ class EntryController extends Controller
         $this->performUpdate($entry, $request);
     }
 
-    public function delete($id, Request $request) {
-        // 1. Check that id is not null. We don't want to allow the
-        // user to remove his root folder.
-        Entry::where(['id' => $id, 'owner_id' => $request->user()->id])->delete();
-    }
-
     private function validateUpdate($entry, $request) {
         // Name validation.
         if ($request->has('name') && Entry::repeated($entry->id, $entry->parent_id, $request->input('name'))) {
@@ -72,35 +66,6 @@ class EntryController extends Controller
 
         $entry->fill($request->all());
         $entry->update();
-    }
-
-    public function createFolder(Request $request) {
-        $entry = new Entry();
-        $entry->name = $request->input('name');
-        $entry->parent_id = $request->input('parent');
-        $entry->owner_id = $request->user()->id;
-
-        // 1. Check that the parent is not null.
-        if ($entry->parent_id == null) {
-            return response()->json(['message' => 'You must set a parent for the file.'], 400);
-        }
-
-        // 2. Check that the user owns the parent.
-        if (!Entry::where(['id' => $entry->parent_id, 'owner_id' => $request->user()->id])->exists()) {
-            return response()->json(['message' => 'The parent folder does not exist.'], 404);
-        }
-
-        // 2. Check that the name of the entry is not repeated in the folder.
-        if (Entry::where(['parent_id' => $entry->parent_id, 'name' => $entry->name])->exists()) {
-            return response()->json(['message' => 'The file already exists.'], 400);
-        }
-
-        $entry->save();
-
-        $entry->folder()->create([
-            'inbox' => $request->input('inbox', false),
-            'inbox_name' => $request->input('inbox_name', null)
-        ]);
     }
 
     public function updateFolder($id, Request $request) {
@@ -151,20 +116,5 @@ class EntryController extends Controller
         }
 
         $folder->update();
-    }
-
-    public function updateSource($id, Request $request) {
-        $entry = Entry::find($id);
-        $source = $entry ? $entry->source()->first() : null;
-        if (!$entry || !$source || $entry->owner_id != $request->user()->id) {
-            return response()->json(['message' => 'File not found.'], 404);
-        }
-
-        $this->validateUpdate($entry, $request);
-
-        $this->performUpdate($entry, $request);
-        $entry->source()->getResults()->fill([
-            'content' => $request->input('content', '')
-        ])->save();
     }
 }

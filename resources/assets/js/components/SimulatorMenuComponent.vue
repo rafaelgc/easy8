@@ -24,7 +24,7 @@
 <script>
 export default {
   props: {
-    numericFormat: { type: Number }
+    numericFormat: { type: String }
   },
   methods: {
   },

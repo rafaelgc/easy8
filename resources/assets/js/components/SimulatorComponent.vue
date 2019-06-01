@@ -1273,6 +1273,7 @@ export default {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px);
     overflow-y: auto;
   }
 
@@ -1280,10 +1281,12 @@ export default {
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
-    flex-basis: 40%;
+    flex-basis: 50%;
+    height: 50%;
+    max-height: 50%;
   }
 
-  .editor-and-registers {
+  .simulator-row.editor-and-registers {
     padding-top: 10px;
     justify-content: center;
     border-bottom: solid 1px #e3e3e3;
@@ -1293,7 +1296,7 @@ export default {
   .editor-container {
     padding: 0 10px 10px 10px;
     width: 50%;
-    max-width: 500px;
+    /*max-width: 500px;*/
   }
 
   .editor-container .vue-codemirror {
@@ -1309,6 +1312,7 @@ export default {
     padding: 0 0 10px 0;
     width: 50%;
     max-width: 500px;
+    max-height: 100%;
   }
 
   .simulator-container svg {
@@ -1317,10 +1321,10 @@ export default {
   }
 
   .registers {
+    padding-right: 10px;
     align-self: flex-start;
     display: flex;
     width: 50%;
-    max-width: 700px;
     flex-wrap: wrap;
   }
 
@@ -1373,8 +1377,9 @@ export default {
     margin-right: 15px;
   }
 
-  .memory-displays {
+  .simulator-row.memory-displays {
     flex-wrap: nowrap;
+    height: 55%;
   }
 
   .memory-displays .memory {
