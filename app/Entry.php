@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Entry extends Model
 {
     protected $fillable = ['name'];
-    public function folder() {
-        return $this->hasOne('App\Folder');
-    }
 
     public function source() {
         return $this->hasOne('App\Source');

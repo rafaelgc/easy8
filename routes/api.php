@@ -1,11 +1,5 @@
 <?php
 
-use App\Entry;
-use App\Folder;
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

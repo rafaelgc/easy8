@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Testing\HttpException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use App\Entry;
-use App\Folder;
-use App\User;
 
 class EntryController extends Controller
 {
@@ -85,9 +82,9 @@ class EntryController extends Controller
             }
 
             // The name must be unique.
-            if (Folder::where('inbox_name', $request->input('folder.inbox_name'))->where('entry_id', '!=', $id)->exists()) {
+            /*if (Folder::where('inbox_name', $request->input('folder.inbox_name'))->where('entry_id', '!=', $id)->exists()) {
                 return response()->json(['message' => 'Name already in use.'], 400);
-            }
+            }*/
 
             // Password is mandatory.
             $passwordMustBeSet = empty($folder->inbox_password);

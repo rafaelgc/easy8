@@ -35,12 +35,6 @@ class UserController extends Controller
             'owner_id' => $user->id,
             'name' => 'Root',
         ]);
-
-        Folder::create([
-            'entry_id' => $entry->id,
-            'inbox' => false
-        ]);
-
     }
 
     public function login(Request $request) {
