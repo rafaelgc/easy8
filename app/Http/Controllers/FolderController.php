@@ -20,9 +20,7 @@ class FolderController extends Controller
         return Entry::where([
             'owner_id' => $request->user()->id,
             'parent_id' => $request->get('parent_id', null)
-        ])->whereExists(function ($query) {
-            $query->select('id')->from('folders')->where('entries.id', '=', DB::raw('entry_id'));
-        })->with(['folder'])->get();
+        ])->doesntHave('source')->get();
     }
 
     /**
@@ -39,11 +37,6 @@ class FolderController extends Controller
         $entry->owner_id = $request->user()->id;
 
         $entry->save();
-
-        $entry->folder()->create([
-            'inbox' => $request->input('inbox', false),
-            'inbox_name' => $request->input('inbox_name', null)
-        ]);
     }
 
     /**
