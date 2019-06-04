@@ -3,5 +3,14 @@ import Vue from 'vue';
 export default {
   folder: Vue.resource('folder{/entryId}'),
   source: Vue.resource('source{/entryId}'),
-  entry:  Vue.resource('entry{/entryId}')
+  entry:  Vue.resource('entry{/entryId}'),
+
+  takeFirstError: function (response) {
+    if (response.body && response.body.errors) {
+      return response.body.errors[Object.keys(response.body.errors)[0]];
+    }
+    else {
+      return response.body.message;
+    }
+  },
 }

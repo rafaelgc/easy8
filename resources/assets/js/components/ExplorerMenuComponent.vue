@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import resources from '../resources';
 export default {
   data: function () {
     return {
@@ -36,7 +37,11 @@ export default {
     newFolder: function () {
         var name = prompt('Nombre de la carpeta');
 
-        this.$store.dispatch('createFolder', { name: name });
+        this.$store.dispatch('createFolder', { name: name }).then((response) => {
+          this.$toasted.success('Carpeta creada.', { duration: 3500 });
+        }, (response) => {
+          this.$toasted.error('No se pudo crear la carpeta. ' + resources.takeFirstError(response), { duration: 3500 });
+        });
     },
 
     newProgram: function () {
@@ -45,7 +50,11 @@ export default {
         name += '.asm';
       }
 
-      this.$store.dispatch('createSource', { name: name });
+      this.$store.dispatch('createSource', { name: name }).then((response) => {
+        this.$toasted.success('Programa creado.', { duration: 3500 });
+      }, (response) => {
+        this.$toasted.error('No se pudo crear el programa. ' + resources.takeFirstError(response), { duration: 3500 });
+      });;
     },
 
     cutSelectedEntries: function() {

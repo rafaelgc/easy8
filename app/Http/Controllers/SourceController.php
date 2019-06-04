@@ -40,8 +40,7 @@ class SourceController extends Controller
         $entry->save();
 
         $entry->source()->create([
-            'content' => $request->input('content', ''),
-            'type' => $request->input('type', 0) //// TODO QUITAR EL TIPO.
+            'content' => $request->input('content', '')
         ]);
 
         return $entry;

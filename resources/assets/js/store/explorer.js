@@ -53,8 +53,6 @@ export default {
       if (!data.name) return;
 
       data.parent_id = context.state.breadcrumbs[context.state.breadcrumbs.length - 1].id;
-      console.log(data);
-      console.log(context.state.breadcrumbs);
       return resources.folder.save({}, data).then(function (response) {
         // To update  the folders:
         context.dispatch('loadFolders', data.parent_id);
