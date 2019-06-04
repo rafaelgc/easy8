@@ -3,7 +3,7 @@
   <div class="section no-sep">Directorio</div>
   <ul>
     <li><a class="clickable" v-on:click="newFolder()"><i class="fas fa-folder"></i>Nueva carpeta</a></li>
-    <li><a class="clickable" v-on:click="newProgram()"><i class="fas fa-folder-plus"></i>Nuevo programa</a></li>
+    <li><a class="clickable" v-on:click="newProgram()"><i class="fas fa-file-alt"></i>Nuevo programa</a></li>
   </ul>
   <template v-if="$store.state.explorer.selectionCount > 0">
     <div class="section">Selección ({{ $store.state.explorer.selectionCount }})</div>
@@ -84,4 +84,7 @@ export default {
 </script>
 
 <style>
+  i {
+    width: 15px;
+  }
 </style>
