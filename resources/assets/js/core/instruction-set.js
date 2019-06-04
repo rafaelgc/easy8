@@ -2,7 +2,7 @@
  SET DE INSTRUCCIONES
  El siguiente array almacena el juego de instrucciones del Easy8
  junto con información sobre la instrucción:
- -mnemotic: código mnemotécnico de la instrucción.
+ -mnemonic: código mnemotécnico de la instrucción.
  -code: código (decimal) que se usará para el ensamblado.
  -assembly: función que se ejecutará cuando se esté ensamblado
  la instrucción. La función recibe los siguientes parámetros:
@@ -33,7 +33,7 @@ import ALU from './alu';
 export default [
   /*CODIFICADOS EN UN BYTE*/
   {
-    mnemotic: 'STOP',
+    mnemonic: 'STOP',
     code: 21,
     assembly: assemblyRules.oneByteAssembly,
     run: function () {
@@ -41,7 +41,7 @@ export default [
     }
   },
   {
-    mnemotic: 'INC',
+    mnemonic: 'INC',
     code: 7,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -49,7 +49,7 @@ export default [
     }
   },
   {
-    mnemotic: 'DEC',
+    mnemonic: 'DEC',
     code: 8,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -57,7 +57,7 @@ export default [
     }
   },
   {
-    mnemotic: 'PUSH',
+    mnemonic: 'PUSH',
     code: 15,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -66,7 +66,7 @@ export default [
     }
   },
   {
-    mnemotic: 'POP',
+    mnemonic: 'POP',
     code: 16,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -79,7 +79,7 @@ export default [
     }
   },
   {
-    mnemotic: 'RET',
+    mnemonic: 'RET',
     code: 18,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -88,7 +88,7 @@ export default [
   },
   /*CODIFICADOS EN DOS BYTES*/
   {
-    mnemotic: 'MOVEI',
+    mnemonic: 'MOVEI',
     code: 0,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
@@ -96,7 +96,7 @@ export default [
     }
   },
   {
-    mnemotic: 'MOVE',
+    mnemonic: 'MOVE',
     code: 1,
     assembly: assemblyRules.moveAssembly,
     run: function (memory, registers, io, environment) {
@@ -105,7 +105,7 @@ export default [
     }
   },
   {
-    mnemotic: 'MOVE',
+    mnemonic: 'MOVE',
     code: 2,
     assembly: assemblyRules.moveAssembly,
     run: function (memory, registers, io, environment) {
@@ -114,7 +114,7 @@ export default [
     }
   },
   {
-    mnemotic: 'ADDI',
+    mnemonic: 'ADDI',
     code: 3,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
@@ -122,7 +122,7 @@ export default [
     }
   },
   {
-    mnemotic: 'ADD',
+    mnemonic: 'ADD',
     code: 4,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
@@ -131,7 +131,7 @@ export default [
     }
   },
   {
-    mnemotic: 'SUBI',
+    mnemonic: 'SUBI',
     code: 5,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
@@ -139,7 +139,7 @@ export default [
     }
   },
   {
-    mnemotic: 'SUB',
+    mnemonic: 'SUB',
     code: 6,
     assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
@@ -148,7 +148,7 @@ export default [
     }
   },
   {
-    mnemotic: 'COMPAREI',
+    mnemonic: 'COMPAREI',
     code: 9,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -157,7 +157,7 @@ export default [
     }
   },
   {
-    mnemotic: 'COMPARE',
+    mnemonic: 'COMPARE',
     code: 10,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -166,7 +166,7 @@ export default [
     }
   },
   {
-    mnemotic: 'JUMP',
+    mnemonic: 'JUMP',
     code: 11,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -185,7 +185,7 @@ export default [
     }
   },
   {
-    mnemotic: 'JLESS',
+    mnemonic: 'JLESS',
     code: 12,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -197,7 +197,7 @@ export default [
     }
   },
   {
-    mnemotic: 'JGREATER',
+    mnemonic: 'JGREATER',
     code: 13,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -209,7 +209,7 @@ export default [
     }
   },
   {
-    mnemotic: 'JEQUAL',
+    mnemonic: 'JEQUAL',
     code: 14,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -220,7 +220,7 @@ export default [
     }
   },
   {
-    mnemotic: 'CALL',
+    mnemonic: 'CALL',
     code: 17,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -237,7 +237,7 @@ export default [
     }
   },
   {
-    mnemotic: 'IN',
+    mnemonic: 'IN',
     code: 19,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
@@ -246,7 +246,7 @@ export default [
     }
   },
   {
-    mnemotic: 'OUT',
+    mnemonic: 'OUT',
     code: 20,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
@@ -255,7 +255,7 @@ export default [
     }
   },
   {
-    mnemotic: 'SLEEP',
+    mnemonic: 'SLEEP',
     code: 22,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
@@ -264,7 +264,7 @@ export default [
     }
   },
   {
-    mnemotic: 'SLEEPI',
+    mnemonic: 'SLEEPI',
     code: 23,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, runtimeEnvironment) {
@@ -272,7 +272,7 @@ export default [
     }
   },
   {
-    mnemotic: 'RAND',
+    mnemonic: 'RAND',
     code: 24,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -280,7 +280,7 @@ export default [
     }
   },
   {
-    mnemotic: 'BYTE',
+    mnemonic: 'BYTE',
     code: -1,
     assembly: function (assembler, params) {
       assembler.writeByte(parseInt(params[0], 16));
@@ -288,7 +288,7 @@ export default [
     }
   },
   {
-    mnemotic: 'LOAD_Z',
+    mnemonic: 'LOAD_Z',
     code: 25,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -296,7 +296,7 @@ export default [
     }
   },
   {
-    mnemotic: 'LOAD_N',
+    mnemonic: 'LOAD_N',
     code: 26,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -304,7 +304,7 @@ export default [
     }
   },
   {
-    mnemotic: 'LOAD_C',
+    mnemonic: 'LOAD_C',
     code: 27,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -312,7 +312,7 @@ export default [
     }
   },
   {
-    mnemotic: 'LOAD_V',
+    mnemonic: 'LOAD_V',
     code: 28,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
@@ -320,7 +320,7 @@ export default [
     }
   },
   {
-    mnemotic: 'LOAD_NV',
+    mnemonic: 'LOAD_NV',
     code: 29,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {

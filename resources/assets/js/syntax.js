@@ -1,7 +1,7 @@
-import instructionSet from './instruction-set'
+import instructionSet from './core/instruction-set'
 
 var keywords = instructionSet.map((instruction) => {
-  return instruction.mnemotic;
+  return instruction.mnemonic;
 }).join('|');
 
 var regex = new RegExp("(?:" + keywords + ")",);

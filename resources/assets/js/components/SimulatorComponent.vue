@@ -986,15 +986,15 @@
 <script>
 import Vue from 'vue';
 
-import RuntimeEnvironment from '../runtime-environment';
-import Assembler from '../assembler';
-import ALU from '../alu';
-import instructionSet from '../instruction-set';
+import RuntimeEnvironment from '../core/runtime-environment';
+import Assembler from '../core/assembler';
+import ALU from '../core/alu';
+import instructionSet from '../core/instruction-set';
 
 import { codemirror, CodeMirror } from 'vue-codemirror'
 import 'codemirror/lib/codemirror.css'
 
-import { IODevices } from '../io';
+import { IODevices } from '../core/io';
 
 CodeMirror.defineMode("easy8asm", require('../syntax').default);
 

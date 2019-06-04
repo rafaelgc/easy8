@@ -116,7 +116,7 @@ export default class Assembler {
         this.tagsTable[tokens.tag] = this.assemblyPointer;
       }
 
-      if (!tokens.mnemotic) {
+      if (!tokens.mnemonic) {
         //Es un comentario o un blanco, se pasa a la siguiente línea.
         continue;
       }
@@ -124,7 +124,7 @@ export default class Assembler {
       //Buscar las instrucciones que coinciden en el array instructionSet.
       //Generalmente solo habrá un resulado pero alguna instrucción
       //aparece dos veces.
-      var instructions = this.getInstructionsByMnemotic(tokens.mnemotic);
+      var instructions = this.getInstructionsByMnemonic(tokens.mnemonic);
 
       if (instructions.length === 0) {
         //No se ha encontrado la instrucción correspondiente a un
@@ -179,7 +179,7 @@ export default class Assembler {
 
     return {
       tag: results[2] ? results[2] : results[1],
-      mnemotic: results[3],
+      mnemonic: results[3],
       param1: results[4],
       param2: results[5]
     };
@@ -220,11 +220,11 @@ export default class Assembler {
    porque puede haber varias instrucciones con el mismo
    mnemotécnico.
    */
-  getInstructionsByMnemotic(mnemotic) {
+  getInstructionsByMnemonic(mnemonic) {
     var resInstructions = [];
 
     for (var i = 0; i < this.instructionSet.length; i++) {
-      if (this.instructionSet[i].mnemotic === mnemotic) {
+      if (this.instructionSet[i].mnemonic === mnemonic) {
         resInstructions.push(this.instructionSet[i]);
       }
     }

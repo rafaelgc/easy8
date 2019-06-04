@@ -12,7 +12,7 @@ export const IODevices = {
   BUTTON: 170,
 };
 
-import Vue from 'vue';
+import Vue from 'vue'; /// TODO ELIMINAR DEPENDENCIA DE VUE AQUI.
 
 export default class IO {
 
