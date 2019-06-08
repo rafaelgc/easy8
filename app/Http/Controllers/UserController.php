@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Entry;
+use App\Mail\RegistrationMail;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
     public function show(Request $request, User $user) {
         return $user;
     }
-    public function post(Request $request) {
+    public function store(Request $request) {
 
         // User input validation.
         $request->validate([
@@ -26,15 +29,36 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->status = 0;
         $user->api_token = str_random(60);
+        $user->confirmation_token = str_random(60);
         $user->password = bcrypt($request->password);
         $user->saveOrFail();
 
         // User's root folder creation.
-        $entry = Entry::create([
-            'parent_id' => null,
-            'owner_id' => $user->id,
-            'name' => 'Root',
+        $entry = new Entry();
+        $entry->name = 'root';
+        $entry->owner_id = $user->id;
+        $entry->parent_id = null;
+        $entry->save();
+
+        // Envío de email.
+        Mail::to($user)->send(new RegistrationMail($user));
+
+        return $user;
+    }
+
+    public function confirm(Request $request, User $user) {
+        $request->validate([
+            'confirmation_token' => 'required'
         ]);
+
+        if ($user->status == 0 && $user->confirmation_token == $request->confirmation_token) {
+            $user->status = 1;
+            $user->save();
+            return $user->makeVisible('api_token');
+        }
+        else {
+            abort(422, 'Código de confirmación inválido.');
+        }
     }
 
     public function login(Request $request) {

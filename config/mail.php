@@ -18,6 +18,8 @@ return [
 
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
+    'enabled' => env('MAIL_ENABLED', false),
+
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address

@@ -22,8 +22,11 @@
       <div style="text-align: right">
         <button class="btn primary">Iniciar sesión</button>
       </div>
-
     </form>
+
+    <div class="create-account-area">
+      <router-link v-bind:to="{ name: 'register' }">Crear una cuenta</router-link>
+    </div>
 
   </div>
 </template>
@@ -64,6 +67,18 @@ export default {
         this.login.email = this.$route.query.email;
         this.registerSuccess = true;
     }
+
+    if (this.$route.query.confirmation_token && this.$route.query.user_id) {
+      this.$http.post('user/' + this.$route.query.user_id + '/confirm' , {}, { params: {
+        confirmation_token: this.$route.query.confirmation_token
+      }}).then((response) => {
+        this.$store.dispatch('loginWithToken', response.body.api_token);
+        this.$router.push({ name: 'explorer' });
+      }, (response) => {
+        this.$toasted.error('Código de validación incorrecto.');
+      });
+
+    }
   }
 }
 </script>
@@ -86,6 +101,18 @@ export default {
 
 .input-block {
   margin-bottom: 15px;
+}
+
+.create-account-area {
+  border-top: solid 1px #d9d9d9;
+  margin-top: 25px;
+  padding-top: 25px;
+  text-align: center;
+}
+
+.create-account-area a {
+  color: #2fa5c6;
+  font-size: 120%;
 }
 
 </style>

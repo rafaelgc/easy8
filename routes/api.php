@@ -13,6 +13,7 @@
 
 Route::post('/login', 'UserController@login');
 Route::post('/user', 'UserController@store');
+Route::post('/user/{user}/confirm', 'UserController@confirm');
 
 Route::middleware('auth:api')->group(function () {
     // Obtener los datos del usuario.

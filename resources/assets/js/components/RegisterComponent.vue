@@ -26,8 +26,10 @@
         <label>Repetir contraseña</label>
         <input name="password" class="input wide big" type="password" v-model="registerData.password_confirmation">
       </div>
-      
-      <button class="btn primary">Registrarme</button>
+
+      <div style="text-align: right">
+        <button class="btn primary" v-bind:disabled="blockButton">Crear cuenta</button>
+      </div>
 
     </form>
 
@@ -35,6 +37,9 @@
 </template>
 
 <script>
+
+import resources from '../resources';
+
 export default {
   data: function () {
     return {
@@ -45,25 +50,21 @@ export default {
           name: '',
           surname: ''
       },
-      errors: []
+      errors: [],
+      blockButton: false,
     }
   },
   methods: {
     register: function (ev) {
-      var self = this;
       this.errors = [];
+      this.blockButton = true;
 
-      this.$store.dispatch('register', this.registerData).then(function (response) {
-        // Redirect the user to the login page.
-        self.$router.push({ name: 'login', query: { email: self.registerData.email }});
-
-      }).catch(function (response) {
-        var errObj = response.body.errors;
-        for (var prop in errObj) {
-          if (errObj.hasOwnProperty(prop)) {
-            self.errors.push(errObj[prop][0]);
-          }
-        }
+      resources.user.save({}, this.registerData).then((response) => {
+        this.$toasted.success('Cuenta creada con éxito.', { duration: 10000 });
+        this.$router.push({ name: 'login', query: { email: this.registerData.email }});
+      }, (response) => {
+        this.$toasted.error(resources.takeFirstError(response), { duration: 5000 });
+        this.blockButton = false;
       });
 
       ev.preventDefault();
@@ -76,7 +77,7 @@ export default {
 
 .login-area {
   width: 500px;
-  margin: 35px auto;
+  margin: 65px auto;
   padding: 25px 30px 30px 30px;
   background-color: white;
 }
