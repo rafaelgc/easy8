@@ -1,4 +1,5 @@
 <?php
+$databaseConfig = parse_url(env('DATABASE_URL', '')); // Para soportar Heroku Postgres.
 
 return [
 
@@ -56,11 +57,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $databaseConfig['host'] ?? env('DB_HOST', '127.0.0.1'),
+            'port' => $databaseConfig['port'] ??  env('DB_PORT', '5432'),
+            'database' => isset($databaseConfig['path']) ? substr($databaseConfig['path'], 1) : env('DB_DATABASE', 'forge'),
+            'username' => $databaseConfig['user'] ?? env('DB_USERNAME', 'forge'),
+            'password' => $databaseConfig['password'] ?? env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
