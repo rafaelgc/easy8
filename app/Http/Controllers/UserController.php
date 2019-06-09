@@ -27,7 +27,7 @@ class UserController extends Controller
         // User creation.
         $user = new User();
         $user->fill($request->all());
-        $user->status = 0;
+        $user->status = config('mail.enabled') ? 0 : 1;
         $user->api_token = str_random(60);
         $user->confirmation_token = str_random(60);
         $user->password = bcrypt($request->password);
@@ -40,8 +40,15 @@ class UserController extends Controller
         $entry->parent_id = null;
         $entry->save();
 
-        // Envío de email.
-        Mail::to($user)->send(new RegistrationMail($user));
+        if (config('mail.enabled')) {
+            // Envío de email.
+            try {
+                Mail::to($user)->send(new RegistrationMail($user));
+            } catch (\Exception $ex) {
+                $user->delete();
+                abort(500, 'El mail de confirmación no se pudo enviar.');
+            }
+        }
 
         return $user;
     }
