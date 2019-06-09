@@ -61,7 +61,7 @@ return [
             'port' => $databaseConfig['port'] ??  env('DB_PORT', '5432'),
             'database' => isset($databaseConfig['path']) ? substr($databaseConfig['path'], 1) : env('DB_DATABASE', 'forge'),
             'username' => $databaseConfig['user'] ?? env('DB_USERNAME', 'forge'),
-            'password' => $databaseConfig['password'] ?? env('DB_PASSWORD', ''),
+            'password' => $databaseConfig['pass'] ?? env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
