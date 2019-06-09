@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
 export default {
-  user: Vue.resource('user/{/userId}'),
+  user: Vue.resource('user{/userId}'),
   folder: Vue.resource('folder{/entryId}'),
   source: Vue.resource('source{/entryId}'),
   entry:  Vue.resource('entry{/entryId}'),
