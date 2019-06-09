@@ -71,14 +71,14 @@ class UserController extends Controller
     public function login(Request $request) {
         $user = User::where('email', $request->email)->first();
 
-        if ($user && Hash::check($request->password, $user->password)) {
+        if ($user && $user->status == 0) {
+            return response()->json(['message' => 'Usuario no verificado.'], 403);
+        }
+        else if ($user && Hash::check($request->password, $user->password)) {
             return $user->makeVisible('api_token');
         }
-        else if ($user && $user->status == 0) {
-            return response()->json(['message' => 'User not verified.'], 403);
-        }
         else {
-            return response()->json(['message' => 'Login fail.'], 400);
+            return response()->json(['message' => 'Error de autenticación.'], 400);
         }
     }
 }
