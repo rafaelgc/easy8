@@ -108,7 +108,6 @@ export default {
 
     closeFolderSettings: function () {
       this.$store.explorer.state.editingEntry = null;
-      alert('eeee');
     }
   },
   created: function () {
@@ -118,13 +117,8 @@ export default {
       // We want to show the contents of the root folder. Since we
       // don't know its id we first request it.
 
-      resources.folder.get({ parent: null }).then(function (response) {
-        console.log(response);
+      resources.folder.get({ parent_id: null }).then(function (response) {
         var root = response.body[0];
-
-        //this.$store.state.explorer.breadcrumbs = [root];
-        // As soon as we get the root folder we request it's children.
-        //self.listDirectory(root.id);
         self.$store.dispatch('enterDirectory', root);
       });
     }
