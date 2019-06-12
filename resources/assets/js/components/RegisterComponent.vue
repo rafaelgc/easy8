@@ -7,24 +7,24 @@
       <alert type="error" visible="true" v-bind:key="error" v-for="error in errors">{{ error }}</alert>
 
       <div class="input-block">
-        <label>Nombre</label>
-        <input name="email" class="input wide big" v-model="registerData.name">
+        <label for="name">Nombre</label>
+        <input id="name" name="email" class="input wide big" v-model="registerData.name">
       </div>
       <div class="input-block">
-        <label>Apellidos</label>
-        <input name="email" class="input wide big" v-model="registerData.surname">
+        <label for="surname">Apellidos</label>
+        <input id="surname" name="email" class="input wide big" v-model="registerData.surname">
       </div>
       <div class="input-block">
-        <label>Correo electrónico</label>
-        <input name="email" class="input wide big" v-model="registerData.email">
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" class="input wide big" v-model="registerData.email">
       </div>
       <div class="input-block">
-        <label>Contraseña</label>
-        <input name="password" class="input wide big" type="password" v-model="registerData.password">
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" class="input wide big" type="password" v-model="registerData.password">
       </div>
       <div class="input-block">
-        <label>Repetir contraseña</label>
-        <input name="password" class="input wide big" type="password" v-model="registerData.password_confirmation">
+        <label for="password_confirmation">Repetir contraseña</label>
+        <input id="password_confirmation" name="password" class="input wide big" type="password" v-model="registerData.password_confirmation">
       </div>
 
       <div style="text-align: right">
