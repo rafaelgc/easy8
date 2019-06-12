@@ -150,7 +150,7 @@ export default {
 }
 
 .reset-password-link {
-  color: #3480e4;
+  color: #3063bb;
   cursor: pointer;
 }
 
