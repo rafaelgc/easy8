@@ -4,12 +4,12 @@
 
     <form v-on:submit="resetPassword">
       <div class="input-block">
-        <label>Contraseña</label>
-        <input name="password" class="input wide big" type="password" v-model="data.password">
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" class="input wide big" type="password" v-model="data.password">
       </div>
       <div class="input-block">
-        <label>Repetir contraseña</label>
-        <input name="password" class="input wide big" type="password" v-model="data.password_confirmation">
+        <label for="password-confirmation">Repetir contraseña</label>
+        <input id="password-confirmation" name="password" class="input wide big" type="password" v-model="data.password_confirmation">
       </div>
 
       <div style="text-align: right">
