@@ -15,6 +15,9 @@ Route::post('/login', 'UserController@login');
 Route::post('/user', 'UserController@store');
 Route::post('/user/{user}/confirm', 'UserController@confirm');
 
+Route::post('/password-reset', 'UserController@requestReset');
+Route::post('/password-reset/{rememberToken}', 'UserController@executeReset');
+
 Route::middleware('auth:api')->group(function () {
     // Obtener los datos del usuario.
     Route::get('/user/{user}', 'UserController@show');

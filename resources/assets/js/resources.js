@@ -5,6 +5,7 @@ export default {
   folder: Vue.resource('folder{/entryId}'),
   source: Vue.resource('source{/entryId}'),
   entry:  Vue.resource('entry{/entryId}'),
+  passwordReset: Vue.resource('password-reset{/rememberToken}'),
 
 
   takeFirstError: function (response) {

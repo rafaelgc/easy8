@@ -142,7 +142,7 @@ export default {
   }
 
   .file-explorer .breadcrumb {
-    color: #727272;
+    color: #3e3e3e;
     font-size: 90%;
     padding: 0px 0px 30px 5px;
   }

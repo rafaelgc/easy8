@@ -39,6 +39,15 @@ const routes = [
     meta: { requiresAuth: false, redirectIfAuthenticated: true }
   },
   {
+    name: 'reset-password',
+    path: '/reset-password',
+    components: {
+      'main-view': require('./components/ResetPasswordComponent.vue').default,
+
+    },
+    meta: { requiresAuth: false, redirectIfAuthenticated: true }
+  },
+  {
     name: 'explorer',
     path: '/explorer',
     components: {

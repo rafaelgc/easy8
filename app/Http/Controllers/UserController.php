@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Entry;
 use App\Mail\RegistrationMail;
+use App\Mail\ResetPassword;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -65,6 +67,37 @@ class UserController extends Controller
         }
         else {
             abort(422, 'Código de confirmación inválido.');
+        }
+    }
+
+    public function requestReset(Request $request) {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $user = User::where('email', '=', $request->email)->first();
+        if ($user) {
+            $user->remember_token = Str::random(60);
+            $user->save();
+            Mail::to($user)->send(new ResetPassword($user));
+        }
+    }
+
+    public function executeReset(Request $request, $rememberToken) {
+        $request->validate([
+            'password' => 'required|confirmed|min:5'
+        ]);
+
+        $user = User::where('remember_token', '=', $rememberToken)->first();
+
+        if ($user) {
+            $user->password = bcrypt($request->password);
+            $user->api_token = Str::random(60);
+            $user->remember_token = null;
+            $user->save();
+        }
+        else {
+            abort(404, 'Usuario no encontrado.');
         }
     }
 

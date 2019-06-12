@@ -6,13 +6,13 @@ use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class RegistrationMail extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $user;
+
     /**
      * Create a new message instance.
      *
@@ -30,6 +30,7 @@ class RegistrationMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.registration-mail')->subject(config('app.name') . ' - Confirmación de registro');
+        return $this->view('mails.reset-password-mail')
+            ->subject(config('app.name') . ' - Recuperar contraseña');
     }
 }

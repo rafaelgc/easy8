@@ -10,18 +10,32 @@
         Se ha enviado un correo de verificación a tu correo electrónico. Accede a él para verificar tu cuenta.
       </alert>
       <div class="input-block">
-        <label>Correo electrónico</label>
-        <input name="email" class="input wide big" v-model="login.email">
+        <label for="email">Correo electrónico</label>
+        <input id="email" name="email" class="input wide big" v-model="login.email">
       </div>
 
       <div class="input-block">
-        <label>Contraseña</label>
-        <input name="password" class="input wide big" type="password" v-model="login.password">
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" class="input wide big" type="password" v-model="login.password">
+      </div>
+
+      <div style="display: flex; align-items: center">
+        <a class="reset-password-link" v-on:click="showResetPassword = !showResetPassword; resetPassword.email = login.email">Recuperar contraseña</a>
+        <div style="flex-grow: 1"></div>
+        <button class="btn primary">Iniciar sesión</button>
+      </div>
+    </form>
+
+    <form v-if="showResetPassword" v-on:submit="resetPasswordRequest">
+      <div class="input-block">
+        <label for="reset-password-email">Correo electrónico</label>
+        <input id="reset-password-email" name="email" class="input wide big" v-model="resetPassword.email">
       </div>
 
       <div style="text-align: right">
-        <button class="btn primary">Iniciar sesión</button>
+        <button class="btn">Recuperar</button>
       </div>
+
     </form>
 
     <div class="create-account-area">
@@ -33,6 +47,8 @@
 
 <script>
 import Alert from './AlertComponent.vue';
+import resources from '../resources';
+
 export default {
   data: function () {
     return {
@@ -40,9 +56,13 @@ export default {
         email: '',
         password: ''
       },
+      resetPassword: {
+        email: ''
+      },
       showLoginError: false,
       loginErrorMessage: '',
-      registerSuccess: false
+      registerSuccess: false,
+      showResetPassword: false
     }
   },
   methods: {
@@ -60,6 +80,18 @@ export default {
       });
 
       ev.preventDefault();
+    },
+
+    resetPasswordRequest: function (ev) {
+      ev.preventDefault();
+
+      this.$toasted.info('Enviando mensaje de recuperación...', { duration: 6000 });
+      resources.passwordReset.save({}, this.resetPassword).then((response) => {
+        console.log(response);
+        this.$toasted.success('Se ha enviado un mensaje para recuperar la contraseña.', { duration: 6000 });
+      }, () => {
+        this.$toasted.error('No se ha podido enviar el correo de recuperación.', { duration: 6000 });
+      });
     }
   },
   created: function () {
@@ -77,7 +109,6 @@ export default {
       }, (response) => {
         this.$toasted.error('Código de validación incorrecto.');
       });
-
     }
   }
 }
@@ -111,8 +142,16 @@ export default {
 }
 
 .create-account-area a {
-  color: #2fa5c6;
+  color: #3480e4;
   font-size: 120%;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: solid 1px #3787f1;
+}
+
+.reset-password-link {
+  color: #3480e4;
+  cursor: pointer;
 }
 
 </style>
