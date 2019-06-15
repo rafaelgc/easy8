@@ -83,7 +83,13 @@ export default [
     code: 18,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      registers.set('PC', registers.get('RET'));
+      //registers.set('PC', registers.get('RET'));
+      var top = memory.readAddress(registers.get('SP') + 1);
+      if (registers.get('SP') < memory.size - 1) {
+        registers.incr('SP', 1);
+        memory.writeAddress(registers.get('SP'), 0);
+        registers.set('PC', top);
+      }
     }
   },
   /*CODIFICADOS EN DOS BYTES*/
@@ -224,7 +230,11 @@ export default [
     code: 17,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
-      registers.set('RET', registers.get('PC') + 1);
+      // Apilar.
+      memory.writeAddress(registers.get('SP'), registers.get('PC') + 1);
+      // Mover el puntero.
+      registers.decr('SP', 1);
+      //registers.set('RET', registers.get('PC') + 1);
       //Se suma +1 para que registers.ret apunte a
       //la dirección donde está el parámetro del CALL
       //y no al propio CALL. Nota: cuando se dan saltos registers.ret
