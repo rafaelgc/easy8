@@ -29,6 +29,7 @@
 
 import assemblyRules from './assembly-rules';
 import ALU from './alu';
+import stack from './stack';
 
 export default [
   /*CODIFICADOS EN UN BYTE*/
@@ -61,8 +62,8 @@ export default [
     code: 15,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      memory.writeAddress(registers.get('SP'), registers.get('RA'));
-      registers.decr('SP', 1);
+      var newStackPointer = stack.push(memory, registers.get('SP'), registers.get('RA'));
+      registers.set('SP', newStackPointer);
     }
   },
   {
@@ -70,12 +71,9 @@ export default [
     code: 16,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      var top = memory.readAddress(registers.get('SP') + 1);
-      if (registers.get('SP') < memory.size - 1) {
-        registers.incr('SP', 1);
-        memory.writeAddress(registers.get('SP'), 0);
-        registers.set('RA', top);
-      }
+      var res = stack.pop(memory, registers.get('SP'));
+      registers.set('SP', res.stackPointer);
+      registers.set('RA', res.top);
     }
   },
   {
@@ -83,13 +81,9 @@ export default [
     code: 18,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      //registers.set('PC', registers.get('RET'));
-      var top = memory.readAddress(registers.get('SP') + 1);
-      if (registers.get('SP') < memory.size - 1) {
-        registers.incr('SP', 1);
-        memory.writeAddress(registers.get('SP'), 0);
-        registers.set('PC', top);
-      }
+      var res = stack.pop(memory, registers.get('SP'));
+      registers.set('SP', res.stackPointer);
+      registers.set('PC', res.top);
     }
   },
   /*CODIFICADOS EN DOS BYTES*/
@@ -230,10 +224,9 @@ export default [
     code: 17,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
-      // Apilar.
-      memory.writeAddress(registers.get('SP'), registers.get('PC') + 1);
-      // Mover el puntero.
-      registers.decr('SP', 1);
+      var newStackPointer = stack.push(memory, registers.get('SP'), registers.get('PC') + 1)
+      registers.set('SP', newStackPointer);
+
       //registers.set('RET', registers.get('PC') + 1);
       //Se suma +1 para que registers.ret apunte a
       //la dirección donde está el parámetro del CALL

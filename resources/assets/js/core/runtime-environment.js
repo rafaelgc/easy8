@@ -122,7 +122,7 @@ export default class RuntimeEnvironment {
     this.registers.reset();
   
     //El puntero de pila apunta al final de la memoria.
-    this.registers.set('SP', this.memory.size - 1);
+    //this.registers.set('SP', this.memory.size - 1);
   }
   
   stop() {

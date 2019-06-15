@@ -885,11 +885,6 @@
               </div>
 
               <div class="register">
-                <h2>RET</h2>
-                <div class="value">{{ registers.ret | format(numericFormat == 'decimal-signed' ? 'decimal-unsigned' : numericFormat) }}</div>
-              </div>
-
-              <div class="register">
                 <h2>SP</h2>
                 <div class="value">{{ registers.sp | format(numericFormat == 'decimal-signed' ? 'decimal-unsigned' : numericFormat) }}</div>
               </div>
@@ -1294,6 +1289,7 @@ export default {
   }
 
   .editor-container {
+    max-height: 100%;
     padding: 0 10px 10px 10px;
     width: 50%;
     /*max-width: 500px;*/
@@ -1302,10 +1298,15 @@ export default {
   .editor-container .vue-codemirror {
     border: solid 1px #d6d6d6;
     height: 100%;
+    max-height: 100%;
   }
 
   .editor-container .vue-codemirror >>> .CodeMirror {
     height: 100%;
+  }
+
+  .editor-container .vue-codemirror >>> .CodeMirror-scroll {
+    margin-right: 0;
   }
 
   .simulator-container {
