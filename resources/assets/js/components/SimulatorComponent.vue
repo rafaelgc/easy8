@@ -1142,7 +1142,7 @@ export default {
     ////////////////////////////////////
 
     onSyntaxError: function (message, line) {
-      alert('Error en la línea ' + line + ': ' + message);
+      this.$toasted.error('Error en la línea ' + line + ': ' + message, { duration: 5000 });
     },
 
     onMemoryUpdate: function (memory, address, value) {

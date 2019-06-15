@@ -135,13 +135,21 @@ export default class Assembler {
         break;
       }
 
-      //TODO: si todas devuelven false, error de sintaxis.
+      var matchingInstruction = false;
       // Se recorre cada una de las instrucciones que han hecho matching y se
       // trata de ensamblar con cada una de ellas.
       for (var j = 0; j < instructions.length; j++) {
         if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
+          matchingInstruction = true;
           break;
         }
+      }
+
+      if (!matchingInstruction) {
+        this.onSyntaxError &&
+        this.onSyntaxError(lines[i], i);
+        success = false;
+        break;
       }
     }
 

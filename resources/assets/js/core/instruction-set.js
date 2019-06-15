@@ -286,6 +286,7 @@ export default [
     mnemonic: 'BYTE',
     code: -1,
     assembly: function (assembler, params) {
+      if (params[0] === undefined) return false;
       assembler.writeByte(parseInt(params[0], 16));
       return true;
     }
