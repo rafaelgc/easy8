@@ -22,16 +22,13 @@ export default class Memory {
     this.metadata = Array(this.size).fill("");
 
     this.clean();
-
-
   }
 
   //Reinicia la memoria.
   clean() {
     for (var i = 0; i < this.size; i++) {
-      //Vue.set(this.bytes, i, 0);
       this.set(this.bytes, i, 0);
-      //this.metadata[0] = "";
+      this.set(this.metadata, i, "");
     }
   }
 
