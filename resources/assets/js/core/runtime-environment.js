@@ -8,11 +8,11 @@ import Memory from './memory';
 import IO from './io';
 
 export default class RuntimeEnvironment {
-  constructor(instructionSet) {
+  constructor(config, instructionSet, setFunction) {
     this.instructionSet = instructionSet;
     this.registers = new Registers();
-    this.memory = new Memory(this.registers);
-    this.io = new IO();
+    this.memory = new Memory(setFunction);
+    this.io = new IO(setFunction);
 
     this.int = null;
     this.running = false;
@@ -65,7 +65,7 @@ export default class RuntimeEnvironment {
     var self = this;
   
     this.int = setInterval(function () {
-  
+
       if (self.running && !self.sleeping) {
         self.runStep();
       }
@@ -120,9 +120,6 @@ export default class RuntimeEnvironment {
   resetRegisters() {
     //Reiniciar registros.
     this.registers.reset();
-  
-    //El puntero de pila apunta al final de la memoria.
-    //this.registers.set('SP', this.memory.size - 1);
   }
   
   stop() {

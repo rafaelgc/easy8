@@ -87,6 +87,9 @@ export default class Assembler {
     //Reiniciar la memoria.
     this.memory.clean();
 
+    this.memory.writeAddress(2, 10);
+    //return;
+
     var success = true;
 
     for (var i = 0; i < lines.length; i++) {
@@ -135,11 +138,14 @@ export default class Assembler {
         break;
       }
 
+      var assemblyPointerBeforeWriting = this.assemblyPointer;
+
       var matchingInstruction = false;
       // Se recorre cada una de las instrucciones que han hecho matching y se
       // trata de ensamblar con cada una de ellas.
       for (var j = 0; j < instructions.length; j++) {
         if (instructions[j].assembly(this, [tokens.param1, tokens.param2])) {
+          this.memory.writeMetadata(assemblyPointerBeforeWriting, lines[i]);
           matchingInstruction = true;
           break;
         }

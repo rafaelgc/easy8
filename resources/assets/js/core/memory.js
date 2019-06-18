@@ -11,27 +11,38 @@
  */
 
 export default class Memory {
-  constructor(registers, size) {
-    this.registers = registers;
-    this.size = size ? size : 256;
-    this.bytes = [];
+  constructor(setFunction) {
+    this.set = setFunction ? setFunction : function (array, index, value) {
+      array[index] = value;
+    };
+
+    /*this.size = memArray.length;*/
+    this.size = 256;
+    this.bytes = Array(this.size).fill(0);
+    this.metadata = Array(this.size).fill("");
 
     this.clean();
+
+
   }
 
   //Reinicia la memoria.
   clean() {
-    this.bytes.length = 0;
     for (var i = 0; i < this.size; i++) {
-      this.bytes.push(0);
+      //Vue.set(this.bytes, i, 0);
+      this.set(this.bytes, i, 0);
+      //this.metadata[0] = "";
     }
   }
 
   //Escribir un valor en una dirección.
   writeAddress(address, value) {
-    this.bytes[address] = value;
-
+    this.set(this.bytes, address, value);
     if (this.onUpdateCallback) this.onUpdateCallback(this, address, value);
+  }
+
+  writeMetadata(address, value) {
+    this.set(this.metadata, address, value);
   }
 
   //Leer un valor de una dirección.
@@ -53,6 +64,10 @@ export default class Memory {
 
   getData() {
     return this.bytes;
+  }
+
+  getMetadata() {
+    return this.metadata;
   }
 }
 

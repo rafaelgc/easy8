@@ -12,19 +12,20 @@ export const IODevices = {
   BUTTON: 170,
 };
 
-import Vue from 'vue'; /// TODO ELIMINAR DEPENDENCIA DE VUE AQUI.
-
 export default class IO {
 
-  constructor() {
-    this.output = 0;
+  constructor(setFunction) {
+    this.set = setFunction ? setFunction : function (array, index, value) {
+      array[index] = value;
+    };
+
     this.ports = Array(256).fill(0);
     this.onUpdateCallback = null;
   }
 
   clean() {
     for (var i = 0; i < this.ports.length; i++) {
-      this.ports[i] = 0;
+      this.set(this.ports, i, 0);
     }
   }
 
@@ -41,8 +42,7 @@ export default class IO {
   }
 
   writePort(port, value) {
-    //this.ports[port] = value; TODO
-    Vue.set(this.ports, port, value);
+    this.set(this.ports, port, value);
     this.onUpdateCallback && this.onUpdateCallback(this, port, value);
   }
 

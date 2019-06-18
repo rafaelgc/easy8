@@ -924,7 +924,9 @@
             <h2>Memoria de código</h2>
             <div class="scroll">
               <div v-if="memory" v-for="(entry, index) in memory" ref="codeMemory" class="entry" :class="{ highlight: index == registers.pc }">
-                <span class="address"> {{ index | format('hex') }}</span> <span class="value">{{ entry | format(numericFormat) }}</span>
+                <span class="address"> {{ index | format('hex') }}</span>
+                <span class="value">{{ entry | format(numericFormat) }}</span>
+                <span class="instruction">{{ memoryMetadata[index] }}</span>
               </div>
             </div>
           </div>
@@ -1041,7 +1043,9 @@ export default {
 
       assembler: null,
 
-      memory: null,
+      memory: [],
+      memoryMetadata: [],
+
       registers: null,
       ports: null,
 
@@ -1089,7 +1093,6 @@ export default {
     },
 
     assembly: function () {
-      console.log('assembly');
       if (this.assembler.assembly(this.$store.state.simulator.content)) {
         this.$toasted.success('Código ensamblado correctamente.', { duration: 5000 });
       }
@@ -1223,7 +1226,7 @@ export default {
       self.$store.state.simulator.content = response.body.source.content;
     });
 
-    this.runtimeEnvironment = new RuntimeEnvironment(instructionSet);
+    this.runtimeEnvironment = new RuntimeEnvironment({}, instructionSet, Vue.set);
     this.runtimeEnvironment.setCallbacks({
       onMemoryUpdate: this.onMemoryUpdate,
       onRegisterUpdate: this.onRegisterUpdate,
@@ -1232,8 +1235,9 @@ export default {
     });
 
     this.memory = this.runtimeEnvironment.getMemory().getData();
-    this.registers = this.runtimeEnvironment.getRegisters().getData();
+    this.memoryMetadata = this.runtimeEnvironment.getMemory().getMetadata();
     this.ports = this.runtimeEnvironment.getIo().getData();
+    this.registers = this.runtimeEnvironment.getRegisters().getData();
 
     // Se hacce el reset en .nextTick porque si no el scrollIntoView no funciona.
     this.$nextTick(() => {
@@ -1412,11 +1416,6 @@ export default {
     font-size: 12px;
   }
 
-  .memory-displays .memory .entry .address {
-    color: #6b6b6b;
-    margin-right: 10px;
-  }
-
   .memory-displays .memory .entry:nth-child(even) {
     background-color: #fcfcfc;
   }
@@ -1428,6 +1427,18 @@ export default {
   .memory-displays .memory .entry.highlight {
     background-color: #dfdfdf;
   }
+
+  .memory-displays .memory .entry .address {
+    color: #575757;
+    margin-right: 10px;
+  }
+
+  .memory-displays .memory .entry .instruction {
+    margin-left: 10px;
+    color: #575757;
+  }
+
+
 
   /* HARDWARE */
 
