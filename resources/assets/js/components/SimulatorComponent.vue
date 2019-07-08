@@ -819,6 +819,8 @@
                   x="216.42377"
                   y="79.024246"
                   transform="matrix(0.70717143,0.70704213,-0.70290537,0.71128338,0,0)" />
+
+                <!-- RED BUTTON -->
                 <circle
                   v-on:click="redButtonPressed"
                   class="red-button"

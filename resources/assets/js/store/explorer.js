@@ -182,7 +182,6 @@ export default {
     },
 
     select: function (context, entry) {
-      console.log(entry);
       if (entry.selected) {
         entry.selected = false;
         context.commit('decrementSelectionCount');
@@ -219,6 +218,15 @@ export default {
     clearSelection: function (context) {
       context.commit('setSelectionCount', 0);
       context.state.uniqueSelectedEntry = null;
+    },
+
+    logout: function (context) {
+      // Es importante limpiar el directorio cuando se hace logout
+      // porque si no, si otro usuario iniciara sesión, tendría problemas
+      // porque su sistema de ficheros tendría cosas de otro usuario.
+      context.state.folders.splice(0, context.state.folders.length);
+      context.state.sources.splice(0, context.state.sources.length);
+      context.state.breadcrumbs.splice(0, context.state.breadcrumbs.length);
     }
   }
 }
