@@ -147,7 +147,6 @@ export default {
     },
 
     loadSource: function (context, id) {
-      console.log('se va a mandar la peticion');
       return resources.source.get({ entryId: id });
     },
 

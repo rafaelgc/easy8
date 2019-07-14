@@ -1,10 +1,12 @@
 <template>
   <div>
+    <input ref="fileChooser" type="file" style="display: none" v-on:change="fileChosen">
     <div class="main-menu">
       <simulator-menu
         v-bind:numeric-format="numericFormat"
         v-on:format-changed="formatChanged"
         v-on:save="save"
+        v-on:load="load"
         v-on:download="download"></simulator-menu>
     </div>
     <div class="working-area">
@@ -1078,7 +1080,28 @@ export default {
       this.$store.dispatch('updateSource').then(() => {
         this.$toasted.success('¡Guardado!', { duration: 1500 });
       });
+    },
 
+    load: function () {
+      this.$refs.fileChooser.click();
+    },
+
+    fileChosen: function (event) {
+      var self = this;
+      if (event.target.files.length > 0) {
+        var reader = new FileReader();
+        reader.onload = function (loaded) {
+          var base64Data = loaded.target.result;
+          var regexResult = /data:.+;base64,/.exec(base64Data);
+
+          if (regexResult && regexResult.index == 0) {
+            var text = atob(base64Data.slice(regexResult[0].length));
+            self.$store.state.simulator.content = text;
+          }
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
     },
 
     download: function () {

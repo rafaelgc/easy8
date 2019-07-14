@@ -3,6 +3,7 @@
   <div class="section no-sep" v-if="$store.state.simulator.entry">{{ $store.state.simulator.entry.name }}</div>
   <ul>
     <li><a v-on:click="$emit('save')" class="clickable">Guardar</a></li>
+    <li><a v-on:click="$emit('load')" class="clickable">Cargar</a></li>
     <li><a v-on:click="$emit('download')" class="clickable">Descargar</a></li>
     <li><router-link v-bind:to="{ name: 'explorer' }">Volver al explorador</router-link></li>
   </ul>
