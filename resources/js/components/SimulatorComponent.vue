@@ -1077,9 +1077,15 @@ export default {
   methods: {
 
     save: function () {
-      this.$store.dispatch('updateSource').then(() => {
-        this.$toasted.success('¡Guardado!', { duration: 1500 });
-      });
+      if (this.$store.state.login.authenticated) {
+        this.$store.dispatch('updateSource').then(() => {
+          this.$toasted.success('¡Guardado!', {duration: 1500});
+        });
+      }
+      else {
+        localStorage.setItem('content', this.$store.state.simulator.content);
+        alert('Guardado de manera temporal. Inicia sesión para guardarlo permanentemente.');
+      }
     },
 
     load: function () {
@@ -1245,11 +1251,26 @@ export default {
     console.log('MOUNTED');
     var self = this;
 
-    this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
-      self.$store.state.simulator.entry = response.body;
+    // Si no se está editando un archivo y hay código guardado de manera
+    // local, se carga.
+    if (!this.$route.params.entryId && localStorage.getItem('content')) {
+      self.$store.state.simulator.content = localStorage.getItem('content');
+    }
 
-      self.$store.state.simulator.content = response.body.source.content;
-    });
+    if (this.$route.params.entryId) {
+      this.$store.dispatch('loadSource', this.$route.params.entryId).then(function (response) {
+        self.$store.state.simulator.entry = response.body;
+
+        // Si el fichero que abrimos está vacío y hay algu en el almacenamiento local,
+        // lo ponemos.
+        if (!response.body.source.content && localStorage.getItem('content')) {
+          self.$store.state.simulator.content = localStorage.getItem('content');
+        }
+        else {
+          self.$store.state.simulator.content = response.body.source.content;
+        }
+      });
+    }
 
     this.runtimeEnvironment = new RuntimeEnvironment({}, instructionSet, Vue.set);
     this.runtimeEnvironment.setCallbacks({

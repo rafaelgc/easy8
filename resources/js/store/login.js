@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-import resources from '../resources';
-
 export default {
   state: {
     authenticated: false,

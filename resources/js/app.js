@@ -32,7 +32,7 @@ const routes = [
   },
   {
     name: 'login',
-    path: '/', alias: '/login',
+    path: '/login',
     components: {
       'main-view': require('./components/LoginComponent.vue').default
     },
@@ -58,11 +58,11 @@ const routes = [
 
   {
     name: 'simulator',
-    path: '/simulator/:entryId?',
+    path: '/simulator/:entryId?', alias: '/',
     components: {
       'main-view': require('./components/SimulatorComponent.vue').default
     },
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: false }
   },
 ];
 

@@ -1,11 +1,21 @@
 <template>
 <div>
-  <div class="section no-sep" v-if="$store.state.simulator.entry">{{ $store.state.simulator.entry.name }}</div>
+  <div class="section no-sep" v-if="!$store.state.login.authenticated && !config.lightClient">
+    Cuenta
+  </div>
+  <ul v-if="!$store.state.login.authenticated  && !config.lightClient">
+    <li><router-link v-bind:to="{ name: 'login' }">Iniciar sesión</router-link></li>
+    <li><router-link v-bind:to="{ name: 'register' }">Registrarme</router-link></li>
+  </ul>
+  <div class="section no-sep">
+    <template v-if="$store.state.simulator.entry">{{ $store.state.simulator.entry.name }}</template>
+    <template v-else>Nuevo programa</template>
+  </div>
   <ul>
-    <li><a v-on:click="$emit('save')" class="clickable">Guardar</a></li>
+    <li v-if="!config.lightClient"><a v-on:click="$emit('save')" class="clickable">Guardar</a></li>
     <li><a v-on:click="$emit('load')" class="clickable">Cargar</a></li>
     <li><a v-on:click="$emit('download')" class="clickable">Descargar</a></li>
-    <li><router-link v-bind:to="{ name: 'explorer' }">Volver al explorador</router-link></li>
+    <li  v-if="$store.state.login.authenticated"><router-link v-bind:to="{ name: 'explorer' }">Volver al explorador</router-link></li>
   </ul>
   <div class="section no-sep">Vista</div>
   <ul>
@@ -23,7 +33,10 @@
 </template>
 
 <script>
+
+import config from '../config.js';
 export default {
+  data: function () { return { config: config } },
   props: {
     numericFormat: { type: String }
   },
