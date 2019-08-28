@@ -25,13 +25,10 @@ export default {
     if (params[0] !== 'RA') return false;
 
     assembler.writeByte(this.code);
-    //La entrada viene codificada en hexadecimal pero se convierte
-    //a entero.
 
-    //TODO: COMPROBAR FORMATO DE params[1]
+    if (isNaN(parseInt(params[1]))) return false;
 
     assembler.writeAddressOrTag(params[1]);
-    //memory.writeByte(parseInt(params[1], 16));
 
     return true;
   },
@@ -68,8 +65,10 @@ export default {
    */
   valueDirAssembly(assembler, params) {
     assembler.writeByte(this.code);
+
+    if (isNaN(parseInt(params[0]))) return false;
+
     assembler.writeAddressOrTag(params[0]);
-    // TODO check params[0] is numeric.
     return true;
   }
 

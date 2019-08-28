@@ -98,7 +98,6 @@ export default class ALU {
   };
 
   static overflowed(operand1, operand2, result, bits) {
-    console.log(operand1, operand2, result, bits);
     return (this.isNegative(operand1, bits) && this.isNegative(operand2, bits) && !this.isNegative(result, bits)) ||
       (!this.isNegative(operand1, bits) && !this.isNegative(operand2, bits) && this.isNegative(result, bits));
   }

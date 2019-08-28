@@ -46,7 +46,7 @@ export default [
     code: 7,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      registers.incr('RA');
+      registers.incrUpdatingFlags('RA', 1);
     }
   },
   {
@@ -54,7 +54,7 @@ export default [
     code: 8,
     assembly: assemblyRules.oneByteAssembly,
     run: function (memory, registers) {
-      registers.decr('RA');
+      registers.decrUpdatingFlags('RA', 1);
     }
   },
   {
@@ -150,7 +150,7 @@ export default [
   {
     mnemonic: 'COMPAREI',
     code: 9,
-    assembly: assemblyRules.valueDirAssembly,
+    assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
       var val = environment.nextByte();
       ALU.sumUpdatingFlags(registers.get('RA'), -val, 8, registers);
@@ -159,7 +159,7 @@ export default [
   {
     mnemonic: 'COMPARE',
     code: 10,
-    assembly: assemblyRules.valueDirAssembly,
+    assembly: assemblyRules.raValueAssembly,
     run: function (memory, registers, io, environment) {
       var val = memory.readAddress(environment.nextByte());
       ALU.sumUpdatingFlags(registers.get('RA'), -val, 8, registers);

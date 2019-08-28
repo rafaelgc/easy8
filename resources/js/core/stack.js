@@ -13,7 +13,6 @@ export default {
   pop(memory, stackPointer) {
     var top = memory.readAddress(stackPointer);
 
-    memory.writeAddress(stackPointer, 0);
     if (stackPointer < memory.size - 1) {
       stackPointer++;
     }
