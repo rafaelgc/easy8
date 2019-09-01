@@ -1113,7 +1113,14 @@ export default {
     download: function () {
       var element = document.createElement('a');
       element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(this.$store.state.simulator.content));
-      element.setAttribute('download', this.$store.state.simulator.entry.name);
+
+      // Podemos descargar el código sin que haya un fichero vinculado.
+      if (this.$store.state.simulator.entry) {
+        element.setAttribute('download', this.$store.state.simulator.entry.name);
+      }
+      else {
+        element.setAttribute('download', 'easy8-' +  (new Date).getTime() + '.asm');
+      }
 
       element.style.display = 'none';
       document.body.appendChild(element);
