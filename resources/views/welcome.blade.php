@@ -25,9 +25,26 @@
         <div id="app">
             <header>
                 Easy8
+                <i class="fas fa-info-circle clickable about-button" v-on:click="aboutModalVisible=!aboutModalVisible"></i>
             </header>
 
             <router-view name="main-view"></router-view>
+
+            <!-- ABOUT MODAL -->
+            <div class="modal about-modal" v-bind:class="{ 'visible': aboutModalVisible }">
+                <h2>Acerca de Easy8</h2>
+                <div class="content">
+                    <h4>Trabajo de fin de grado</h4>
+                    <h3>Simulación y almacenamiento de programas del Easy8 en Web</h3>
+
+                    <div>Autor: Rafael González Carrizo</div>
+                    <div>Tutor: Antonio Martí Campoy</div>
+                    <div class="year">Curso 2018-2019</div>
+
+                    <div style="text-align: right; margin-top: 20px"><a class="btn" v-on:click="aboutModalVisible=false">Cerrar</a></div>
+
+                </div>
+            </div>
 
         </div>
 

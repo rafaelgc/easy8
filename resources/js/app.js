@@ -122,6 +122,9 @@ const app = new Vue({
   router: router,
   store: store,
   resource: VueResource,
+  data: {
+    aboutModalVisible: false
+  },
   created: function () {
   },
   mounted: function () {
