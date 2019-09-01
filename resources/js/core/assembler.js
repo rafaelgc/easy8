@@ -50,8 +50,12 @@ export default class Assembler {
     else {
       //Si es una dirección real tan sólo hay que
       //guardar la dirección.
+      if (isNaN(dirOrTag)) return false;
+
       this.writeByte(parseInt(dirOrTag, 16));
     }
+
+    return true;
   }
 
   /*Si, durante el ensamblado, alguna instrucción hace referencia

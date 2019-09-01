@@ -26,11 +26,7 @@ export default {
 
     assembler.writeByte(this.code);
 
-    if (isNaN(parseInt(params[1]))) return false;
-
-    assembler.writeAddressOrTag(params[1]);
-
-    return true;
+    return assembler.writeAddressOrTag(params[1]);
   },
 
   /*
@@ -42,17 +38,11 @@ export default {
   moveAssembly(assembler, params) {
     if (this.code === 1 && params[0] === 'RA') {
       assembler.writeByte(this.code);
-      //TODO Mejorar errores
-      //memory.writeByte(parseInt(params[1], 16));
-      assembler.writeAddressOrTag(params[1]);
-      return true;
+      return assembler.writeAddressOrTag(params[1]);
     }
     else if (this.code === 2 && params[1] === 'RA') {
       assembler.writeByte(this.code);
-      //TODO
-      //memory.writeByte(parseInt(params[0], 16));
-      assembler.writeAddressOrTag(params[0]);
-      return true;
+      return assembler.writeAddressOrTag(params[0]);
     }
     else {
       return false;
@@ -65,11 +55,7 @@ export default {
    */
   valueDirAssembly(assembler, params) {
     assembler.writeByte(this.code);
-
-    if (isNaN(parseInt(params[0]))) return false;
-
-    assembler.writeAddressOrTag(params[0]);
-    return true;
+    return assembler.writeAddressOrTag(params[0]);
   }
 
 };

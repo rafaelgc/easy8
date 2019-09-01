@@ -83,7 +83,12 @@ export default [
     run: function (memory, registers) {
       var res = stack.pop(memory, registers.get('SP'));
       registers.set('SP', res.stackPointer);
-      registers.set('PC', res.top);
+
+      // res.top apunta a la siguiente instrucción a ejecutar.
+      // Sin embargo, hay que tener en cuenta que el entorno de
+      // ejecución le suma +1 al PC justo después de ejecutar .run(),
+      // por eso se le resta 1.
+      registers.set('PC', res.top - 1);
     }
   },
   /*CODIFICADOS EN DOS BYTES*/
@@ -224,16 +229,11 @@ export default [
     code: 17,
     assembly: assemblyRules.valueDirAssembly,
     run: function (memory, registers, io, environment) {
-      var newStackPointer = stack.push(memory, registers.get('SP'), registers.get('PC') + 1)
+      var newStackPointer = stack.push(memory, registers.get('SP'), registers.get('PC') + 2)
       registers.set('SP', newStackPointer);
 
-      //registers.set('RET', registers.get('PC') + 1);
-      //Se suma +1 para que registers.ret apunte a
-      //la dirección donde está el parámetro del CALL
-      //y no al propio CALL. Nota: cuando se dan saltos registers.ret
-      //debe ser la dirección anterior al objetivo porque
-      //en el bucle de ejecución de las instrucciones se realizará
-      //un incremento justo después de la ejecución del salto.
+      //Se suma +2 para que la dir. de retorno apunte a
+      //la dirección de la instrucción siguiente a CALL (CALL usa 2 bytes).
       var target = environment.nextByte() - 1;
       registers.set('PC', target);
 
